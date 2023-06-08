@@ -153,7 +153,7 @@ contract SoulFactroy is ISoulSocietyFactoryEnumable, Ownable {
             }
         }
 
-        return false;
+        revert("not exist sbt");
     }
 
 }
