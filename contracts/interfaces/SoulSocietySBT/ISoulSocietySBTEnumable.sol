@@ -10,7 +10,7 @@ interface ISoulSocietySBTEnumable is ISoulSocietySBT {
     // @notice This is a function for the name entered when deploying the contract.
     // @return contract's name
     function name() external view returns (string memory);
-	
+
     // @notice This is a function for the symbol entered when deploying the contract.
     // @return contract's symbol
     function symbol() external view returns (string memory);
@@ -23,7 +23,7 @@ interface ISoulSocietySBTEnumable is ISoulSocietySBT {
     // @notice This function retrieves the amount of SBT held by a specific wallet.
     // @param Address of the wallet you want to query
     // @return The amount of SBT held by the wallet
-    function tokenCountByAddresOf(address) external view returns (uint256);
+    function tokenCountByAddressOf(address) external view returns (uint256);
 
     // @notice This function can search SBTs issued with specific SBT properties.
     // @param sbt you want to query
@@ -34,5 +34,5 @@ interface ISoulSocietySBTEnumable is ISoulSocietySBT {
     // @param sbt you want to query
     // @return Quantity of SBT issued with the corresponding sbt attribute
     function tokenCountBySBTOf(string calldata) external view returns (uint256);
-    
+
 }
