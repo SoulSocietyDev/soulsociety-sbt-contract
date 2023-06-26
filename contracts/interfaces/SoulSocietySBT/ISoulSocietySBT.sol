@@ -10,7 +10,7 @@ interface ISoulSocietySBT is IERC5192transform {
     // @notice Emitted when SBT grows
     // @param tokenId SBT's unique ID
     // @param to Address that owns the SBT
-    event LevelUp(uint256 indexed tokenId, address indexed to);
+    event GrowthUp(uint256 indexed tokenId, address indexed to);
 
     // @notice Emitted when SBT is first issued
     // @param from Address to issue SBT, but issuance is possible only by the owner of the contract.
@@ -21,12 +21,12 @@ interface ISoulSocietySBT is IERC5192transform {
     // @notice This is a structure that gives SBT properties. It has a similar function to NFT meta data.
     // @var sbt It is a variable for differentiating SBTs by assigning specific properties.
     struct SoulSocietyData {
-        SoulSocietyDetail[] levelData;
+        SoulSocietyDetail[] growthData;
         string uri;
     }
 
     struct SoulSocietyDetail{
-        uint256 level;
+        uint256 growth;
         uint date;
     }
 
@@ -42,7 +42,7 @@ interface ISoulSocietySBT is IERC5192transform {
     // @notice This is a function to know the growth information of a specific SBT.
     // @param SBT's unique ID
     // @return This is a list containing growth information. It contains data about the level and when the level was achieved.
-    function levelData(uint256) external view returns (SoulSocietyDetail[] memory);
+    function growthData(uint256) external view returns (SoulSocietyDetail[] memory);
 
     // @notice This function allows you to know about the URI that provides additional information of SBT.
     // @param SBT's unique ID
@@ -53,8 +53,8 @@ interface ISoulSocietySBT is IERC5192transform {
     // @dev Parameters have been added to check the validity of most of them.
     // @param owner Address of the owner of the SBT
     // @param SBT's unique ID
-    // @param level to grow
-    function levelUp(address, uint256, uint256) external;
+    // @param grow
+    function growthUp(address, uint256, uint256) external;
 
     // @notice Function to check whether a specific SBT is public
     // @param SBT's unique ID

@@ -47,9 +47,9 @@ contract SoulSocietySBT is ISoulSocietySBT, Ownable {
     // Metadata-related functions of SoulSociety's growth type SBT
     // ---------------------------------------------------------------
 
-    function levelData(uint256 tokenId_) public view virtual override returns (SoulSocietyDetail[] memory) {
+    function growthData(uint256 tokenId_) public view virtual override returns (SoulSocietyDetail[] memory) {
         require(msg.sender != _ownerList[tokenId_] && isProtected(tokenId_), "The SBT is private.");
-        return _sbtList[tokenId_].levelData;
+        return _sbtList[tokenId_].growthData;
     }
 
     function tokenURI(uint256 tokenId_) public view virtual override returns (string memory) {
@@ -116,7 +116,7 @@ contract SoulSocietySBT is ISoulSocietySBT, Ownable {
 
         SoulSocietyData storage sbt = _sbtList.push();
         sbt.uri = uri_;
-        sbt.levelData.push(SoulSocietyDetail(1, block.timestamp));
+        sbt.growthData.push(SoulSocietyDetail(1, block.timestamp));
 
         // Add to Owner List
         _ownerList.push(to_);
@@ -132,11 +132,11 @@ contract SoulSocietySBT is ISoulSocietySBT, Ownable {
 
 
     // A function that grows the SBT you have
-    function levelUp(address owner_, uint256 tokenId_, uint256 level_) public override  virtual onlyOwner {
-        _levelUp(owner_, tokenId_, level_);
+    function growthUp(address owner_, uint256 tokenId_, uint256 growth_) public override  virtual onlyOwner {
+        _growthUp(owner_, tokenId_, growth_);
     }
 
-    function _levelUp(address owner_, uint256 tokenId_, uint256 level_) internal virtual onlyOwner {
+    function _growthUp(address owner_, uint256 tokenId_, uint256 growth_) internal virtual onlyOwner {
 
         address user = _ownerList[tokenId_];
         require(user == owner_, "invalid Owner Token!!");
@@ -144,11 +144,11 @@ contract SoulSocietySBT is ISoulSocietySBT, Ownable {
         SoulSocietyData memory sbtData = _sbtList[tokenId_];
 
         // Make sure your current level is reasonable for the level you want to raise
-        uint256 lastLevel = sbtData.levelData[sbtData.levelData.length-1].level;
-        require(lastLevel+1==level_, "invalid level up");
+        uint256 lastGrowth = sbtData.growthData[sbtData.growthData.length-1].growth;
+        require(lastGrowth+1==growth_, "invalid growth up");
 
-        _sbtList[tokenId_].levelData.push(SoulSocietyDetail(level_, block.timestamp));
+        _sbtList[tokenId_].growthData.push(SoulSocietyDetail(growth_, block.timestamp));
 
-        emit LevelUp(tokenId_, owner_);
+        emit GrowthUp(tokenId_, owner_);
     }
 }
