@@ -6,7 +6,7 @@
 
 ## Table of Contents
 - [What's SBT?](#whats-sbt)
-- [What’s Level SBT?](#whats-levelgrowth-type-sbt)
+- [What’s Growth-Type SBT?](#whats-levelgrowth-type-sbt)
 - [What's SoulSociety?](#whats-soulsociety)
 - [SoulSociety Service ](#soulsociety-service)
 - [Community](#Community)
@@ -17,19 +17,19 @@ Soulbound Token은 NFT에 Lock 속성을 통해 Transfer(전송) 기능을 제�
 개인에게 속한 고유의 정보를 저장하거나 증명하기 위한 용도로 사용하기 좋다.
 사용 사례로는 ID 인증, 주요 개인 정보 저장(학위 인증, 학력 인증) 등 개인에게 속한 정보이며, 전송 기능이 필요하지 않고 전송되서도 안되는 정보들을 다루는데 유효하게 사용 가능하다.
 
-## What's Level(Growth-Type) SBT?
+## What's Growth-Type SBT?
 ![SBT History](./docs/history.png)
 
 SBT 는 기본 정보는 포함할 수 있으되, 좀 더 디테일한 속성을 표현하기 어려운 점이 있다.
 
-예를 들어보자, 커피를 좋아하는 A에게 커피매니아라는 SBT가 발행된 경우, 우리는 그 A가 커피를 얼마나 좋아하는지, 특별히 스타벅스를 좋아하는지 커비빈을 좋아하는지 알 수 있는 기본적인 방법이 없다. 개인의 이력 및 캐릭터를 SBT로 표현하는 것은 적절했지만, 얼마나, 어떻게, 언제부터, 무엇을 좋아하는지에 대한 디테일 정보까지 알 수 있어야 진정한 Real Life를 표현할 수 있는데 더 적절할 것이다.
-성장형 SBT는 추가적인 Level 정보 및 히스토리 정보가 담겨있는 SBT를 통해, 좀 더 Real Life를 담아낼 수 있는 구조를 가지고 있다.
+예를 들어보자, 커피를 좋아하는 A에게 커피매니아라는 SBT가 발행된 경우, 우리는 그 A가 커피를 얼마나 좋아하는지, 특별히 스타벅스를 좋아하는지 커피빈을 좋아하는지 알 수 있는 기본적인 방법이 없다. 개인의 이력 및 캐릭터를 SBT로 표현하는 것은 적절했지만, 얼마나, 어떻게, 언제부터, 무엇을 좋아하는지에 대한 디테일 정보까지 알 수 있어야 진정한 Real Life를 표현할 수 있는데 더 적절할 것이다.
+성장형 SBT는 추가적인 Growth-Type 정보 및 히스토리 정보가 담겨있는 SBT를 통해, 좀 더 Real Life를 담아낼 수 있는 구조를 가지고 있다.
 
-- Level SBT 는 소울 바운드 토큰을 을 기반으로 SBT의  Level(Growth-Type) 및 Level timestamp를 기록한 SBT이다.
+- Growth-Type SBT 는 소울 바운드 토큰을 기반으로 SBT의  Growth-Type 및 Growth 달성 timestamp를 기록한 SBT이다.
 ````
-- 성장형(Level) 속성 추가 
-  - Level 속성 : 1, 2, 3 ,4 … N 으로 표현되는 SBT의 강도 표시 
-  - Level 달성 히스토리 : 언제, 어떻게, 무엇을 통해 Level을 달성했는지 히스토리 정보 및 히스토리 정보 연결 URI
+- 성장형(Growth-Type) 속성 추가 
+  - Growth-Type 속성 : 1, 2, 3 ,4 … N 으로 표현되는 SBT의 강도 표시 
+  - Growth-Type 달성 히스토리 : 언제, 어떻게, 무엇을 통해 Growth-Type을 달성했는지 히스토리 정보 및 히스토리 정보 연결 URI
 ````
 ![Action Flow](./docs/empowerment.png)
 ![Growth-Type SBT Product](./docs/growthTypeSBT.png)
