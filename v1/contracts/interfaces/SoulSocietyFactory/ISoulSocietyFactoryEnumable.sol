@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "contracts/interfaces/SoulSocietyFactory/ISoulSocietyFactory.sol";
+import "v1/contracts/interfaces/SoulSocietyFactory/ISoulSocietyFactory.sol";
 
 
 /// @title An interface that adds functions that can be more easily retrieved to the factory that manages growth-type SBTs

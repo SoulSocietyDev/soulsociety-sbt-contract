@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "contracts/interfaces/SoulSocietyFactory/ISoulSocietyFactoryEnumable.sol";
+import "v1/contracts/interfaces/SoulSocietyFactory/ISoulSocietyFactoryEnumable.sol";
 
 
 /// @title Factory for managing growth type SBT developed by SoulSociety
