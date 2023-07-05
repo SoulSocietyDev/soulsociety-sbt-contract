@@ -4,6 +4,10 @@
 - Ethereum Smart Contract
 - Build with Remix IDE https://remix.ethereum.org
 
+### Contract Versions
+- V1 SBT Contract that supports all functions
+- V2 Lightweight SBT Contract for reduced gas fees
+
 ## Table of Contents
 - [What's SBT?](#whats-sbt)
 - [What’s Growth-Type SBT?](#whats-levelgrowth-type-sbt)
