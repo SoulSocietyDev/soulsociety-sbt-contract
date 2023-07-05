@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 /// @title Growth type Lightweight SBT interface developed by SoulSociety
 /// @notice There is a part where the gas fee required by Ethereum is too expensive to contain various information. 
 /// Therefore, by considering each contract as a piece of information, we tried to implement growth-type SBT through minimum information and minimum gas cost by managing growth in the contract.
-interface ISoulSocietyLightweightSBT {
+interface ISoulSocietyLightSBT {
 
     // @notice Emitted when user grows
     // @param to Address that user Address

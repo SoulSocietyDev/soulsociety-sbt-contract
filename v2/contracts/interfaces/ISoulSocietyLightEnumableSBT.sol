@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "v2/contracts/interfaces/ISoulSocietyLightweightSBT.sol";
+import "v2/contracts/interfaces/ISoulSocietyLightSBT.sol";
 
 /// @title Lightweight Growth type SBT interface developed by SoulSociety
 /// @notice There is a part where the gas fee required by Ethereum is too expensive to contain various information. 
 /// Therefore, by considering each contract as a piece of information, we tried to implement growth-type SBT through minimum information and minimum gas cost by managing growth in the contract.
-interface ISoulSocietyLightweightEnumableSBT is ISoulSocietyLightweightSBT {
+interface ISoulSocietyLightEnumableSBT is ISoulSocietyLightSBT {
 
     // @notice A function that provides the number of currently registered users
     // @return Number of currently registered users

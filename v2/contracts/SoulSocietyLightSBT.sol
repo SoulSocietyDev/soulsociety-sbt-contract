@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "v2/contracts/interfaces/ISoulSocietyLightweightEnumableSBT.sol";
+import "v2/contracts/interfaces/ISoulSocietyLightEnumableSBT.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 
 /// @title Implementation contract of Lightweight growth type SBT developed by SoulSociety
 /// @notice As an implementation of ISoulSocietyLightweightEnumableSTB, only the owner can modify growth.
-contract SoulSocietyLightweightSBT is ISoulSocietyLightweightEnumableSBT, Ownable {
+contract SoulSocietyLightSBT is ISoulSocietyLightEnumableSBT, Ownable {
 
     // token Name
     string private _name;
