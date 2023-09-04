@@ -1,14 +1,15 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
 import "v2/contracts/interfaces/ISoulSocietyEnumerableSBT.sol";
+import "v2/contracts/interfaces/ISoulSocietySBTMetadata.sol";
 import "v2/contracts/interfaces/ISoulSocietySBTErrors.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 
 /// @title Implementation contract of Lightweight growth type SBT developed by SoulSociety
 /// @notice As an implementation of ISoulSocietyLightweightEnumableSTB, only the owner can modify growth.
-contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietyEnumableSBT, Ownable {
+contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSocietySBTErrors, Ownable {
 
     // token Name
     string private _name;
@@ -32,7 +33,7 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietyEnumableSBT, Ownable {
     mapping(uint256 => uint) private _tokenTypes;
 
     // SBT ID, 현재 레벨
-    mapping(uint256 => uint) private _tokenLevels;
+    mapping(uint256 => uint) private _tokenGrowths;
 
     // 오너 Address, 몇개의 로그 SBT를 가졌는지 기록
     mapping(address => uint256) private _balances;
@@ -48,6 +49,7 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietyEnumableSBT, Ownable {
 
     // ------------------------------------------------------------
     // Functions related to basic contract information
+    // Public Interface Implementation
     // ------------------------------------------------------------
     
     // Token Name
@@ -60,79 +62,113 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietyEnumableSBT, Ownable {
         return _symbol;
     }
 
-    function getTotalUser() public view override returns (uint256) {
-        return _totalUser;
-    }
-
-    function getTotalCount() public view override returns (uint256) {
-        return _totalCount;
-    }
-
-    function setTokenURI(string memory uri) public override onlyOwner returns (string memory)   {
-        _uri = uri;
-        return uri;
-    }
-
     /**
      * @dev Returns the Uniform Resource Identifier (URI) for `tokenId` token.
      */
-    function getTokenURI(uint256 tokenId) public view virtual override returns (string memory) {
-        _requireMinted(tokenId);
+    function tokenURI() public view virtual  returns (string memory) {
+        return _uri;
+    }
 
-        return bytes(_uri).length > 0 ? string.concat(_uri, tokenId.toString()) : "";
+
+    function totalUser() public view  returns (uint256) {
+        return _totalUser;
+    }
+
+    function totalSupply() public view  returns (uint256) {
+        return _totalCount;
+    }
+ 
+    function getTokenType(uint256 tokenId_) public view returns (uint256) {
+        if (!_exists(tokenId_)) {
+            revert SoulSocietySBTNonexistentToken(tokenId_);
+        }
+
+        return _tokenTypes[tokenId_];
     }
 
     // ------------------------------------------------------------------------
     // Permission settings to check the view information of a token
     // ------------------------------------------------------------------------
-    function setProtected(address to, bool isProtected) public override returns (bool) {
-        if (msg.sender != to) {
-            revert ERC721IncorrectOwner(from, tokenId, owner);
+    function setProtected(address to_, bool isProtected_) public  returns (bool) {
+        if (msg.sender != to_) {
+            revert SoulSocietySBTInvalidOwner(to_);
         }
 
-        _userProtects[msg.sender] = isProtected;
-        return getProtected(msg.sender);
+        _userProtects[to_] = isProtected_;
+
+        return getProtected(to_);
     }
 
-    function getProtected(address to) public override returns(bool) {
+    function getProtected(address to_) public view returns(bool) {
+        return _getProtected(to_);
+    }
+
+    function _getProtected(address to_) internal  view returns(bool) {
         // If owner doesn't exist, return value is false
-        return _userProtects[to];
+        return _userProtects[to_];
     }
 
-    function _isProtected(address to) internal view {
-        require (_userProtectMap[owner] == true, SoulSocietySBTProtectedOwner({
-            owner : to
-        }).message());
+    function isProtected(address to_) external view returns (bool) {
+        return _isProtected(to_);
     }
 
-    function _isProtectedTokenId(uint256 tokenId) internal view {
+    function _isProtected(address to_) internal view returns (bool) {        
+        if (_userProtects[to_] == true)
+            revert SoulSocietySBTProtectedOwner(to_);
+        
+        return false;
+
+    }
+
+    function _isProtectedTokenId(uint256 tokenId_) internal view {
         // If tokenId doesn't exist,  don't need to check "protected status"
-        if (!_exists(tokenId)) {
-            revert SoulSocietySBTNonexistentToken(tokenId);
+        if (!_exists(tokenId_)) {
+            revert SoulSocietySBTNonexistentToken(tokenId_);
         }
 
-        _isProtected(_owners[tokenId]);
+        _isProtected(_owners[tokenId_]);
     }
 
+    /**
+     * @dev Returns the owner of the `tokenId`. Does NOT revert if token doesn't exist
+     */
+    function ownerOf(uint256 tokenId_) public view returns (address) {
+        return _owners[tokenId_];
+    }
+
+    /**
+     * @dev Returns the owner of the `tokenId`. Does NOT revert if token doesn't exist
+     */
+    function _ownerOf(uint256 tokenId_) internal view virtual returns (address) {
+        return _owners[tokenId_];
+    }
+
+    function balanceOf(address owner) public view returns (uint256) {
+        return _balances[owner];
+    }
 
     // -------------------------------------------------------------------------
     // Mint & Level Up
     // -------------------------------------------------------------------------
-    function mint(address to, uint256 tokenId, uint256 tokenType) public virtual onlyOwner {
-        _safeMint(to, tokenId, tokenType);
+    
+    function mint(address to_, uint256 tokenType_) public virtual onlyOwner returns(uint256) {
+        return _safeMint(to_, tokenType_);
     }
 
-    function _safeMint(address to, uint256 tokenId, uint256 tokenType) internal virtual onlyOwner {
-        if (to == address(0)) {
+    function _safeMint(address to_, uint256 tokenType_) internal virtual onlyOwner returns(uint256) {
+
+        uint256 tokenId = _totalCount + 1;
+
+        if (to_ == address(0)) {
             revert SoulSocietySBTInvalidReceiver(address(0));
         }
 
         if (_exists(tokenId)) {
-            revert SoulSocietySBTInvalidSender(address(0));
+            revert SoulSocietySBTExistToken(tokenId);
         }
 
         // if to is false , to address is new user
-        if(!_existsOwner(to)) {
+        if(!_existsOwner(to_)) {
             _totalUser += 1;
         }
 
@@ -141,33 +177,29 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietyEnumableSBT, Ownable {
         // Given that tokens are minted one by one, it is impossible in practice that
         // this ever happens. Might change if we allow batch minting.
         // The ERC fails to describe this case.
-            _balances[to] += 1;
+            _balances[to_] += 1;
             _totalCount += 1;
         }
 
-        _owners[tokenId] = to;
-        _tokenTypes[tokenId] = tokenType;
-        _tokenLevels[tokenId] = 1;
-        _userProtects[to] = false;
+        _owners[tokenId] = to_;
+        _tokenTypes[tokenId] = tokenType_;
+        _tokenGrowths[tokenId] = 1;
+        _userProtects[to_] = false;
 
-        emit Mint(address(0), to, tokenId);
+        emit Mint(address(0), to_, tokenId, tokenType_);
+
+        return tokenId;
     }
 
-    /**
-     * @dev Returns the owner of the `tokenId`. Does NOT revert if token doesn't exist
-     */
-    function _ownerOf(uint256 tokenId) internal view virtual returns (address) {
-        return _owners[tokenId];
-    }
 
     // ---------------------------------------------------------------
     // Metadata-related functions of SoulSociety's growth type SBT
     // ---------------------------------------------------------------
-    function getGrowth(uint256 tokenId) public view override returns (uint256) {
+    function getGrowth(uint256 tokenId_) public view  returns (uint256) {
         // Check whether the token exists and if its status is 'protected'.
-        _isProtectedTokenId(tokenId);
+        _isProtectedTokenId(tokenId_);
 
-        return _tokenLevels[tokenId];
+        return _tokenGrowths[tokenId_];
     }
 
 
@@ -192,20 +224,20 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietyEnumableSBT, Ownable {
     // -------------------------------------------------------------------------
 
     // A function that grows the SBT you have
-    function growUp(address to, uint256 tokenId) public override onlyOwner returns(uint256) {
-        return _growUp(to, tokenId);
+    function growUp(address to_, uint256 tokenId_) public  onlyOwner returns(uint256) {
+        return _growUp(to_, tokenId_);
     }
     
-    function _growUp(address to, uint256 tokenId) internal onlyOwner returns(uint256) {
+    function _growUp(address to_, uint256 tokenId_) internal onlyOwner returns(uint256) {
 
         // check to exist and owner address
-        _requireMintedOf(to, tokenId);
+        _requireMintedOf(to_, tokenId_);
 
-        uint256 tokenLevel = _tokenLevels[tokenId] += 1;
+        uint256 tokenGrowth = _tokenGrowths[tokenId_] += 1;
 
-        emit GrowthUp(owner, tokenLevel);
+        emit GrowUp(to_, tokenId_, tokenGrowth);
 
-        return tokenLevel;
+        return tokenGrowth;
     }
 
 //    function growthDown(address owner_) public override onlyOwner returns(uint256) {

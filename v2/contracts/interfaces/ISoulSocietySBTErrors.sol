@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
 /**
  * @dev Standard SoulSocietySBT.sol Errors
@@ -8,9 +8,10 @@ pragma solidity ^0.8.0;
  */
 
 interface ISoulSocietySBTErrors {
-    /**
+
+    /*
      * @dev Indicates that an address can't be an owner. For example, `address(0)` is a forbidden owner in EIP-20.
-     * Used in balance queries.
+     * @Used in balance queries.
      * @param owner Address of the current owner of a token.
      */
     error SoulSocietySBTInvalidOwner(address to);
@@ -35,6 +36,12 @@ interface ISoulSocietySBTErrors {
      * @param to Address whose SBT token are being used.
      */
     error SoulSocietySBTNotOwner(address owner, address to);
+
+    /*
+     * @dev Indicates a failure with the tokenId. Used in transfers.
+     * @param tokedId to check
+     */
+    error SoulSocietySBTExistToken(uint256 tokenId);
 
     /**
      * @dev Indicates a failure with the token `sender`. Used in transfers.

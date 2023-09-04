@@ -1,29 +1,32 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
 import "v2/contracts/interfaces/ISoulSocietySBT.sol";
 
 /// @title Lightweight Growth type SBT interface developed by SoulSociety
 /// @notice There is a part where the gas fee required by Ethereum is too expensive to contain various information. 
 /// Therefore, by considering each contract as a piece of information, we tried to implement growth-type SBT through minimum information and minimum gas cost by managing growth in the contract.
-interface ISoulSocietyLightEnumableSBT is ISoulSocietySBT {
+interface ISoulSocietyEnumableSBT is ISoulSocietySBT {
+    /**
+     * @dev Returns the total amount of tokens stored by the contract.
+     */
+    function totalSupply() external view returns (uint256);
 
     // @notice A function that provides the number of currently registered users
     // @return Number of currently registered users
-    function totalUser() external view returns(uint256);
+    function totalUser() external view  returns (uint256);
 
-    // @notice A function to view the URL providing details of the contract
-    // @return URI containing contract information
-    function tokenURI() external view returns (string memory);
 
-    // @ntocie A function that registers the URI that holds contract information
-    // @param URI to register
-    // @return Registered URI
-    function setTokenURI(string memory) external returns(string memory);
+    /**
+     * @dev Returns a token ID owned by `owner` at a given `index` of its token list.
+     * Use along with {balanceOf} to enumerate all of ``owner``'s tokens.
+     */
+    function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256);
 
-    // @notice A function to query the time at which a certain growth was achieved.
-    // @param Address of the user you want to check
-    // @param Growth you want to see
-    // @return Time achieved, 0 means not achieved
-    function growthDate(address, uint256) external view returns (uint);
+    /**
+     * @dev Returns a token ID at a given `index` of all the tokens stored by the contract.
+     * Use along with {totalSupply} to enumerate all tokens.
+     */
+    function tokenByIndex(uint256 index) external view returns (uint256);
+
 }
