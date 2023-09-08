@@ -5,11 +5,16 @@ import "v2/contracts/interfaces/ISoulSocietyEnumerableSBT.sol";
 import "v2/contracts/interfaces/ISoulSocietySBTMetadata.sol";
 import "v2/contracts/interfaces/ISoulSocietySBTErrors.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
+import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import {IERC165, ERC165} from "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 
 
 /// @title Implementation contract of Lightweight growth type SBT developed by SoulSociety
 /// @notice As an implementation of ISoulSocietyLightweightEnumableSTB, only the owner can modify growth.
-contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSocietySBTErrors, Ownable {
+contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSocietySBTErrors , IERC721, ERC165, Ownable {
+
+    using Strings for uint256;
 
     // token Name
     string private _name;
@@ -20,31 +25,46 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     // token Meta URI
     string private _uri;
 
-    // SBT를 소유한 유저 수
+    // The number of users who own SBT.
     uint256 private _totalUser = 0;
 
-    // 발행된 SBT 총 갯수
+    // Total number of SBT issued
     uint256 private _totalCount = 0;
 
-    // 발행되는 SBT ID, 오너 Address
+    // Mapping from SBT to owned address
     mapping(uint256 => address) private _owners;
 
-    // SBT ID, 타입
-    mapping(uint256 => uint) private _tokenTypes;
+    // Mapping from SBT to token Type
+    mapping(uint256 => uint256) private _tokenTypes;
 
-    // SBT ID, 현재 레벨
-    mapping(uint256 => uint) private _tokenGrowths;
+    // Mapping from SBT to current Growth
+    mapping(uint256 => uint256) private _tokenGrowths;
 
-    // 오너 Address, 몇개의 로그 SBT를 가졌는지 기록
+    // Mapping from owner to count of SBT 
     mapping(address => uint256) private _balances;
 
-    // 지갑 주소에 해당하는 token 정보 오픈 여부
+    // Mapping from owner to information open flag
     mapping(address => bool) private _userProtects;
+
+    // Mapping from owner to list of owned token IDs
+    mapping(address => mapping(uint256 => uint256)) private _ownedTokens;
+
+    // Mapping from owner to list of owned token Types, address , tokenType, tokenId
+    mapping(address => mapping(uint256 => uint)) private _ownedTokenTypes;
 
     constructor(string memory name_, string memory symbol_, string memory uri_) {
         _name = name_;
         _symbol = symbol_;
         _uri = uri_;
+    }
+
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165, IERC165) returns (bool) {
+        return 
+            interfaceId == type(IERC721).interfaceId ||
+            super.supportsInterface(interfaceId);
     }
 
     // ------------------------------------------------------------
@@ -53,22 +73,36 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     // ------------------------------------------------------------
     
     // Token Name
-    function name() public view virtual returns (string memory) {
+    function name() external view virtual returns (string memory) {
         return _name;
     }
 
     // Token Symbol
-    function symbol() public view virtual returns (string memory) {
+    function symbol() external view virtual returns (string memory) {
         return _symbol;
     }
 
     /**
      * @dev Returns the Uniform Resource Identifier (URI) for `tokenId` token.
      */
-    function tokenURI() public view virtual  returns (string memory) {
-        return _uri;
+    function tokenURI(uint256 tokenId_) external view virtual  returns (string memory) {
+
+        _requireMinted(tokenId_);
+        
+        _isProtectedTokenId(tokenId_);
+
+        uint256 tokenType = _tokenTypes[tokenId_];
+
+        return string(abi.encodePacked(_uri,tokenId_.toString(),"?tokenType=", tokenType.toString()));
+        // return string.concat(_uri, tokenId_.toString());
     }
 
+
+    function setTokenURI(string memory tokenURI_) external onlyOwner returns(string memory) {
+        _uri = tokenURI_;
+        return _uri;
+
+    }
 
     function totalUser() public view  returns (uint256) {
         return _totalUser;
@@ -79,9 +113,8 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     }
  
     function getTokenType(uint256 tokenId_) public view returns (uint256) {
-        if (!_exists(tokenId_)) {
-            revert SoulSocietySBTNonexistentToken(tokenId_);
-        }
+
+        _isProtectedTokenId(tokenId_);
 
         return _tokenTypes[tokenId_];
     }
@@ -129,22 +162,63 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
         _isProtected(_owners[tokenId_]);
     }
 
+
+    // ERC721 Interface 
     /**
      * @dev Returns the owner of the `tokenId`. Does NOT revert if token doesn't exist
      */
-    function ownerOf(uint256 tokenId_) public view returns (address) {
+    function ownerOf(uint256 tokenId_) external  view  override  returns (address) {
         return _owners[tokenId_];
     }
 
     /**
      * @dev Returns the owner of the `tokenId`. Does NOT revert if token doesn't exist
      */
-    function _ownerOf(uint256 tokenId_) internal view virtual returns (address) {
+    function _ownerOf(uint256 tokenId_) internal view  returns (address) {
         return _owners[tokenId_];
     }
 
-    function balanceOf(address owner) public view returns (uint256) {
-        return _balances[owner];
+    function balanceOf(address owner_) external  view  returns (uint256) {
+        return _balanceOf(owner_);
+    }
+
+    function _balanceOf(address owner_) internal view returns (uint256) {
+            return _balances[owner_];
+    }
+
+
+    /**
+     *  Does not provide a transfer feature.
+     */
+    function safeTransferFrom(address , address , uint256 , bytes calldata) external pure {
+        
+        revert SoulSocietySBTNotSupported("safeTransferFrom");
+    }
+
+    function safeTransferFrom(address , address , uint256 ) external pure {
+        revert SoulSocietySBTNotSupported("safeTransferFrom");
+    }
+
+    function transferFrom(address , address , uint256 ) external pure {
+        revert SoulSocietySBTNotSupported("transferFrom");
+    }
+
+    function approve(address , uint256 ) external pure{
+        revert SoulSocietySBTNotSupported("approve");
+    }
+
+    function setApprovalForAll(address , bool ) external pure {
+        revert SoulSocietySBTNotSupported("setApprovalForAll");
+    }
+
+    function getApproved(uint256 ) external pure returns (address )  {
+        revert SoulSocietySBTNotSupported("getApproved");
+
+
+    }
+
+    function isApprovedForAll(address , address ) public pure returns (bool) {
+        revert SoulSocietySBTNotSupported("isApprovedForAll");
     }
 
     // -------------------------------------------------------------------------
@@ -158,6 +232,7 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     function _safeMint(address to_, uint256 tokenType_) internal virtual onlyOwner returns(uint256) {
 
         uint256 tokenId = _totalCount + 1;
+    
 
         if (to_ == address(0)) {
             revert SoulSocietySBTInvalidReceiver(address(0));
@@ -179,18 +254,19 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
         // The ERC fails to describe this case.
             _balances[to_] += 1;
             _totalCount += 1;
+            
         }
 
         _owners[tokenId] = to_;
         _tokenTypes[tokenId] = tokenType_;
         _tokenGrowths[tokenId] = 1;
         _userProtects[to_] = false;
+        _ownedTokens[to_][_balances[to_]-1] = tokenId; // index from 0
 
         emit Mint(address(0), to_, tokenId, tokenType_);
 
         return tokenId;
     }
-
 
     // ---------------------------------------------------------------
     // Metadata-related functions of SoulSociety's growth type SBT
@@ -219,6 +295,7 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
         return _balances[to] != 0;
     }
 
+
     // -------------------------------------------------------------------------
     // GrowthUp & GrowthDown
     // -------------------------------------------------------------------------
@@ -239,6 +316,27 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
 
         return tokenGrowth;
     }
+
+    /**
+     * @dev Returns a token ID owned by `owner` at a given `index` of its token list.
+     * Use along with {balanceOf} to enumerate all of ``owner``'s tokens.
+     */
+    function tokenOfOwnerByIndex(address owner_, uint256 index_) public view returns (uint256) {
+        require(index_ < _balanceOf(owner_), "Out of Index");
+
+        if (owner_ == address(0)) {
+            revert SoulSocietySBTInvalidReceiver(address(0));
+        }
+
+        uint256 tokenId = _ownedTokens[owner_][index_];
+
+       // Check whether the token exists and if its status is 'protected'.
+        _isProtectedTokenId(tokenId);
+
+        return tokenId; 
+    }
+
+
 
 //    function growthDown(address owner_) public override onlyOwner returns(uint256) {
 //        return _growthDown(owner_);

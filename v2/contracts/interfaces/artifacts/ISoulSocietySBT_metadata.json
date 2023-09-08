@@ -83,6 +83,25 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "tokenId_",
+						"type": "uint256"
+					}
+				],
+				"name": "getTokenType",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "to",
 						"type": "address"
@@ -132,17 +151,18 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "tokenId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
 						"name": "tokenType",
 						"type": "uint256"
 					}
 				],
 				"name": "mint",
-				"outputs": [],
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
@@ -169,6 +189,75 @@
 				],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "tokenURI",
+						"type": "string"
+					}
+				],
+				"name": "setTokenURI",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "tokenOfOwnerByIndex",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalSupply",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalUser",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -179,8 +268,14 @@
 			},
 			"kind": "dev",
 			"methods": {
-				"mint(address,uint256,uint256)": {
+				"mint(address,uint256)": {
 					"details": "Transfers `tokenId` token from `from` to `to`. WARNING: Note that the caller is responsible to confirm that the recipient is capable of receiving ERC721 or else they may be permanently lost. Usage of {safeTransferFrom} prevents loss, though the caller must understand this adds an external call which potentially creates a reentrancy vulnerability. Requirements: - `from` cannot be the zero address. - `to` cannot be the zero address. - `tokenId` token must be owned by `from`. - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}. Emits a {Transfer} event."
+				},
+				"tokenOfOwnerByIndex(address,uint256)": {
+					"details": "Returns a token ID owned by `owner` at a given `index` of its token list. Use along with {balanceOf} to enumerate all of ``owner``'s tokens."
+				},
+				"totalSupply()": {
+					"details": "Returns the total amount of tokens stored by the contract."
 				}
 			},
 			"title": "Growth type Lightweight SBT interface developed by SoulSociety",
@@ -210,11 +305,11 @@
 	},
 	"sources": {
 		"v2/contracts/interfaces/ISoulSocietySBT.sol": {
-			"keccak256": "0x3dd164dc61b4162bca861776d8a91cff81e16d938d40915414d31506d2b4d55d",
+			"keccak256": "0x3c2710d64e9ff42e7e3c2749d0eca4067aae484fd06c0642264908a881896c9e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2f9edebca9253ed0c74b39556c2af812822a268e36c7c0214e83c81cbd8afcbc",
-				"dweb:/ipfs/QmRFhQcpG3WGmbv3Bg5SpUaj8rLaSex51xa2Dmytfv2H44"
+				"bzz-raw://97db36bb1eb61dfdb802e6716ddcc629b7fed778e36edd7fc29c8c20bd8505c6",
+				"dweb:/ipfs/QmPtd36J3aZsfDH4ixdTEEo4bmgwFcDAbqG1s721YRBYZa"
 			]
 		}
 	},

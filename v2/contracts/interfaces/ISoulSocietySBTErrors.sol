@@ -62,6 +62,8 @@ interface ISoulSocietySBTErrors {
      */
     error SoulSocietySBTProtectedOwner(address owner);
 
+
+    error SoulSocietySBTNotSupported(string message);
 //    /**
 //     * @dev Indicates a failure with the `operator`’s approval. Used in transfers.
 //     * @param operator Address that may be allowed to operate on tokens without being their owner.

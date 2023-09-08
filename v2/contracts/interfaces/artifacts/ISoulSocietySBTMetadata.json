@@ -49,17 +49,18 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
-			"balanceOf(address)": "70a08231",
 			"getGrowth(uint256)": "51c18e0c",
 			"getTokenType(uint256)": "76aed2e1",
 			"growUp(address,uint256)": "be37e907",
 			"isProtected(address)": "ce35de95",
 			"mint(address,uint256)": "40c10f19",
 			"name()": "06fdde03",
-			"ownerOf(uint256)": "6352211e",
 			"setProtected(address,bool)": "8a7f997c",
 			"symbol()": "95d89b41",
-			"tokenURI()": "3c130d90"
+			"tokenOfOwnerByIndex(address,uint256)": "2f745c59",
+			"tokenURI(uint256)": "c87b56dd",
+			"totalSupply()": "18160ddd",
+			"totalUser()": "e1604b70"
 		}
 	},
 	"abi": [
@@ -118,25 +119,6 @@
 			],
 			"name": "Mint",
 			"type": "event"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "owner",
-					"type": "address"
-				}
-			],
-			"name": "balanceOf",
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
 		},
 		{
 			"inputs": [
@@ -259,25 +241,6 @@
 		{
 			"inputs": [
 				{
-					"internalType": "uint256",
-					"name": "tokenId",
-					"type": "uint256"
-				}
-			],
-			"name": "ownerOf",
-			"outputs": [
-				{
-					"internalType": "address",
-					"name": "",
-					"type": "address"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
 					"internalType": "address",
 					"name": "to",
 					"type": "address"
@@ -313,13 +276,69 @@
 			"type": "function"
 		},
 		{
-			"inputs": [],
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "owner",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "index",
+					"type": "uint256"
+				}
+			],
+			"name": "tokenOfOwnerByIndex",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "tokenId_",
+					"type": "uint256"
+				}
+			],
 			"name": "tokenURI",
 			"outputs": [
 				{
 					"internalType": "string",
 					"name": "",
 					"type": "string"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "totalSupply",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "totalUser",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
 				}
 			],
 			"stateMutability": "view",

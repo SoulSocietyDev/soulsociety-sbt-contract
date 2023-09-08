@@ -121,6 +121,17 @@
 			{
 				"inputs": [
 					{
+						"internalType": "string",
+						"name": "message",
+						"type": "string"
+					}
+				],
+				"name": "SoulSocietySBTNotSupported",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "owner",
 						"type": "address"
@@ -128,6 +139,56 @@
 				],
 				"name": "SoulSocietySBTProtectedOwner",
 				"type": "error"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "approved",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "Approval",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "operator",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "approved",
+						"type": "bool"
+					}
+				],
+				"name": "ApprovalForAll",
+				"type": "event"
 			},
 			{
 				"anonymous": false,
@@ -205,10 +266,53 @@
 				"type": "event"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "Transfer",
+				"type": "event"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "owner",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "approve",
+				"outputs": [],
+				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner_",
 						"type": "address"
 					}
 				],
@@ -221,6 +325,25 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "getApproved",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "pure",
 				"type": "function"
 			},
 			{
@@ -302,6 +425,30 @@
 					}
 				],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "isApprovedForAll",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "pure",
 				"type": "function"
 			},
 			{
@@ -403,6 +550,75 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "safeTransferFrom",
+				"outputs": [],
+				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "",
+						"type": "bytes"
+					}
+				],
+				"name": "safeTransferFrom",
+				"outputs": [],
+				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"name": "setApprovalForAll",
+				"outputs": [],
+				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "to_",
 						"type": "address"
 					},
@@ -424,6 +640,44 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "tokenURI_",
+						"type": "string"
+					}
+				],
+				"name": "setTokenURI",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes4",
+						"name": "interfaceId",
+						"type": "bytes4"
+					}
+				],
+				"name": "supportsInterface",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "symbol",
 				"outputs": [
@@ -437,7 +691,37 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner_",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "index_",
+						"type": "uint256"
+					}
+				],
+				"name": "tokenOfOwnerByIndex",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "tokenId_",
+						"type": "uint256"
+					}
+				],
 				"name": "tokenURI",
 				"outputs": [
 					{
@@ -473,6 +757,29 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "transferFrom",
+				"outputs": [],
+				"stateMutability": "pure",
 				"type": "function"
 			},
 			{
@@ -544,15 +851,21 @@
 				]
 			},
 			"events": {
+				"Approval(address,address,uint256)": {
+					"details": "Emitted when `owner` enables `approved` to manage the `tokenId` token."
+				},
+				"ApprovalForAll(address,address,bool)": {
+					"details": "Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets."
+				},
 				"Mint(address,address,uint256,uint256)": {
 					"details": "Emitted when `tokenId` token is minted from `from(Contract Owner)` to `to`."
+				},
+				"Transfer(address,address,uint256)": {
+					"details": "Emitted when `tokenId` token is transferred from `from` to `to`."
 				}
 			},
 			"kind": "dev",
 			"methods": {
-				"balanceOf(address)": {
-					"details": "Returns the number of tokens in ``owner``'s account."
-				},
 				"name()": {
 					"details": "Returns the token collection name."
 				},
@@ -565,11 +878,20 @@
 				"renounceOwnership()": {
 					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
 				},
+				"supportsInterface(bytes4)": {
+					"details": "See {IERC165-supportsInterface}."
+				},
 				"symbol()": {
 					"details": "Returns the token collection symbol."
 				},
-				"tokenURI()": {
+				"tokenOfOwnerByIndex(address,uint256)": {
+					"details": "Returns a token ID owned by `owner` at a given `index` of its token list. Use along with {balanceOf} to enumerate all of ``owner``'s tokens."
+				},
+				"tokenURI(uint256)": {
 					"details": "Returns the Uniform Resource Identifier (URI) for `tokenId` token."
+				},
+				"totalSupply()": {
+					"details": "Returns the total amount of tokens stored by the contract."
 				},
 				"transferOwnership(address)": {
 					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
@@ -580,7 +902,11 @@
 		},
 		"userdoc": {
 			"kind": "user",
-			"methods": {},
+			"methods": {
+				"safeTransferFrom(address,address,uint256,bytes)": {
+					"notice": "Does not provide a transfer feature."
+				}
+			},
 			"notice": "As an implementation of ISoulSocietyLightweightEnumableSTB, only the owner can modify growth.",
 			"version": 1
 		}
@@ -609,6 +935,14 @@
 				"dweb:/ipfs/QmPHXMSXj99XjSVM21YsY6aNtLLjLVXDbyN76J5HQYvvrz"
 			]
 		},
+		"@openzeppelin/contracts/token/ERC721/IERC721.sol": {
+			"keccak256": "0x5bce51e11f7d194b79ea59fe00c9e8de9fa2c5530124960f29a24d4c740a3266",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://7e66dfde185df46104c11bc89d08fa0760737aa59a2b8546a656473d810a8ea4",
+				"dweb:/ipfs/QmXvyqtXPaPss2PD7eqPoSao5Szm2n6UMoiG8TZZDjmChR"
+			]
+		},
 		"@openzeppelin/contracts/utils/Context.sol": {
 			"keccak256": "0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7",
 			"license": "MIT",
@@ -617,12 +951,52 @@
 				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
 			]
 		},
-		"v2/contracts/SoulSocietySBT.sol": {
-			"keccak256": "0x99eb9af54a95921f28e0b8ce80988d99f79aebd96cd20c0cc4d9081a9a829778",
+		"@openzeppelin/contracts/utils/Strings.sol": {
+			"keccak256": "0x3088eb2868e8d13d89d16670b5f8612c4ab9ff8956272837d8e90106c59c14a0",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7ebfb581534f040fb12d28210048b57f8430978b6ec7829298c29469c65f122d",
-				"dweb:/ipfs/QmNVTADrQH2YHUwyXqzywqFj2zUFDdDSP8htbmgemWA4Ud"
+				"bzz-raw://b81d9ff6559ea5c47fc573e17ece6d9ba5d6839e213e6ebc3b4c5c8fe4199d7f",
+				"dweb:/ipfs/QmPCW1bFisUzJkyjroY3yipwfism9RRCigCcK1hbXtVM8n"
+			]
+		},
+		"@openzeppelin/contracts/utils/introspection/ERC165.sol": {
+			"keccak256": "0xd10975de010d89fd1c78dc5e8a9a7e7f496198085c151648f20cba166b32582b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://fb0048dee081f6fffa5f74afc3fb328483c2a30504e94a0ddd2a5114d731ec4d",
+				"dweb:/ipfs/QmZptt1nmYoA5SgjwnSgWqgUSDgm4q52Yos3xhnMv3MV43"
+			]
+		},
+		"@openzeppelin/contracts/utils/introspection/IERC165.sol": {
+			"keccak256": "0x447a5f3ddc18419d41ff92b3773fb86471b1db25773e07f877f548918a185bf1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://be161e54f24e5c6fae81a12db1a8ae87bc5ae1b0ddc805d82a1440a68455088f",
+				"dweb:/ipfs/QmP7C3CHdY9urF4dEMb9wmsp1wMxHF6nhA2yQE5SKiPAdy"
+			]
+		},
+		"@openzeppelin/contracts/utils/math/Math.sol": {
+			"keccak256": "0xe4455ac1eb7fc497bb7402579e7b4d64d928b846fce7d2b6fde06d366f21c2b3",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://cc8841b3cd48ad125e2f46323c8bad3aa0e88e399ec62acb9e57efa7e7c8058c",
+				"dweb:/ipfs/QmSqE4mXHA2BXW58deDbXE8MTcsL5JSKNDbm23sVQxRLPS"
+			]
+		},
+		"@openzeppelin/contracts/utils/math/SignedMath.sol": {
+			"keccak256": "0xf92515413956f529d95977adc9b0567d583c6203fc31ab1c23824c35187e3ddc",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://c50fcc459e49a9858b6d8ad5f911295cb7c9ab57567845a250bf0153f84a95c7",
+				"dweb:/ipfs/QmcEW85JRzvDkQggxiBBLVAasXWdkhEysqypj9EaB6H2g6"
+			]
+		},
+		"v2/contracts/SoulSocietySBT.sol": {
+			"keccak256": "0xdadf3d89d0f133796f9c7ef3812d154b42f1edc9469d19d8c3f317d7febaa911",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://36946fa28ee2046aa24dd787b339d7e152739e8e171c2a01e685ab7179ab1c66",
+				"dweb:/ipfs/QmWovVB7fiAmdzqk7RgRGpX6GXg9NooMryu7fWkpF7SQMZ"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietyEnumerableSBT.sol": {
@@ -634,27 +1008,27 @@
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBT.sol": {
-			"keccak256": "0xa46f63336ff9b367fd5d8931006c5c0055e02d89e7999b5feeb12212b62b9e2d",
+			"keccak256": "0x3c2710d64e9ff42e7e3c2749d0eca4067aae484fd06c0642264908a881896c9e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d6436c68d6003cde568b21cbb3bd0fa695b1f288a5d8850a2a316e89b5980e3d",
-				"dweb:/ipfs/QmUT551zE9mcHK2xAAX655NqH28iEqFYxy3cHzzcnamdRY"
+				"bzz-raw://97db36bb1eb61dfdb802e6716ddcc629b7fed778e36edd7fc29c8c20bd8505c6",
+				"dweb:/ipfs/QmPtd36J3aZsfDH4ixdTEEo4bmgwFcDAbqG1s721YRBYZa"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBTErrors.sol": {
-			"keccak256": "0xb18226efd59b20eddc0b0b8986ad06dc0381df2cdb2c5fd2bdba8bc510795951",
+			"keccak256": "0xc0f8d5bac62a57698fb94cc3a0868642718f245c8da5b7e64b541f7c2eef651c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3d4f7f7cc13c805cc13737ae90b2da2e25f3f0d3c99cf4696de1cdeebe319a94",
-				"dweb:/ipfs/QmcvHLyXWHK3ZvQVD7VTBmRqBVvbxZtRfL6PysCFz274yE"
+				"bzz-raw://9885f61310d60b038902a9c2035d3482216b9f80ebf7fdcf969f2a2b023904c5",
+				"dweb:/ipfs/Qmew5qsUpWdj6b25cw6MbQoyLeoJk16UDBrBDQCQTnScnJ"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBTMetadata.sol": {
-			"keccak256": "0x02ab5385cdec2541fb5569dc7b462ab744027902b06066362106575cf6b852ee",
+			"keccak256": "0x782d55e6591eba89fcd6a137d4d547099b6c2818bafc2d09d6c31282b0109074",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://38d20d74b36213fef08e02adc8c69465bab3f60dadf22687adb3e4f20cd4b0b0",
-				"dweb:/ipfs/QmQ2gQW6fYcbuCLr2qFFvApqHyY8W1hNr8AqavY2cn5FYF"
+				"bzz-raw://81ef18ecc09506d158449080593f909bd26b1fdb12870d92ae7faaf79e2d5fff",
+				"dweb:/ipfs/QmR6VA58axto6UAvAJcJrgpiMyMz2m6SvmdiSX665ehaD9"
 			]
 		}
 	},

@@ -16,19 +16,31 @@ interface ISoulSocietySBT {
     // @param growth User growth
     event GrowUp(address indexed to, uint256 tokenId, uint256 indexed growth);
 
-    /**
-     * @dev Returns the number of tokens in ``owner``'s account.
-     */
-    function balanceOf(address owner) external view returns (uint256);
 
     /**
-     * @dev Returns the owner of the `tokenId` token.
-     *
-     * Requirements:
-     *
-     * - `tokenId` must exist.
+     * @dev Returns the total amount of tokens stored by the contract.
      */
-    function ownerOf(uint256 tokenId) external view returns (address);
+    function totalSupply() external view returns (uint256);
+
+    // @notice A function that provides the number of currently registered users
+    // @return Number of currently registered users
+    function totalUser() external view  returns (uint256);
+
+    function setTokenURI(string memory tokenURI) external returns(string memory);
+
+    // /**
+    //  * @dev Returns the number of tokens in ``owner``'s account.
+    //  */
+    // function balanceOf(address owner) external view returns (uint256);
+
+    // /**
+    //  * @dev Returns the owner of the `tokenId` token.
+    //  *
+    //  * Requirements:
+    //  *
+    //  * - `tokenId` must exist.
+    //  */
+    // function ownerOf(uint256 tokenId) external view virtual returns (address);
 
 
 
@@ -77,8 +89,10 @@ interface ISoulSocietySBT {
     // @return true when normally private, false when already locked or failed
     function setProtected(address to, bool isProtected) external returns (bool);
 
-    // @notice Function to change SBT to public
-    // @param user address
-    // @return true if successfully made public, false if already public or failed
-    // function unProtected(address) external returns (bool);
+    /**
+     * @dev Returns a token ID owned by `owner` at a given `index` of its token list.
+     * Use along with {balanceOf} to enumerate all of ``owner``'s tokens.
+     */
+    function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256);
+
 }

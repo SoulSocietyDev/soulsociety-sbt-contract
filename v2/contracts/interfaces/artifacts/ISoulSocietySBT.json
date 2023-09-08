@@ -50,10 +50,15 @@
 		"gasEstimates": null,
 		"methodIdentifiers": {
 			"getGrowth(uint256)": "51c18e0c",
+			"getTokenType(uint256)": "76aed2e1",
 			"growUp(address,uint256)": "be37e907",
 			"isProtected(address)": "ce35de95",
-			"mint(address,uint256,uint256)": "156e29f6",
-			"setProtected(address,bool)": "8a7f997c"
+			"mint(address,uint256)": "40c10f19",
+			"setProtected(address,bool)": "8a7f997c",
+			"setTokenURI(string)": "e0df5b6f",
+			"tokenOfOwnerByIndex(address,uint256)": "2f745c59",
+			"totalSupply()": "18160ddd",
+			"totalUser()": "e1604b70"
 		}
 	},
 	"abi": [
@@ -135,6 +140,25 @@
 		{
 			"inputs": [
 				{
+					"internalType": "uint256",
+					"name": "tokenId_",
+					"type": "uint256"
+				}
+			],
+			"name": "getTokenType",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
 					"internalType": "address",
 					"name": "to",
 					"type": "address"
@@ -184,17 +208,18 @@
 				},
 				{
 					"internalType": "uint256",
-					"name": "tokenId",
-					"type": "uint256"
-				},
-				{
-					"internalType": "uint256",
 					"name": "tokenType",
 					"type": "uint256"
 				}
 			],
 			"name": "mint",
-			"outputs": [],
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
 			"stateMutability": "nonpayable",
 			"type": "function"
 		},
@@ -220,6 +245,75 @@
 				}
 			],
 			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "string",
+					"name": "tokenURI",
+					"type": "string"
+				}
+			],
+			"name": "setTokenURI",
+			"outputs": [
+				{
+					"internalType": "string",
+					"name": "",
+					"type": "string"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "owner",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "index",
+					"type": "uint256"
+				}
+			],
+			"name": "tokenOfOwnerByIndex",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "totalSupply",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "totalUser",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
 			"type": "function"
 		}
 	]

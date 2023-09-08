@@ -21,5 +21,5 @@ interface ISoulSocietySBTMetadata is ISoulSocietySBT {
     /**
      * @dev Returns the Uniform Resource Identifier (URI) for `tokenId` token.
      */
-    function tokenURI() external view returns (string memory);
+    function tokenURI(uint256 tokenId_) external view returns (string memory);
 }
