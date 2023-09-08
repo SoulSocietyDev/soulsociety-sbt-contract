@@ -992,11 +992,11 @@
 			]
 		},
 		"v2/contracts/SoulSocietySBT.sol": {
-			"keccak256": "0xdadf3d89d0f133796f9c7ef3812d154b42f1edc9469d19d8c3f317d7febaa911",
+			"keccak256": "0xb2d60470516ef818f11e6a704edabc5866ddbb93706e0627e68350200aeed8f1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://36946fa28ee2046aa24dd787b339d7e152739e8e171c2a01e685ab7179ab1c66",
-				"dweb:/ipfs/QmWovVB7fiAmdzqk7RgRGpX6GXg9NooMryu7fWkpF7SQMZ"
+				"bzz-raw://d8fc4802a05a66a1378e6703ba8bbadc46a1d10281d027a5ae56aadcd48bc3ba",
+				"dweb:/ipfs/QmXDtdRY9G9WmCGnrpb1qzZnpbhQ73z2WAkz1XsV4JFruZ"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietyEnumerableSBT.sol": {
@@ -1008,11 +1008,11 @@
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBT.sol": {
-			"keccak256": "0x3c2710d64e9ff42e7e3c2749d0eca4067aae484fd06c0642264908a881896c9e",
+			"keccak256": "0x746ab1294e0595d62c6c20e1f6f5c5d9c4e185ae8985e5e6f09deca8b27ee746",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://97db36bb1eb61dfdb802e6716ddcc629b7fed778e36edd7fc29c8c20bd8505c6",
-				"dweb:/ipfs/QmPtd36J3aZsfDH4ixdTEEo4bmgwFcDAbqG1s721YRBYZa"
+				"bzz-raw://6bd3f6e4215845ded3c62f570df211306e3500fb480a1e36ee1d6592b29465f4",
+				"dweb:/ipfs/QmckJtktaUAmeZEwgTW4Q4qyvvTj2mwE3bTxRuoQvSuSag"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBTErrors.sol": {

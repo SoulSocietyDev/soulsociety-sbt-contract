@@ -305,11 +305,11 @@
 	},
 	"sources": {
 		"v2/contracts/interfaces/ISoulSocietySBT.sol": {
-			"keccak256": "0x3c2710d64e9ff42e7e3c2749d0eca4067aae484fd06c0642264908a881896c9e",
+			"keccak256": "0x746ab1294e0595d62c6c20e1f6f5c5d9c4e185ae8985e5e6f09deca8b27ee746",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://97db36bb1eb61dfdb802e6716ddcc629b7fed778e36edd7fc29c8c20bd8505c6",
-				"dweb:/ipfs/QmPtd36J3aZsfDH4ixdTEEo4bmgwFcDAbqG1s721YRBYZa"
+				"bzz-raw://6bd3f6e4215845ded3c62f570df211306e3500fb480a1e36ee1d6592b29465f4",
+				"dweb:/ipfs/QmckJtktaUAmeZEwgTW4Q4qyvvTj2mwE3bTxRuoQvSuSag"
 			]
 		}
 	},

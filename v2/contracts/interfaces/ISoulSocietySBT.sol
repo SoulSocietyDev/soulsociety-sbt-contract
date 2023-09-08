@@ -28,22 +28,6 @@ interface ISoulSocietySBT {
 
     function setTokenURI(string memory tokenURI) external returns(string memory);
 
-    // /**
-    //  * @dev Returns the number of tokens in ``owner``'s account.
-    //  */
-    // function balanceOf(address owner) external view returns (uint256);
-
-    // /**
-    //  * @dev Returns the owner of the `tokenId` token.
-    //  *
-    //  * Requirements:
-    //  *
-    //  * - `tokenId` must exist.
-    //  */
-    // function ownerOf(uint256 tokenId) external view virtual returns (address);
-
-
-
     // @notice This function contains user growth information.
     // @param Know current growth User's address
     function getGrowth(uint256 tokenId) external view returns (uint256);

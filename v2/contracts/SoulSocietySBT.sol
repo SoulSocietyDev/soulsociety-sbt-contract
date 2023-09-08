@@ -50,7 +50,7 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     mapping(address => mapping(uint256 => uint256)) private _ownedTokens;
 
     // Mapping from owner to list of owned token Types, address , tokenType, tokenId
-    mapping(address => mapping(uint256 => uint)) private _ownedTokenTypes;
+    // mapping(address => mapping(uint256 => uint)) private _ownedTokenTypes;
 
     constructor(string memory name_, string memory symbol_, string memory uri_) {
         _name = name_;
@@ -87,8 +87,10 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
      */
     function tokenURI(uint256 tokenId_) external view virtual  returns (string memory) {
 
+        // check minted 
         _requireMinted(tokenId_);
         
+        // check protected status 
         _isProtectedTokenId(tokenId_);
 
         uint256 tokenType = _tokenTypes[tokenId_];
@@ -168,6 +170,9 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
      * @dev Returns the owner of the `tokenId`. Does NOT revert if token doesn't exist
      */
     function ownerOf(uint256 tokenId_) external  view  override  returns (address) {
+         // Check whether the token exists and if its status is 'protected'.
+        _isProtectedTokenId(tokenId_);
+
         return _owners[tokenId_];
     }
 
@@ -179,6 +184,9 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     }
 
     function balanceOf(address owner_) external  view  returns (uint256) {
+         // Check whether the token exists and if its status is 'protected'.
+        _isProtected(owner_);
+        
         return _balanceOf(owner_);
     }
 
@@ -222,7 +230,7 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     }
 
     // -------------------------------------------------------------------------
-    // Mint & Level Up
+    // Mint & Grow Up
     // -------------------------------------------------------------------------
     
     function mint(address to_, uint256 tokenType_) public virtual onlyOwner returns(uint256) {
@@ -297,7 +305,7 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
 
 
     // -------------------------------------------------------------------------
-    // GrowthUp & GrowthDown
+    // GrowthUp
     // -------------------------------------------------------------------------
 
     // A function that grows the SBT you have
@@ -322,6 +330,9 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
      * Use along with {balanceOf} to enumerate all of ``owner``'s tokens.
      */
     function tokenOfOwnerByIndex(address owner_, uint256 index_) public view returns (uint256) {
+        // Check whether the token exists and if its status is 'protected'.
+       _isProtected(owner_);
+
         require(index_ < _balanceOf(owner_), "Out of Index");
 
         if (owner_ == address(0)) {
@@ -330,37 +341,8 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
 
         uint256 tokenId = _ownedTokens[owner_][index_];
 
-       // Check whether the token exists and if its status is 'protected'.
-        _isProtectedTokenId(tokenId);
-
         return tokenId; 
     }
-
-
-
-//    function growthDown(address owner_) public override onlyOwner returns(uint256) {
-//        return _growthDown(owner_);
-//    }
-//
-//    function _growthDown(address owner_) internal onlyOwner returns(uint256) {
-//
-//        uint256 userLevel = _userGrowthMap[owner_];
-//
-//        require(userLevel != 0, "invalid growthDown");
-//
-//        delete _growthMap[userLevel][owner_];
-//
-//        if(userLevel == 1) {
-//            _totalUser--;
-//        } else {
-//            _growthMap[userLevel-1][owner_] = block.timestamp;
-//        }
-//        _userGrowthMap[owner_] = userLevel-1;
-//
-//        emit GrowthDown(owner_, userLevel-1);
-//
-//        return userLevel-1;
-//    }
 
     /**
      * @dev Reverts if the `tokenId` has not been minted yet.
