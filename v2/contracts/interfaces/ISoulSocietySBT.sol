@@ -11,6 +11,8 @@ interface ISoulSocietySBT {
      */
     event Mint(address from, address indexed to, uint256 indexed tokenId, uint256 indexed tokenType);
 
+    event Burn(address indexed to, uint indexed tokenId);
+    
     // @notice Emitted when user grows
     // @param to Address that user Address
     // @param growth User growth

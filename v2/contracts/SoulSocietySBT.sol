@@ -31,13 +31,13 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     // Total number of SBT issued
     uint256 private _totalCount = 0;
 
-    // Mapping from SBT to owned address
+    // Mapping from SBT ID to owned address
     mapping(uint256 => address) private _owners;
 
-    // Mapping from SBT to token Type
+    // Mapping from SBT ID to token Type
     mapping(uint256 => uint256) private _tokenTypes;
 
-    // Mapping from SBT to current Growth
+    // Mapping from SBT ID to current Growth
     mapping(uint256 => uint256) private _tokenGrowths;
 
     // Mapping from owner to count of SBT 
@@ -276,6 +276,19 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
         return tokenId;
     }
 
+    function burn(address to_, uint256 tokenId_) public onlyOwner  {
+        _setGrowthToZero(to_, tokenId_);
+    }
+
+    function _setGrowthToZero(address to_, uint tokenId_) private onlyOwner {
+        // check to exist and owner address
+        _requireMintedOf(to_, tokenId_);
+
+        _tokenGrowths[tokenId_] = 0;
+
+        emit Burn(to_, tokenId_);
+    }
+
     // ---------------------------------------------------------------
     // Metadata-related functions of SoulSociety's growth type SBT
     // ---------------------------------------------------------------
@@ -305,7 +318,7 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
 
 
     // -------------------------------------------------------------------------
-    // GrowthUp
+    // Growth Control : GrowUp
     // -------------------------------------------------------------------------
 
     // A function that grows the SBT you have
@@ -324,6 +337,8 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
 
         return tokenGrowth;
     }
+
+
 
     /**
      * @dev Returns a token ID owned by `owner` at a given `index` of its token list.

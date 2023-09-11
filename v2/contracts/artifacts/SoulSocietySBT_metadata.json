@@ -200,6 +200,25 @@
 						"type": "address"
 					},
 					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "Burn",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
 						"indexed": false,
 						"internalType": "uint256",
 						"name": "tokenId",
@@ -325,6 +344,24 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "to_",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tokenId_",
+						"type": "uint256"
+					}
+				],
+				"name": "burn",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -992,11 +1029,11 @@
 			]
 		},
 		"v2/contracts/SoulSocietySBT.sol": {
-			"keccak256": "0xb2d60470516ef818f11e6a704edabc5866ddbb93706e0627e68350200aeed8f1",
+			"keccak256": "0x4e36a1901a6bb4b312f879791610dee41a0a396534ef97cc8ddbe87969129d0b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d8fc4802a05a66a1378e6703ba8bbadc46a1d10281d027a5ae56aadcd48bc3ba",
-				"dweb:/ipfs/QmXDtdRY9G9WmCGnrpb1qzZnpbhQ73z2WAkz1XsV4JFruZ"
+				"bzz-raw://e3f63799bd46ad564f82e9290853ab247211782cff51f12b7e691167256a9c23",
+				"dweb:/ipfs/QmPfpKTXuit5tCBCfgXRKZrHXGwX4RUK9vzZnkzKzykFzr"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietyEnumerableSBT.sol": {
@@ -1008,11 +1045,11 @@
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBT.sol": {
-			"keccak256": "0x746ab1294e0595d62c6c20e1f6f5c5d9c4e185ae8985e5e6f09deca8b27ee746",
+			"keccak256": "0xb93224a1ad3751d806666c15dd2e2464b25a7202b32e68bf83ea51640548478b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6bd3f6e4215845ded3c62f570df211306e3500fb480a1e36ee1d6592b29465f4",
-				"dweb:/ipfs/QmckJtktaUAmeZEwgTW4Q4qyvvTj2mwE3bTxRuoQvSuSag"
+				"bzz-raw://2bc1bb6ad0c554e0f9d2bf3df51c46753e8dad8e662bfbc4e1f585d98fc06a1c",
+				"dweb:/ipfs/QmQEPDvWZfTtzfVtkHD2Z5FnepQYSMm75d7spTRWMEwEN3"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBTErrors.sol": {
