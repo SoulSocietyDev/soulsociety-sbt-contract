@@ -49,6 +49,7 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
+			"burn(address,uint256)": "9dc29fac",
 			"getGrowth(uint256)": "51c18e0c",
 			"getTokenType(uint256)": "76aed2e1",
 			"growUp(address,uint256)": "be37e907",
@@ -136,6 +137,24 @@
 			],
 			"name": "Mint",
 			"type": "event"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "to",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "tokenId",
+					"type": "uint256"
+				}
+			],
+			"name": "burn",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
 		},
 		{
 			"inputs": [

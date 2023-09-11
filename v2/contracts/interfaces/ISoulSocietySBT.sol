@@ -12,7 +12,7 @@ interface ISoulSocietySBT {
     event Mint(address from, address indexed to, uint256 indexed tokenId, uint256 indexed tokenType);
 
     event Burn(address indexed to, uint indexed tokenId);
-    
+
     // @notice Emitted when user grows
     // @param to Address that user Address
     // @param growth User growth
@@ -39,6 +39,7 @@ interface ISoulSocietySBT {
     // function growUp(address) external returns (uint256);
     function growUp(address to, uint256 tokenId) external returns (uint256);
 
+    function burn(address to, uint256 tokenId) external ; 
 
     function getTokenType(uint256 tokenId_) external view returns (uint256);
 

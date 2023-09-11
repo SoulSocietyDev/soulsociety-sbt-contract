@@ -1045,11 +1045,11 @@
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBT.sol": {
-			"keccak256": "0xb93224a1ad3751d806666c15dd2e2464b25a7202b32e68bf83ea51640548478b",
+			"keccak256": "0xecab5e90bb7858a5cde270ba0691158ab3a67bc2300d49852c5178e43fa27c63",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2bc1bb6ad0c554e0f9d2bf3df51c46753e8dad8e662bfbc4e1f585d98fc06a1c",
-				"dweb:/ipfs/QmQEPDvWZfTtzfVtkHD2Z5FnepQYSMm75d7spTRWMEwEN3"
+				"bzz-raw://9fff3c48f9280b404352761a6c78166f9e04cb7fe1e2ef6e6b3b47f9904dce24",
+				"dweb:/ipfs/QmWQRzuNuAUBBmH8MeuCbovb2BQ9cXFNE7bALtR2PypBn9"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBTErrors.sol": {
