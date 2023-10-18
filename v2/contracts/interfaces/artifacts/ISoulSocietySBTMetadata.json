@@ -55,7 +55,9 @@
 			"isProtected(address)": "ce35de95",
 			"mint(address,uint256)": "40c10f19",
 			"name()": "06fdde03",
+			"reset(address,uint256)": "9b252852",
 			"setProtected(address,bool)": "8a7f997c",
+			"setTokenURI(string)": "e0df5b6f",
 			"symbol()": "95d89b41",
 			"tokenOfOwnerByIndex(address,uint256)": "2f745c59",
 			"tokenURI(uint256)": "c87b56dd",
@@ -118,6 +120,25 @@
 				}
 			],
 			"name": "Mint",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": true,
+					"internalType": "address",
+					"name": "to",
+					"type": "address"
+				},
+				{
+					"indexed": true,
+					"internalType": "uint256",
+					"name": "tokenId",
+					"type": "uint256"
+				}
+			],
+			"name": "Reset",
 			"type": "event"
 		},
 		{
@@ -246,6 +267,24 @@
 					"type": "address"
 				},
 				{
+					"internalType": "uint256",
+					"name": "tokenId",
+					"type": "uint256"
+				}
+			],
+			"name": "reset",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "to",
+					"type": "address"
+				},
+				{
 					"internalType": "bool",
 					"name": "isProtected",
 					"type": "bool"
@@ -257,6 +296,25 @@
 					"internalType": "bool",
 					"name": "",
 					"type": "bool"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "string",
+					"name": "tokenURI",
+					"type": "string"
+				}
+			],
+			"name": "setTokenURI",
+			"outputs": [
+				{
+					"internalType": "string",
+					"name": "",
+					"type": "string"
 				}
 			],
 			"stateMutability": "nonpayable",

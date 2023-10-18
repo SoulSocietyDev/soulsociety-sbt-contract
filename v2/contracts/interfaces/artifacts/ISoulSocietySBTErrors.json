@@ -146,6 +146,17 @@
 		{
 			"inputs": [
 				{
+					"internalType": "string",
+					"name": "message",
+					"type": "string"
+				}
+			],
+			"name": "SoulSocietySBTNotSupported",
+			"type": "error"
+		},
+		{
+			"inputs": [
+				{
 					"internalType": "address",
 					"name": "owner",
 					"type": "address"

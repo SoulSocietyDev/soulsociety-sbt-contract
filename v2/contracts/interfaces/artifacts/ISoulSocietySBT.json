@@ -49,13 +49,13 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
-			"burn(address,uint256)": "9dc29fac",
 			"getGrowth(uint256)": "51c18e0c",
 			"getTokenType(uint256)": "76aed2e1",
 			"growUp(address,uint256)": "be37e907",
 			"isProtected(address)": "ce35de95",
 			"mint(address,uint256)": "40c10f19",
-			"setProtected(address,bool)": "8a7f997c",
+			"reset(address,uint256)": "9b252852",
+			"setProtected(bool)": "1c02bc31",
 			"setTokenURI(string)": "e0df5b6f",
 			"tokenOfOwnerByIndex(address,uint256)": "2f745c59",
 			"totalSupply()": "18160ddd",
@@ -69,17 +69,35 @@
 				{
 					"indexed": true,
 					"internalType": "address",
-					"name": "to",
+					"name": "creator",
 					"type": "address"
 				},
 				{
-					"indexed": true,
+					"indexed": false,
 					"internalType": "uint256",
-					"name": "tokenId",
+					"name": "creationTime",
 					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"internalType": "string",
+					"name": "name",
+					"type": "string"
+				},
+				{
+					"indexed": false,
+					"internalType": "string",
+					"name": "symbol",
+					"type": "string"
+				},
+				{
+					"indexed": false,
+					"internalType": "string",
+					"name": "uri",
+					"type": "string"
 				}
 			],
-			"name": "Burn",
+			"name": "ContractCreated",
 			"type": "event"
 		},
 		{
@@ -139,22 +157,42 @@
 			"type": "event"
 		},
 		{
+			"anonymous": false,
 			"inputs": [
 				{
+					"indexed": true,
 					"internalType": "address",
 					"name": "to",
 					"type": "address"
 				},
 				{
+					"indexed": true,
 					"internalType": "uint256",
 					"name": "tokenId",
 					"type": "uint256"
 				}
 			],
-			"name": "burn",
-			"outputs": [],
-			"stateMutability": "nonpayable",
-			"type": "function"
+			"name": "Reset",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": true,
+					"internalType": "address",
+					"name": "sender",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"internalType": "string",
+					"name": "uri",
+					"type": "string"
+				}
+			],
+			"name": "SetTokenURI",
+			"type": "event"
 		},
 		{
 			"inputs": [
@@ -268,6 +306,19 @@
 					"name": "to",
 					"type": "address"
 				},
+				{
+					"internalType": "uint256",
+					"name": "tokenId",
+					"type": "uint256"
+				}
+			],
+			"name": "reset",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
 				{
 					"internalType": "bool",
 					"name": "isProtected",

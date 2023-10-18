@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.21+commit.d9974bed"
+		"version": "0.8.20+commit.a1b79de6"
 	},
 	"language": "Solidity",
 	"output": {
@@ -100,6 +100,17 @@
 			{
 				"inputs": [
 					{
+						"internalType": "string",
+						"name": "message",
+						"type": "string"
+					}
+				],
+				"name": "SoulSocietySBTNotSupported",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "owner",
 						"type": "address"
@@ -191,11 +202,11 @@
 	},
 	"sources": {
 		"v2/contracts/interfaces/ISoulSocietySBTErrors.sol": {
-			"keccak256": "0xb18226efd59b20eddc0b0b8986ad06dc0381df2cdb2c5fd2bdba8bc510795951",
+			"keccak256": "0x7afc72b7a710054ce9707a0e09584c90a3f4ff038cec12d37ded1850320067e2",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3d4f7f7cc13c805cc13737ae90b2da2e25f3f0d3c99cf4696de1cdeebe319a94",
-				"dweb:/ipfs/QmcvHLyXWHK3ZvQVD7VTBmRqBVvbxZtRfL6PysCFz274yE"
+				"bzz-raw://59237520dd6a7ebc6857e8d717993b9546c9a6dbf734ddd57e19b6e6fb23b2c4",
+				"dweb:/ipfs/QmNpbyg9fFUbWoVfgrCAWvWywRbLfJnsGNgVnFwHQspiKY"
 			]
 		}
 	},

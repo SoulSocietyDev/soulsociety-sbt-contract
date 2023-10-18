@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.21+commit.d9974bed"
+		"version": "0.8.20+commit.a1b79de6"
 	},
 	"language": "Solidity",
 	"output": {
@@ -59,6 +59,25 @@
 					}
 				],
 				"name": "Mint",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "Reset",
 				"type": "event"
 			},
 			{
@@ -187,6 +206,24 @@
 						"type": "address"
 					},
 					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "reset",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
 						"internalType": "bool",
 						"name": "isProtected",
 						"type": "bool"
@@ -198,6 +235,25 @@
 						"internalType": "bool",
 						"name": "",
 						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "tokenURI",
+						"type": "string"
+					}
+				],
+				"name": "setTokenURI",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -340,19 +396,19 @@
 	},
 	"sources": {
 		"v2/contracts/interfaces/ISoulSocietySBT.sol": {
-			"keccak256": "0x22c0f47e6869040dc70fba414f512466f508e7aa125ecfc00fa62ec8c2c4940a",
+			"keccak256": "0x6d0a3d2d2e0dac822af35be26e3d1d6f72413d85df9f19b264f72f6b3f9f18b2",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b2fd2fbab4b788b34465a739147701746d922feec4ee81ae9b772390ae5d4d25",
-				"dweb:/ipfs/QmQ2xS5rjwSY2aXYq1FoaQGw9nc2BQ99YUZvr5NhHL9Kw5"
+				"bzz-raw://8f60b7846312461982560dac964ddefde6393a363c851d85d889d1a2d8b4a367",
+				"dweb:/ipfs/QmSb86KsfdoGyQ3M9DZiem1fJvwcDh96su9oiJEKzJ8e8P"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBTMetadata.sol": {
-			"keccak256": "0x782d55e6591eba89fcd6a137d4d547099b6c2818bafc2d09d6c31282b0109074",
+			"keccak256": "0x23118f3ea0f1bba729b85324e2513794f831b2bc49f215368260717b611b1d78",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://81ef18ecc09506d158449080593f909bd26b1fdb12870d92ae7faaf79e2d5fff",
-				"dweb:/ipfs/QmR6VA58axto6UAvAJcJrgpiMyMz2m6SvmdiSX665ehaD9"
+				"bzz-raw://63dddbdebe49b44a3890dabbdd440746f535781f04166e226d7bd91c51bc184d",
+				"dweb:/ipfs/QmenoR99NCd949pXwAaRKTYo6JTKvk6a3Ju2onynTiHuxy"
 			]
 		}
 	},

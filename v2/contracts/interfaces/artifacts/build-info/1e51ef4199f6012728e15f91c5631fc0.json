@@ -1,13 +1,13 @@
 {
-	"id": "fb6f084fd6ee1b7316a4446d5ea9d4ca",
+	"id": "1e51ef4199f6012728e15f91c5631fc0",
 	"_format": "hh-sol-build-info-1",
-	"solcVersion": "0.8.21",
-	"solcLongVersion": "0.8.21+commit.d9974bed",
+	"solcVersion": "0.8.20",
+	"solcLongVersion": "0.8.20+commit.a1b79de6",
 	"input": {
 		"language": "Solidity",
 		"sources": {
 			"v2/contracts/interfaces/ISoulSocietySBTErrors.sol": {
-				"content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.19;\n\n/**\n * @dev Standard SoulSocietySBT.sol Errors\n * Interface of the ERC6093 custom errors for ERC721 tokens\n * as defined in https://eips.ethereum.org/EIPS/eip-6093\n */\n\ninterface ISoulSocietySBTErrors {\n\n    /*\n     * @dev Indicates that an address can't be an owner. For example, `address(0)` is a forbidden owner in EIP-20.\n     * @Used in balance queries.\n     * @param owner Address of the current owner of a token.\n     */\n    error SoulSocietySBTInvalidOwner(address to);\n\n    /**\n     * @dev Indicates a `tokenId` whose `owner` is the zero address.\n     * @param tokenId Identifier number of a token.\n     */\n    error SoulSocietySBTNonexistentToken(uint256 tokenId);\n\n    /**\n     * @dev Indicates an error related to the ownership over a particular token. Used in transfers.\n     * @param sender Address whose tokens are being transferred.\n     * @param tokenId Identifier number of a token.\n     * @param owner Address of the current owner of a token.\n     */\n    error SoulSocietySBTIncorrectOwner(address sender, uint256 tokenId, address owner);\n\n    /**\n     * @dev Indicates an error related to the ownership over a particular token.\n     * @param owner Address of the current owner of a token.\n     * @param to Address whose SBT token are being used.\n     */\n    error SoulSocietySBTNotOwner(address owner, address to);\n\n    /*\n     * @dev Indicates a failure with the tokenId. Used in transfers.\n     * @param tokedId to check\n     */\n    error SoulSocietySBTExistToken(uint256 tokenId);\n\n    /**\n     * @dev Indicates a failure with the token `sender`. Used in transfers.\n     * @param sender Address whose tokens are being transferred.\n     */\n    error SoulSocietySBTInvalidSender(address sender);\n\n    /**\n     * @dev Indicates a failure with the token `receiver`. Used in transfers.\n     * @param receiver Address to which tokens are being transferred.\n     */\n    error SoulSocietySBTInvalidReceiver(address receiver);\n\n\n    /**\n     * @dev Indicates protected status. Used in token.\n     * @param owner Address.\n     */\n    error SoulSocietySBTProtectedOwner(address owner);\n\n//    /**\n//     * @dev Indicates a failure with the `operator`’s approval. Used in transfers.\n//     * @param operator Address that may be allowed to operate on tokens without being their owner.\n//     * @param tokenId Identifier number of a token.\n//     */\n//    error ERC721InsufficientApproval(address operator, uint256 tokenId);\n//\n//    /**\n//     * @dev Indicates a failure with the `approver` of a token to be approved. Used in approvals.\n//     * @param approver Address initiating an approval operation.\n//     */\n//    error ERC721InvalidApprover(address approver);\n//\n//    /**\n//     * @dev Indicates a failure with the `operator` to be approved. Used in approvals.\n//     * @param operator Address that may be allowed to operate on tokens without being their owner.\n//     */\n//    error ERC721InvalidOperator(address operator);\n}\n"
+				"content": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.20;\n\n/**\n * @dev Standard SoulSocietySBT.sol Errors\n * Interface of the ERC6093 custom errors for ERC721 tokens\n * as defined in https://eips.ethereum.org/EIPS/eip-6093\n */\n\ninterface ISoulSocietySBTErrors {\n\n    /*\n     * @dev Indicates that an address can't be an owner. For example, `address(0)` is a forbidden owner in EIP-20.\n     * @Used in balance queries.\n     * @param owner Address of the current owner of a token.\n     */\n    error SoulSocietySBTInvalidOwner(address to);\n\n    /**\n     * @dev Indicates a `tokenId` whose `owner` is the zero address.\n     * @param tokenId Identifier number of a token.\n     */\n    error SoulSocietySBTNonexistentToken(uint256 tokenId);\n\n    /**\n     * @dev Indicates an error related to the ownership over a particular token. Used in transfers.\n     * @param sender Address whose tokens are being transferred.\n     * @param tokenId Identifier number of a token.\n     * @param owner Address of the current owner of a token.\n     */\n    error SoulSocietySBTIncorrectOwner(address sender, uint256 tokenId, address owner);\n\n    /**\n     * @dev Indicates an error related to the ownership over a particular token.\n     * @param owner Address of the current owner of a token.\n     * @param to Address whose SBT token are being used.\n     */\n    error SoulSocietySBTNotOwner(address owner, address to);\n\n    /*\n     * @dev Indicates a failure with the tokenId. Used in transfers.\n     * @param tokedId to check\n     */\n    error SoulSocietySBTExistToken(uint256 tokenId);\n\n    /**\n     * @dev Indicates a failure with the token `sender`. Used in transfers.\n     * @param sender Address whose tokens are being transferred.\n     */\n    error SoulSocietySBTInvalidSender(address sender);\n\n    /**\n     * @dev Indicates a failure with the token `receiver`. Used in transfers.\n     * @param receiver Address to which tokens are being transferred.\n     */\n    error SoulSocietySBTInvalidReceiver(address receiver);\n\n\n    /**\n     * @dev Indicates protected status. Used in token.\n     * @param owner Address.\n     */\n    error SoulSocietySBTProtectedOwner(address owner);\n\n\n    error SoulSocietySBTNotSupported(string message);\n//    /**\n//     * @dev Indicates a failure with the `operator`’s approval. Used in transfers.\n//     * @param operator Address that may be allowed to operate on tokens without being their owner.\n//     * @param tokenId Identifier number of a token.\n//     */\n//    error ERC721InsufficientApproval(address operator, uint256 tokenId);\n//\n//    /**\n//     * @dev Indicates a failure with the `approver` of a token to be approved. Used in approvals.\n//     * @param approver Address initiating an approval operation.\n//     */\n//    error ERC721InvalidApprover(address approver);\n//\n//    /**\n//     * @dev Indicates a failure with the `operator` to be approved. Used in approvals.\n//     * @param operator Address that may be allowed to operate on tokens without being their owner.\n//     */\n//    error ERC721InvalidOperator(address operator);\n}\n"
 			}
 		},
 		"settings": {
@@ -137,6 +137,17 @@
 						{
 							"inputs": [
 								{
+									"internalType": "string",
+									"name": "message",
+									"type": "string"
+								}
+							],
+							"name": "SoulSocietySBTNotSupported",
+							"type": "error"
+						},
+						{
+							"inputs": [
+								{
 									"internalType": "address",
 									"name": "owner",
 									"type": "address"
@@ -228,7 +239,7 @@
 						"legacyAssembly": null,
 						"methodIdentifiers": {}
 					},
-					"metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"SoulSocietySBTExistToken\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"SoulSocietySBTIncorrectOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"SoulSocietySBTInvalidOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"}],\"name\":\"SoulSocietySBTInvalidReceiver\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"SoulSocietySBTInvalidSender\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"SoulSocietySBTNonexistentToken\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"SoulSocietySBTNotOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"SoulSocietySBTProtectedOwner\",\"type\":\"error\"}],\"devdoc\":{\"details\":\"Standard SoulSocietySBT.sol Errors Interface of the ERC6093 custom errors for ERC721 tokens as defined in https://eips.ethereum.org/EIPS/eip-6093\",\"errors\":{\"SoulSocietySBTIncorrectOwner(address,uint256,address)\":[{\"details\":\"Indicates an error related to the ownership over a particular token. Used in transfers.\",\"params\":{\"owner\":\"Address of the current owner of a token.\",\"sender\":\"Address whose tokens are being transferred.\",\"tokenId\":\"Identifier number of a token.\"}}],\"SoulSocietySBTInvalidReceiver(address)\":[{\"details\":\"Indicates a failure with the token `receiver`. Used in transfers.\",\"params\":{\"receiver\":\"Address to which tokens are being transferred.\"}}],\"SoulSocietySBTInvalidSender(address)\":[{\"details\":\"Indicates a failure with the token `sender`. Used in transfers.\",\"params\":{\"sender\":\"Address whose tokens are being transferred.\"}}],\"SoulSocietySBTNonexistentToken(uint256)\":[{\"details\":\"Indicates a `tokenId` whose `owner` is the zero address.\",\"params\":{\"tokenId\":\"Identifier number of a token.\"}}],\"SoulSocietySBTNotOwner(address,address)\":[{\"details\":\"Indicates an error related to the ownership over a particular token.\",\"params\":{\"owner\":\"Address of the current owner of a token.\",\"to\":\"Address whose SBT token are being used.\"}}],\"SoulSocietySBTProtectedOwner(address)\":[{\"details\":\"Indicates protected status. Used in token.\",\"params\":{\"owner\":\"Address.\"}}]},\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"v2/contracts/interfaces/ISoulSocietySBTErrors.sol\":\"ISoulSocietySBTErrors\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"v2/contracts/interfaces/ISoulSocietySBTErrors.sol\":{\"keccak256\":\"0xb18226efd59b20eddc0b0b8986ad06dc0381df2cdb2c5fd2bdba8bc510795951\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://3d4f7f7cc13c805cc13737ae90b2da2e25f3f0d3c99cf4696de1cdeebe319a94\",\"dweb:/ipfs/QmcvHLyXWHK3ZvQVD7VTBmRqBVvbxZtRfL6PysCFz274yE\"]}},\"version\":1}",
+					"metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"SoulSocietySBTExistToken\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"SoulSocietySBTIncorrectOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"SoulSocietySBTInvalidOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"}],\"name\":\"SoulSocietySBTInvalidReceiver\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"SoulSocietySBTInvalidSender\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"SoulSocietySBTNonexistentToken\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"SoulSocietySBTNotOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"message\",\"type\":\"string\"}],\"name\":\"SoulSocietySBTNotSupported\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"SoulSocietySBTProtectedOwner\",\"type\":\"error\"}],\"devdoc\":{\"details\":\"Standard SoulSocietySBT.sol Errors Interface of the ERC6093 custom errors for ERC721 tokens as defined in https://eips.ethereum.org/EIPS/eip-6093\",\"errors\":{\"SoulSocietySBTIncorrectOwner(address,uint256,address)\":[{\"details\":\"Indicates an error related to the ownership over a particular token. Used in transfers.\",\"params\":{\"owner\":\"Address of the current owner of a token.\",\"sender\":\"Address whose tokens are being transferred.\",\"tokenId\":\"Identifier number of a token.\"}}],\"SoulSocietySBTInvalidReceiver(address)\":[{\"details\":\"Indicates a failure with the token `receiver`. Used in transfers.\",\"params\":{\"receiver\":\"Address to which tokens are being transferred.\"}}],\"SoulSocietySBTInvalidSender(address)\":[{\"details\":\"Indicates a failure with the token `sender`. Used in transfers.\",\"params\":{\"sender\":\"Address whose tokens are being transferred.\"}}],\"SoulSocietySBTNonexistentToken(uint256)\":[{\"details\":\"Indicates a `tokenId` whose `owner` is the zero address.\",\"params\":{\"tokenId\":\"Identifier number of a token.\"}}],\"SoulSocietySBTNotOwner(address,address)\":[{\"details\":\"Indicates an error related to the ownership over a particular token.\",\"params\":{\"owner\":\"Address of the current owner of a token.\",\"to\":\"Address whose SBT token are being used.\"}}],\"SoulSocietySBTProtectedOwner(address)\":[{\"details\":\"Indicates protected status. Used in token.\",\"params\":{\"owner\":\"Address.\"}}]},\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"v2/contracts/interfaces/ISoulSocietySBTErrors.sol\":\"ISoulSocietySBTErrors\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"v2/contracts/interfaces/ISoulSocietySBTErrors.sol\":{\"keccak256\":\"0x7afc72b7a710054ce9707a0e09584c90a3f4ff038cec12d37ded1850320067e2\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://59237520dd6a7ebc6857e8d717993b9546c9a6dbf734ddd57e19b6e6fb23b2c4\",\"dweb:/ipfs/QmNpbyg9fFUbWoVfgrCAWvWywRbLfJnsGNgVnFwHQspiKY\"]}},\"version\":1}",
 					"storageLayout": {
 						"storage": [],
 						"types": null
@@ -247,10 +258,10 @@
 					"absolutePath": "v2/contracts/interfaces/ISoulSocietySBTErrors.sol",
 					"exportedSymbols": {
 						"ISoulSocietySBTErrors": [
-							47
+							51
 						]
 					},
-					"id": 48,
+					"id": 52,
 					"license": "MIT",
 					"nodeType": "SourceUnit",
 					"nodes": [
@@ -258,12 +269,11 @@
 							"id": 1,
 							"literals": [
 								"solidity",
-								"^",
 								"0.8",
-								".19"
+								".20"
 							],
 							"nodeType": "PragmaDirective",
-							"src": "32:24:0"
+							"src": "32:23:0"
 						},
 						{
 							"abstract": false,
@@ -274,23 +284,23 @@
 							"documentation": {
 								"id": 2,
 								"nodeType": "StructuredDocumentation",
-								"src": "58:167:0",
+								"src": "57:167:0",
 								"text": " @dev Standard SoulSocietySBT.sol Errors\n Interface of the ERC6093 custom errors for ERC721 tokens\n as defined in https://eips.ethereum.org/EIPS/eip-6093"
 							},
 							"fullyImplemented": true,
-							"id": 47,
+							"id": 51,
 							"linearizedBaseContracts": [
-								47
+								51
 							],
 							"name": "ISoulSocietySBTErrors",
-							"nameLocation": "237:21:0",
+							"nameLocation": "236:21:0",
 							"nodeType": "ContractDefinition",
 							"nodes": [
 								{
 									"errorSelector": "50159299",
 									"id": 6,
 									"name": "SoulSocietySBTInvalidOwner",
-									"nameLocation": "496:26:0",
+									"nameLocation": "495:26:0",
 									"nodeType": "ErrorDefinition",
 									"parameters": {
 										"id": 5,
@@ -301,10 +311,10 @@
 												"id": 4,
 												"mutability": "mutable",
 												"name": "to",
-												"nameLocation": "531:2:0",
+												"nameLocation": "530:2:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 6,
-												"src": "523:10:0",
+												"src": "522:10:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -315,7 +325,7 @@
 													"id": 3,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "523:7:0",
+													"src": "522:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -325,21 +335,21 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "522:12:0"
+										"src": "521:12:0"
 									},
-									"src": "490:45:0"
+									"src": "489:45:0"
 								},
 								{
 									"documentation": {
 										"id": 7,
 										"nodeType": "StructuredDocumentation",
-										"src": "541:132:0",
+										"src": "540:132:0",
 										"text": " @dev Indicates a `tokenId` whose `owner` is the zero address.\n @param tokenId Identifier number of a token."
 									},
 									"errorSelector": "24476a3f",
 									"id": 11,
 									"name": "SoulSocietySBTNonexistentToken",
-									"nameLocation": "684:30:0",
+									"nameLocation": "683:30:0",
 									"nodeType": "ErrorDefinition",
 									"parameters": {
 										"id": 10,
@@ -350,10 +360,10 @@
 												"id": 9,
 												"mutability": "mutable",
 												"name": "tokenId",
-												"nameLocation": "723:7:0",
+												"nameLocation": "722:7:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 11,
-												"src": "715:15:0",
+												"src": "714:15:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -364,7 +374,7 @@
 													"id": 8,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "715:7:0",
+													"src": "714:7:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -373,21 +383,21 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "714:17:0"
+										"src": "713:17:0"
 									},
-									"src": "678:54:0"
+									"src": "677:54:0"
 								},
 								{
 									"documentation": {
 										"id": 12,
 										"nodeType": "StructuredDocumentation",
-										"src": "738:289:0",
+										"src": "737:289:0",
 										"text": " @dev Indicates an error related to the ownership over a particular token. Used in transfers.\n @param sender Address whose tokens are being transferred.\n @param tokenId Identifier number of a token.\n @param owner Address of the current owner of a token."
 									},
 									"errorSelector": "b6df41e6",
 									"id": 20,
 									"name": "SoulSocietySBTIncorrectOwner",
-									"nameLocation": "1038:28:0",
+									"nameLocation": "1037:28:0",
 									"nodeType": "ErrorDefinition",
 									"parameters": {
 										"id": 19,
@@ -398,10 +408,10 @@
 												"id": 14,
 												"mutability": "mutable",
 												"name": "sender",
-												"nameLocation": "1075:6:0",
+												"nameLocation": "1074:6:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 20,
-												"src": "1067:14:0",
+												"src": "1066:14:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -412,7 +422,7 @@
 													"id": 13,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "1067:7:0",
+													"src": "1066:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -426,10 +436,10 @@
 												"id": 16,
 												"mutability": "mutable",
 												"name": "tokenId",
-												"nameLocation": "1091:7:0",
+												"nameLocation": "1090:7:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 20,
-												"src": "1083:15:0",
+												"src": "1082:15:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -440,7 +450,7 @@
 													"id": 15,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "1083:7:0",
+													"src": "1082:7:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -453,10 +463,10 @@
 												"id": 18,
 												"mutability": "mutable",
 												"name": "owner",
-												"nameLocation": "1108:5:0",
+												"nameLocation": "1107:5:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 20,
-												"src": "1100:13:0",
+												"src": "1099:13:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -467,7 +477,7 @@
 													"id": 17,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "1100:7:0",
+													"src": "1099:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -477,21 +487,21 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "1066:48:0"
+										"src": "1065:48:0"
 									},
-									"src": "1032:83:0"
+									"src": "1031:83:0"
 								},
 								{
 									"documentation": {
 										"id": 21,
 										"nodeType": "StructuredDocumentation",
-										"src": "1121:210:0",
+										"src": "1120:210:0",
 										"text": " @dev Indicates an error related to the ownership over a particular token.\n @param owner Address of the current owner of a token.\n @param to Address whose SBT token are being used."
 									},
 									"errorSelector": "d4ea4ebc",
 									"id": 27,
 									"name": "SoulSocietySBTNotOwner",
-									"nameLocation": "1342:22:0",
+									"nameLocation": "1341:22:0",
 									"nodeType": "ErrorDefinition",
 									"parameters": {
 										"id": 26,
@@ -502,10 +512,10 @@
 												"id": 23,
 												"mutability": "mutable",
 												"name": "owner",
-												"nameLocation": "1373:5:0",
+												"nameLocation": "1372:5:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 27,
-												"src": "1365:13:0",
+												"src": "1364:13:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -516,7 +526,7 @@
 													"id": 22,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "1365:7:0",
+													"src": "1364:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -530,10 +540,10 @@
 												"id": 25,
 												"mutability": "mutable",
 												"name": "to",
-												"nameLocation": "1388:2:0",
+												"nameLocation": "1387:2:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 27,
-												"src": "1380:10:0",
+												"src": "1379:10:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -544,7 +554,7 @@
 													"id": 24,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "1380:7:0",
+													"src": "1379:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -554,15 +564,15 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "1364:27:0"
+										"src": "1363:27:0"
 									},
-									"src": "1336:56:0"
+									"src": "1335:56:0"
 								},
 								{
 									"errorSelector": "f342bdc2",
 									"id": 31,
 									"name": "SoulSocietySBTExistToken",
-									"nameLocation": "1519:24:0",
+									"nameLocation": "1518:24:0",
 									"nodeType": "ErrorDefinition",
 									"parameters": {
 										"id": 30,
@@ -573,10 +583,10 @@
 												"id": 29,
 												"mutability": "mutable",
 												"name": "tokenId",
-												"nameLocation": "1552:7:0",
+												"nameLocation": "1551:7:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 31,
-												"src": "1544:15:0",
+												"src": "1543:15:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -587,7 +597,7 @@
 													"id": 28,
 													"name": "uint256",
 													"nodeType": "ElementaryTypeName",
-													"src": "1544:7:0",
+													"src": "1543:7:0",
 													"typeDescriptions": {
 														"typeIdentifier": "t_uint256",
 														"typeString": "uint256"
@@ -596,21 +606,21 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "1543:17:0"
+										"src": "1542:17:0"
 									},
-									"src": "1513:48:0"
+									"src": "1512:48:0"
 								},
 								{
 									"documentation": {
 										"id": 32,
 										"nodeType": "StructuredDocumentation",
-										"src": "1567:152:0",
+										"src": "1566:152:0",
 										"text": " @dev Indicates a failure with the token `sender`. Used in transfers.\n @param sender Address whose tokens are being transferred."
 									},
 									"errorSelector": "96223487",
 									"id": 36,
 									"name": "SoulSocietySBTInvalidSender",
-									"nameLocation": "1730:27:0",
+									"nameLocation": "1729:27:0",
 									"nodeType": "ErrorDefinition",
 									"parameters": {
 										"id": 35,
@@ -621,10 +631,10 @@
 												"id": 34,
 												"mutability": "mutable",
 												"name": "sender",
-												"nameLocation": "1766:6:0",
+												"nameLocation": "1765:6:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 36,
-												"src": "1758:14:0",
+												"src": "1757:14:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -635,7 +645,7 @@
 													"id": 33,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "1758:7:0",
+													"src": "1757:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -645,21 +655,21 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "1757:16:0"
+										"src": "1756:16:0"
 									},
-									"src": "1724:50:0"
+									"src": "1723:50:0"
 								},
 								{
 									"documentation": {
 										"id": 37,
 										"nodeType": "StructuredDocumentation",
-										"src": "1780:159:0",
+										"src": "1779:159:0",
 										"text": " @dev Indicates a failure with the token `receiver`. Used in transfers.\n @param receiver Address to which tokens are being transferred."
 									},
 									"errorSelector": "74f5e87d",
 									"id": 41,
 									"name": "SoulSocietySBTInvalidReceiver",
-									"nameLocation": "1950:29:0",
+									"nameLocation": "1949:29:0",
 									"nodeType": "ErrorDefinition",
 									"parameters": {
 										"id": 40,
@@ -670,10 +680,10 @@
 												"id": 39,
 												"mutability": "mutable",
 												"name": "receiver",
-												"nameLocation": "1988:8:0",
+												"nameLocation": "1987:8:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 41,
-												"src": "1980:16:0",
+												"src": "1979:16:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -684,7 +694,7 @@
 													"id": 38,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "1980:7:0",
+													"src": "1979:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -694,21 +704,21 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "1979:18:0"
+										"src": "1978:18:0"
 									},
-									"src": "1944:54:0"
+									"src": "1943:54:0"
 								},
 								{
 									"documentation": {
 										"id": 42,
 										"nodeType": "StructuredDocumentation",
-										"src": "2005:95:0",
+										"src": "2004:95:0",
 										"text": " @dev Indicates protected status. Used in token.\n @param owner Address."
 									},
 									"errorSelector": "904e928b",
 									"id": 46,
 									"name": "SoulSocietySBTProtectedOwner",
-									"nameLocation": "2111:28:0",
+									"nameLocation": "2110:28:0",
 									"nodeType": "ErrorDefinition",
 									"parameters": {
 										"id": 45,
@@ -719,10 +729,10 @@
 												"id": 44,
 												"mutability": "mutable",
 												"name": "owner",
-												"nameLocation": "2148:5:0",
+												"nameLocation": "2147:5:0",
 												"nodeType": "VariableDeclaration",
 												"scope": 46,
-												"src": "2140:13:0",
+												"src": "2139:13:0",
 												"stateVariable": false,
 												"storageLocation": "default",
 												"typeDescriptions": {
@@ -733,7 +743,7 @@
 													"id": 43,
 													"name": "address",
 													"nodeType": "ElementaryTypeName",
-													"src": "2140:7:0",
+													"src": "2139:7:0",
 													"stateMutability": "nonpayable",
 													"typeDescriptions": {
 														"typeIdentifier": "t_address",
@@ -743,13 +753,55 @@
 												"visibility": "internal"
 											}
 										],
-										"src": "2139:15:0"
+										"src": "2138:15:0"
 									},
-									"src": "2105:50:0"
+									"src": "2104:50:0"
+								},
+								{
+									"errorSelector": "9fc6e758",
+									"id": 50,
+									"name": "SoulSocietySBTNotSupported",
+									"nameLocation": "2167:26:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 49,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 48,
+												"mutability": "mutable",
+												"name": "message",
+												"nameLocation": "2201:7:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 50,
+												"src": "2194:14:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_string_memory_ptr",
+													"typeString": "string"
+												},
+												"typeName": {
+													"id": 47,
+													"name": "string",
+													"nodeType": "ElementaryTypeName",
+													"src": "2194:6:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_string_storage_ptr",
+														"typeString": "string"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "2193:16:0"
+									},
+									"src": "2161:49:0"
 								}
 							],
-							"scope": 48,
-							"src": "227:2777:0",
+							"scope": 52,
+							"src": "226:2832:0",
 							"usedErrors": [
 								6,
 								11,
@@ -758,12 +810,13 @@
 								31,
 								36,
 								41,
-								46
+								46,
+								50
 							],
 							"usedEvents": []
 						}
 					],
-					"src": "32:2973:0"
+					"src": "32:3027:0"
 				},
 				"id": 0
 			}

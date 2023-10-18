@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.21+commit.d9974bed"
+		"version": "0.8.19+commit.7dd6d404"
 	},
 	"language": "Solidity",
 	"output": {
@@ -62,23 +62,23 @@
 				"type": "event"
 			},
 			{
+				"anonymous": false,
 				"inputs": [
 					{
+						"indexed": true,
 						"internalType": "address",
-						"name": "owner",
+						"name": "to",
 						"type": "address"
-					}
-				],
-				"name": "balanceOf",
-				"outputs": [
+					},
 					{
+						"indexed": true,
 						"internalType": "uint256",
-						"name": "balance",
+						"name": "tokenId",
 						"type": "uint256"
 					}
 				],
-				"stateMutability": "view",
-				"type": "function"
+				"name": "Reset",
+				"type": "event"
 			},
 			{
 				"inputs": [
@@ -89,6 +89,25 @@
 					}
 				],
 				"name": "getGrowth",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "tokenId_",
+						"type": "uint256"
+					}
+				],
+				"name": "getTokenType",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -121,30 +140,6 @@
 					}
 				],
 				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "growthDate",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -193,20 +188,19 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
 						"internalType": "uint256",
 						"name": "tokenId",
 						"type": "uint256"
 					}
 				],
-				"name": "ownerOf",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "owner",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
+				"name": "reset",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -237,7 +231,7 @@
 				"inputs": [
 					{
 						"internalType": "string",
-						"name": "",
+						"name": "tokenURI",
 						"type": "string"
 					}
 				],
@@ -253,13 +247,56 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "tokenURI",
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "tokenByIndex",
 				"outputs": [
 					{
-						"internalType": "string",
+						"internalType": "uint256",
 						"name": "",
-						"type": "string"
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "tokenOfOwnerByIndex",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalSupply",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -287,14 +324,17 @@
 			},
 			"kind": "dev",
 			"methods": {
-				"balanceOf(address)": {
-					"details": "Returns the number of tokens in ``owner``'s account."
-				},
 				"mint(address,uint256)": {
 					"details": "Transfers `tokenId` token from `from` to `to`. WARNING: Note that the caller is responsible to confirm that the recipient is capable of receiving ERC721 or else they may be permanently lost. Usage of {safeTransferFrom} prevents loss, though the caller must understand this adds an external call which potentially creates a reentrancy vulnerability. Requirements: - `from` cannot be the zero address. - `to` cannot be the zero address. - `tokenId` token must be owned by `from`. - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}. Emits a {Transfer} event."
 				},
-				"ownerOf(uint256)": {
-					"details": "Returns the owner of the `tokenId` token. Requirements: - `tokenId` must exist."
+				"tokenByIndex(uint256)": {
+					"details": "Returns a token ID at a given `index` of all the tokens stored by the contract. Use along with {totalSupply} to enumerate all tokens."
+				},
+				"tokenOfOwnerByIndex(address,uint256)": {
+					"details": "Returns a token ID owned by `owner` at a given `index` of its token list. Use along with {balanceOf} to enumerate all of ``owner``'s tokens."
+				},
+				"totalSupply()": {
+					"details": "Returns the total amount of tokens stored by the contract."
 				}
 			},
 			"title": "Lightweight Growth type SBT interface developed by SoulSociety",
@@ -311,7 +351,7 @@
 		"compilationTarget": {
 			"v2/contracts/interfaces/ISoulSocietyEnumerableSBT.sol": "ISoulSocietyEnumableSBT"
 		},
-		"evmVersion": "shanghai",
+		"evmVersion": "paris",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -324,19 +364,19 @@
 	},
 	"sources": {
 		"v2/contracts/interfaces/ISoulSocietyEnumerableSBT.sol": {
-			"keccak256": "0x921e053499db71701b8004179f6e526c60a0876c553afb31cf9423da4def8de1",
+			"keccak256": "0xfa74e2503598833fd93d221515c799bdea7fd35164922bc3a27d56d82250818b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://14dd0b42403d2f90dd5e5f30aac4fbbb3b64ee4dfdce2608a500ad409570491e",
-				"dweb:/ipfs/QmPxbfix9yRh4nv8xpZP3KHmwvuWeZj3VK7S3ZSuniZCwL"
+				"bzz-raw://bc2dd9f5167c2c56d55a5a31f1789ef37232c7cd44b70797095b888ea1e9665a",
+				"dweb:/ipfs/QmPYdkDJhrormWaxARamJViKdhSmLfapyvHFbqy6VRdsNd"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBT.sol": {
-			"keccak256": "0xeea90d1c207828ef78f2fcf953fdc283df0188c07e4962fe8fa9390d9ad6aa02",
+			"keccak256": "0x0cb66f0a7457aa464ed46703ed5dfb80aaf79e7c63bb54405002ea13ab6afe39",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7f824c6f08df9992085497a1d0e7632b28e8267232cef6267818977ffeb22e2e",
-				"dweb:/ipfs/QmRddKaRJ9oNrRNWQG8a8Wo7JgBJ56yE9CAD1Pp3Zeo4eC"
+				"bzz-raw://2b08aa8e9efe8fc9944d175d35d04b537e262002b9e0ef0340da793abc94fe1a",
+				"dweb:/ipfs/QmQgGg6BwhV4vT9fhX37aodWMgckd8hbfqR463SsCFsWZ5"
 			]
 		}
 	},

@@ -1,22 +1,12 @@
 {
 	"compiler": {
-		"version": "0.8.21+commit.d9974bed"
+		"version": "0.8.20+commit.a1b79de6"
 	},
 	"language": "Solidity",
 	"output": {
 		"abi": [
 			{
 				"inputs": [
-					{
-						"internalType": "string",
-						"name": "name_",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "symbol_",
-						"type": "string"
-					},
 					{
 						"internalType": "string",
 						"name": "uri_",
@@ -196,17 +186,35 @@
 					{
 						"indexed": true,
 						"internalType": "address",
-						"name": "to",
+						"name": "creator",
 						"type": "address"
 					},
 					{
-						"indexed": true,
+						"indexed": false,
 						"internalType": "uint256",
-						"name": "tokenId",
+						"name": "creationTime",
 						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "symbol",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "uri",
+						"type": "string"
 					}
 				],
-				"name": "Burn",
+				"name": "ContractCreated",
 				"type": "event"
 			},
 			{
@@ -290,6 +298,44 @@
 					{
 						"indexed": true,
 						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "Reset",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "uri",
+						"type": "string"
+					}
+				],
+				"name": "SetTokenURI",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
 						"name": "from",
 						"type": "address"
 					},
@@ -344,24 +390,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "to_",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "tokenId_",
-						"type": "uint256"
-					}
-				],
-				"name": "burn",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -587,6 +615,24 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "to_",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tokenId_",
+						"type": "uint256"
+					}
+				],
+				"name": "reset",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "",
 						"type": "address"
 					},
@@ -654,11 +700,6 @@
 			},
 			{
 				"inputs": [
-					{
-						"internalType": "address",
-						"name": "to_",
-						"type": "address"
-					},
 					{
 						"internalType": "bool",
 						"name": "isProtected_",
@@ -958,7 +999,7 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
@@ -978,6 +1019,14 @@
 			"urls": [
 				"bzz-raw://7e66dfde185df46104c11bc89d08fa0760737aa59a2b8546a656473d810a8ea4",
 				"dweb:/ipfs/QmXvyqtXPaPss2PD7eqPoSao5Szm2n6UMoiG8TZZDjmChR"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol": {
+			"keccak256": "0x7f7a26306c79a65fb8b3b6c757cd74660c532cd8a02e165488e30027dd34ca49",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://d01e0b2b837ee2f628545e54d8715b49c7ef2befd08356c2e7f6c50dde8a1c22",
+				"dweb:/ipfs/QmWBAn6y2D1xgftci97Z3qR9tQnkvwQpYwFwkTvDMvqU4i"
 			]
 		},
 		"@openzeppelin/contracts/utils/Context.sol": {
@@ -1029,43 +1078,43 @@
 			]
 		},
 		"v2/contracts/SoulSocietySBT.sol": {
-			"keccak256": "0x4e36a1901a6bb4b312f879791610dee41a0a396534ef97cc8ddbe87969129d0b",
+			"keccak256": "0x7dfeddb631d433a16f862b8c4c3a44a31303778febefd29004938c82c95ee2e4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://e3f63799bd46ad564f82e9290853ab247211782cff51f12b7e691167256a9c23",
-				"dweb:/ipfs/QmPfpKTXuit5tCBCfgXRKZrHXGwX4RUK9vzZnkzKzykFzr"
+				"bzz-raw://19f320bbc977c334a4dccf9e96c8a17acfe30689f2ac03bb486cdb46f6f78f39",
+				"dweb:/ipfs/Qmdp1XzSXhJ8sBg8DhqmvExk8N47JYrr53ap3DrnywhKes"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietyEnumerableSBT.sol": {
-			"keccak256": "0x8a3e1e19908f227b6c9ea604196ae268f7a6c974e86ac7023785e0e832606449",
+			"keccak256": "0x772348e26a827203c72dcf4e2edc4b801d90346f21725033c690d9fe96e02e77",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5c2d67ac4a36883da741a45ee82c7b85f63bdb42e4fed6f01235a3fd44de015a",
-				"dweb:/ipfs/QmVqij4Nb2Qq2VkBcpGGaB7JX8eXKHRq94mhFuLKpSbN2y"
+				"bzz-raw://a1ebde08178e11afb87e6467fe7682d2a9a6d0ff9300513118b41af1fc82f09e",
+				"dweb:/ipfs/Qmc65FPHc1beou6bjDXeQ5bKFvswsDGm8KtegkKPK3fHdV"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBT.sol": {
-			"keccak256": "0xecab5e90bb7858a5cde270ba0691158ab3a67bc2300d49852c5178e43fa27c63",
+			"keccak256": "0xb81f9ef1e4b599044b89b891575fb0bdf051226a1189da3744d46e7ef3a6f878",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9fff3c48f9280b404352761a6c78166f9e04cb7fe1e2ef6e6b3b47f9904dce24",
-				"dweb:/ipfs/QmWQRzuNuAUBBmH8MeuCbovb2BQ9cXFNE7bALtR2PypBn9"
+				"bzz-raw://85e612906da6fb3d1bc2bc5a138e081b7d4ec6dfea6e73ab34269a38340cc7d6",
+				"dweb:/ipfs/QmNUJ1NNYubWXXDEugFUP3YtGxNHLbBSYHN7X5DwhQmQh5"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBTErrors.sol": {
-			"keccak256": "0xc0f8d5bac62a57698fb94cc3a0868642718f245c8da5b7e64b541f7c2eef651c",
+			"keccak256": "0x7afc72b7a710054ce9707a0e09584c90a3f4ff038cec12d37ded1850320067e2",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9885f61310d60b038902a9c2035d3482216b9f80ebf7fdcf969f2a2b023904c5",
-				"dweb:/ipfs/Qmew5qsUpWdj6b25cw6MbQoyLeoJk16UDBrBDQCQTnScnJ"
+				"bzz-raw://59237520dd6a7ebc6857e8d717993b9546c9a6dbf734ddd57e19b6e6fb23b2c4",
+				"dweb:/ipfs/QmNpbyg9fFUbWoVfgrCAWvWywRbLfJnsGNgVnFwHQspiKY"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBTMetadata.sol": {
-			"keccak256": "0x782d55e6591eba89fcd6a137d4d547099b6c2818bafc2d09d6c31282b0109074",
+			"keccak256": "0x23118f3ea0f1bba729b85324e2513794f831b2bc49f215368260717b611b1d78",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://81ef18ecc09506d158449080593f909bd26b1fdb12870d92ae7faaf79e2d5fff",
-				"dweb:/ipfs/QmR6VA58axto6UAvAJcJrgpiMyMz2m6SvmdiSX665ehaD9"
+				"bzz-raw://63dddbdebe49b44a3890dabbdd440746f535781f04166e226d7bd91c51bc184d",
+				"dweb:/ipfs/QmenoR99NCd949pXwAaRKTYo6JTKvk6a3Ju2onynTiHuxy"
 			]
 		}
 	},

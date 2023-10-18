@@ -49,16 +49,17 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
-			"balanceOf(address)": "70a08231",
 			"getGrowth(uint256)": "51c18e0c",
+			"getTokenType(uint256)": "76aed2e1",
 			"growUp(address,uint256)": "be37e907",
-			"growthDate(address,uint256)": "fbfcbdd4",
 			"isProtected(address)": "ce35de95",
 			"mint(address,uint256)": "40c10f19",
-			"ownerOf(uint256)": "6352211e",
+			"reset(address,uint256)": "9b252852",
 			"setProtected(address,bool)": "8a7f997c",
 			"setTokenURI(string)": "e0df5b6f",
-			"tokenURI()": "3c130d90",
+			"tokenByIndex(uint256)": "4f6ccce7",
+			"tokenOfOwnerByIndex(address,uint256)": "2f745c59",
+			"totalSupply()": "18160ddd",
 			"totalUser()": "e1604b70"
 		}
 	},
@@ -120,23 +121,23 @@
 			"type": "event"
 		},
 		{
+			"anonymous": false,
 			"inputs": [
 				{
+					"indexed": true,
 					"internalType": "address",
-					"name": "owner",
+					"name": "to",
 					"type": "address"
-				}
-			],
-			"name": "balanceOf",
-			"outputs": [
+				},
 				{
+					"indexed": true,
 					"internalType": "uint256",
-					"name": "balance",
+					"name": "tokenId",
 					"type": "uint256"
 				}
 			],
-			"stateMutability": "view",
-			"type": "function"
+			"name": "Reset",
+			"type": "event"
 		},
 		{
 			"inputs": [
@@ -147,6 +148,25 @@
 				}
 			],
 			"name": "getGrowth",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "tokenId_",
+					"type": "uint256"
+				}
+			],
+			"name": "getTokenType",
 			"outputs": [
 				{
 					"internalType": "uint256",
@@ -179,30 +199,6 @@
 				}
 			],
 			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "address",
-					"name": "",
-					"type": "address"
-				},
-				{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}
-			],
-			"name": "growthDate",
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}
-			],
-			"stateMutability": "view",
 			"type": "function"
 		},
 		{
@@ -251,20 +247,19 @@
 		{
 			"inputs": [
 				{
+					"internalType": "address",
+					"name": "to",
+					"type": "address"
+				},
+				{
 					"internalType": "uint256",
 					"name": "tokenId",
 					"type": "uint256"
 				}
 			],
-			"name": "ownerOf",
-			"outputs": [
-				{
-					"internalType": "address",
-					"name": "owner",
-					"type": "address"
-				}
-			],
-			"stateMutability": "view",
+			"name": "reset",
+			"outputs": [],
+			"stateMutability": "nonpayable",
 			"type": "function"
 		},
 		{
@@ -295,7 +290,7 @@
 			"inputs": [
 				{
 					"internalType": "string",
-					"name": "",
+					"name": "tokenURI",
 					"type": "string"
 				}
 			],
@@ -311,13 +306,56 @@
 			"type": "function"
 		},
 		{
-			"inputs": [],
-			"name": "tokenURI",
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "index",
+					"type": "uint256"
+				}
+			],
+			"name": "tokenByIndex",
 			"outputs": [
 				{
-					"internalType": "string",
+					"internalType": "uint256",
 					"name": "",
-					"type": "string"
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "owner",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "index",
+					"type": "uint256"
+				}
+			],
+			"name": "tokenOfOwnerByIndex",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "totalSupply",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
 				}
 			],
 			"stateMutability": "view",

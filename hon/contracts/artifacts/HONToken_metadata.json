@@ -1,18 +1,12 @@
 {
 	"compiler": {
-		"version": "0.8.21+commit.d9974bed"
+		"version": "0.8.20+commit.a1b79de6"
 	},
 	"language": "Solidity",
 	"output": {
 		"abi": [
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "initialSupply",
-						"type": "uint256"
-					}
-				],
+				"inputs": [],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
 			},
@@ -494,11 +488,11 @@
 			]
 		},
 		"hon/contracts/HonContract.sol": {
-			"keccak256": "0x5a7db96b20454a9521baf2fdc42c0161cbb21cc929a3438e6ac42ad0302476d4",
+			"keccak256": "0xd43cee9b286f592019f08641de59cae25da91bed589edb51311f7774357bda58",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://916926be267818bd9a014438549c4b5778905c38442f80f933d528c599db0a60",
-				"dweb:/ipfs/QmUeEx7DACKh5yvRSCw9HLM4u7MzWK3yfJic6Uy7PVVSvR"
+				"bzz-raw://956d1b85f001bc60dcf4e57b977df5b1a4e36879f01a7d99b13ad9c6f5233ef1",
+				"dweb:/ipfs/QmTr37K53Ac8qHoGsTnwMyo1Wgo561zUrxwALsJWY9tZy9"
 			]
 		}
 	},

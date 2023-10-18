@@ -156,6 +156,8 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     }
 
     function _isProtectedTokenId(uint256 tokenId_) internal view {
+
+        
         // If tokenId doesn't exist,  don't need to check "protected status"
         if (!_exists(tokenId_)) {
             revert SoulSocietySBTNonexistentToken(tokenId_);
