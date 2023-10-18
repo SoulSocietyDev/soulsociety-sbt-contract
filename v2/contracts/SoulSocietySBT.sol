@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity 0.8.20;
 
 import "v2/contracts/interfaces/ISoulSocietyEnumerableSBT.sol";
 import "v2/contracts/interfaces/ISoulSocietySBTMetadata.sol";
 import "v2/contracts/interfaces/ISoulSocietySBTErrors.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {IERC165, ERC165} from "@openzeppelin/contracts/utils/introspection/ERC165.sol";
@@ -17,19 +18,19 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     using Strings for uint256;
 
     // token Name
-    string private _name;
+    string private constant _name = "HON SBT";
 
     // token Symbol
-    string private _symbol;
+    string private constant _symbol= "HSBT";
 
     // token Meta URI
     string private _uri;
 
     // The number of users who own SBT.
-    uint256 private _totalUser = 0;
+    uint256 private _totalUser;
 
     // Total number of SBT issued
-    uint256 private _totalCount = 0;
+    uint256 private _totalCount;
 
     // Mapping from SBT ID to owned address
     mapping(uint256 => address) private _owners;
@@ -49,13 +50,16 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     // Mapping from owner to list of owned token IDs
     mapping(address => mapping(uint256 => uint256)) private _ownedTokens;
 
-    // Mapping from owner to list of owned token Types, address , tokenType, tokenId
-    // mapping(address => mapping(uint256 => uint)) private _ownedTokenTypes;
+    // Mapping from owner to list of owned token tokenId, approvalUpdateGrowth
+    mapping(address => mapping(uint256 => bool)) private _approvalUpdateGrowth;
 
-    constructor(string memory name_, string memory symbol_, string memory uri_) {
-        _name = name_;
-        _symbol = symbol_;
+    // Mapping from owner to operator 
+    mapping(address => address) private _approvalOperator;
+
+    constructor(string memory uri_) {
         _uri = uri_;
+
+        emit ContractCreated(msg.sender,  block.timestamp, _name, _symbol, uri_);
     }
 
     /**
@@ -85,25 +89,19 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     /**
      * @dev Returns the Uniform Resource Identifier (URI) for `tokenId` token.
      */
-    function tokenURI(uint256 tokenId_) external view virtual  returns (string memory) {
-
-        // check minted 
-        _requireMinted(tokenId_);
-        
+    function tokenURI(uint256 tokenId_) external view virtual  returns (string memory) {    
         // check protected status 
         _isProtectedTokenId(tokenId_);
 
-        uint256 tokenType = _tokenTypes[tokenId_];
-
-        return string(abi.encodePacked(_uri,tokenId_.toString(),"?tokenType=", tokenType.toString()));
-        // return string.concat(_uri, tokenId_.toString());
+        return bytes(_uri).length > 0 ? string(abi.encodePacked(_uri, tokenId_.toString(), "?tokenType=", _tokenTypes[tokenId_])) : "";        
     }
-
 
     function setTokenURI(string memory tokenURI_) external onlyOwner returns(string memory) {
         _uri = tokenURI_;
-        return _uri;
 
+        emit SetTokenURI(msg.sender, tokenURI_);
+
+        return _uri;
     }
 
     function totalUser() public view  returns (uint256) {
@@ -124,14 +122,14 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     // ------------------------------------------------------------------------
     // Permission settings to check the view information of a token
     // ------------------------------------------------------------------------
-    function setProtected(address to_, bool isProtected_) public  returns (bool) {
-        if (msg.sender != to_) {
-            revert SoulSocietySBTInvalidOwner(to_);
+    function setProtected( bool isProtected_) public  returns (bool) {
+        if (!(_balanceOf(msg.sender) > 0)) {
+            revert SoulSocietySBTNonExist(msg.sender);
         }
 
-        _userProtects[to_] = isProtected_;
+        _userProtects[msg.sender] = isProtected_;
 
-        return getProtected(to_);
+        return getProtected(msg.sender);
     }
 
     function getProtected(address to_) public view returns(bool) {
@@ -156,8 +154,6 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     }
 
     function _isProtectedTokenId(uint256 tokenId_) internal view {
-
-        
         // If tokenId doesn't exist,  don't need to check "protected status"
         if (!_exists(tokenId_)) {
             revert SoulSocietySBTNonexistentToken(tokenId_);
@@ -166,6 +162,24 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
         _isProtected(_owners[tokenId_]);
     }
 
+    function setApprovalGrowth(uint256 tokenId_, bool approved_) external {
+        if (!(_balanceOf(msg.sender) > 0)) {
+            revert SoulSocietySBTNonExist(msg.sender);
+        }
+        _setApprovalGrowth( tokenId_, approved_);
+    }
+
+    function _setApprovalGrowth(uint256 tokenId_, bool approved_) internal {
+        _approvalUpdateGrowth[msg.sender][tokenId_] = approved_;
+    }
+
+    function getApprovalGrowth(address owner_, uint256 tokenId_ ) external view returns(bool) {
+        return _getApprovalGrowth(owner_, tokenId_);
+    } 
+
+    function _getApprovalGrowth(address owner_, uint256 tokenId_) internal view returns(bool) {
+        return _approvalUpdateGrowth[owner_][tokenId_];
+    }
 
     // ERC721 Interface 
     /**
@@ -196,7 +210,6 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
             return _balances[owner_];
     }
 
-
     /**
      *  Does not provide a transfer feature.
      */
@@ -223,8 +236,6 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
 
     function getApproved(uint256 ) external pure returns (address )  {
         revert SoulSocietySBTNotSupported("getApproved");
-
-
     }
 
     function isApprovedForAll(address , address ) public pure returns (bool) {
@@ -236,10 +247,17 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     // -------------------------------------------------------------------------
     
     function mint(address to_, uint256 tokenType_) public virtual onlyOwner returns(uint256) {
-        return _safeMint(to_, tokenType_);
+        uint256 tokenId = _safeMint(to_, tokenType_);
+
+        require( 
+            _checkOnERC721Received(address(0), to_, tokenId, "Mint"), 
+            "ERC721: transfer to non ERC721Receiver implementer"
+        );
+
+        return tokenId;
     }
 
-    function _safeMint(address to_, uint256 tokenType_) internal virtual onlyOwner returns(uint256) {
+    function _safeMint(address to_, uint256 tokenType_) internal virtual returns(uint256) {
 
         uint256 tokenId = _totalCount + 1;
     
@@ -270,25 +288,33 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
         _owners[tokenId] = to_;
         _tokenTypes[tokenId] = tokenType_;
         _tokenGrowths[tokenId] = 1;
-        _userProtects[to_] = false;
+        // _userProtects[to_] = false; default value is false
+        _approvalUpdateGrowth[to_][tokenId] = true;
         _ownedTokens[to_][_balances[to_]-1] = tokenId; // index from 0
+
+        require( 
+            _checkOnERC721Received(address(0), to_, tokenId, "Mint"), 
+            "ERC721: transfer to non ERC721Receiver implementer"
+        );
 
         emit Mint(address(0), to_, tokenId, tokenType_);
 
         return tokenId;
     }
 
-    function burn(address to_, uint256 tokenId_) public onlyOwner  {
+    function reset(address to_, uint256 tokenId_) public onlyOwner  {
         _setGrowthToZero(to_, tokenId_);
     }
 
-    function _setGrowthToZero(address to_, uint tokenId_) private onlyOwner {
+    function _setGrowthToZero(address to_, uint tokenId_) private  {
+
+        // if ()
         // check to exist and owner address
         _requireMintedOf(to_, tokenId_);
 
         _tokenGrowths[tokenId_] = 0;
 
-        emit Burn(to_, tokenId_);
+        emit Reset(to_, tokenId_);
     }
 
     // ---------------------------------------------------------------
@@ -325,22 +351,28 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
 
     // A function that grows the SBT you have
     function growUp(address to_, uint256 tokenId_) public  onlyOwner returns(uint256) {
+        if (!_getApprovalGrowth(to_, tokenId_)) {
+            revert SoulSocietySBTPermissionDenied(to_, tokenId_);
+        }
+
         return _growUp(to_, tokenId_);
     }
     
-    function _growUp(address to_, uint256 tokenId_) internal onlyOwner returns(uint256) {
-
+    function _growUp(address to_, uint256 tokenId_) internal returns(uint256) {
+        
+  
         // check to exist and owner address
         _requireMintedOf(to_, tokenId_);
 
-        uint256 tokenGrowth = _tokenGrowths[tokenId_] += 1;
+        
+        _tokenGrowths[tokenId_] += 1;
+
+        uint256 tokenGrowth = _tokenGrowths[tokenId_];
 
         emit GrowUp(to_, tokenId_, tokenGrowth);
 
         return tokenGrowth;
     }
-
-
 
     /**
      * @dev Returns a token ID owned by `owner` at a given `index` of its token list.
@@ -377,5 +409,23 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
         if(_ownerOf(tokenId) != to) {
             revert SoulSocietySBTInvalidOwner(to);
         }
+    }
+
+    function _checkOnERC721Received(address from, address to, uint256 tokenId, bytes memory _data)
+        private returns (bool)
+    {
+        if (!isContract(to)) {
+            return true;
+        }
+        bytes4 retval = IERC721Receiver(to).onERC721Received(msg.sender, from, tokenId, _data);
+        return (retval == IERC721Receiver(to).onERC721Received.selector);
+    }
+
+    function isContract(address _addr) internal view returns (bool) {
+        uint32 size;
+        assembly {
+            size := extcodesize(_addr)
+        }
+        return (size > 0);
     }
 }

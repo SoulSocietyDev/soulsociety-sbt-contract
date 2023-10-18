@@ -488,11 +488,11 @@
 			]
 		},
 		"hon/contracts/HonContract.sol": {
-			"keccak256": "0xd43cee9b286f592019f08641de59cae25da91bed589edb51311f7774357bda58",
+			"keccak256": "0x4bc47f5bfe5a5140497281c574c740c51fc77e064f4881676d970ed31064171c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://956d1b85f001bc60dcf4e57b977df5b1a4e36879f01a7d99b13ad9c6f5233ef1",
-				"dweb:/ipfs/QmTr37K53Ac8qHoGsTnwMyo1Wgo561zUrxwALsJWY9tZy9"
+				"bzz-raw://c731123082be3d3163f41a37411512ece281113322a1ecc6fa05d28c52e8d671",
+				"dweb:/ipfs/QmTMXTQ24vdPNfB5Qngz5ocN3Ubb3xxBifkY2JVUzVmATS"
 			]
 		}
 	},

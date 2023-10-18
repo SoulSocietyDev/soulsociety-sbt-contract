@@ -84,6 +84,17 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "SoulSocietySBTNonExist",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "tokenId",
 						"type": "uint256"
@@ -117,6 +128,22 @@
 					}
 				],
 				"name": "SoulSocietySBTNotSupported",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "SoulSocietySBTPermissionDenied",
 				"type": "error"
 			},
 			{
@@ -387,6 +414,30 @@
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner_",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tokenId_",
+						"type": "uint256"
+					}
+				],
+				"name": "getApprovalGrowth",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
 					}
 				],
 				"stateMutability": "view",
@@ -701,6 +752,24 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "tokenId_",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "approved_",
+						"type": "bool"
+					}
+				],
+				"name": "setApprovalGrowth",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "bool",
 						"name": "isProtected_",
 						"type": "bool"
@@ -919,6 +988,15 @@
 						}
 					}
 				],
+				"SoulSocietySBTPermissionDenied(address,uint256)": [
+					{
+						"details": "Indicates an error related to the ownership over a particular token.",
+						"params": {
+							"owner": "Address of the current owner of a token.",
+							"tokenId": "Address whose SBT token are being used"
+						}
+					}
+				],
 				"SoulSocietySBTProtectedOwner(address)": [
 					{
 						"details": "Indicates protected status. Used in token.",
@@ -999,7 +1077,7 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
@@ -1078,11 +1156,11 @@
 			]
 		},
 		"v2/contracts/SoulSocietySBT.sol": {
-			"keccak256": "0x7dfeddb631d433a16f862b8c4c3a44a31303778febefd29004938c82c95ee2e4",
+			"keccak256": "0x5bcd5c464f2506375b440181d290ea104ae50d188547f33d461d29c72baa84a0",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://19f320bbc977c334a4dccf9e96c8a17acfe30689f2ac03bb486cdb46f6f78f39",
-				"dweb:/ipfs/Qmdp1XzSXhJ8sBg8DhqmvExk8N47JYrr53ap3DrnywhKes"
+				"bzz-raw://0ff5c2ce46940ced411022a78484621249afdd59ddc3dac7e0db7fcd8f8c75d1",
+				"dweb:/ipfs/Qmf7J2JKRyYpkFMkntUcrHNGP9WgZB9KAGy2JDZmMjHZFr"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietyEnumerableSBT.sol": {
@@ -1102,11 +1180,11 @@
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBTErrors.sol": {
-			"keccak256": "0x7afc72b7a710054ce9707a0e09584c90a3f4ff038cec12d37ded1850320067e2",
+			"keccak256": "0x3578a1c71b14fbdc1d2fe4008122e1641314c5b838737a543f1550e2069f5899",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://59237520dd6a7ebc6857e8d717993b9546c9a6dbf734ddd57e19b6e6fb23b2c4",
-				"dweb:/ipfs/QmNpbyg9fFUbWoVfgrCAWvWywRbLfJnsGNgVnFwHQspiKY"
+				"bzz-raw://045bea117df34c642ccbbf4f5285a38e7142ec6983c82e757be0d6b2de189134",
+				"dweb:/ipfs/QmWccxXzfx4fjtLm8BpkZTVNNwfeW5qE6sFpSfj1xmn7HE"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBTMetadata.sol": {

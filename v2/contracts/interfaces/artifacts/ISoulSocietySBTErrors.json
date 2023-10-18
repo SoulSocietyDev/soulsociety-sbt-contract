@@ -119,6 +119,17 @@
 		{
 			"inputs": [
 				{
+					"internalType": "address",
+					"name": "sender",
+					"type": "address"
+				}
+			],
+			"name": "SoulSocietySBTNonExist",
+			"type": "error"
+		},
+		{
+			"inputs": [
+				{
 					"internalType": "uint256",
 					"name": "tokenId",
 					"type": "uint256"
@@ -152,6 +163,22 @@
 				}
 			],
 			"name": "SoulSocietySBTNotSupported",
+			"type": "error"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "owner",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "tokenId",
+					"type": "uint256"
+				}
+			],
+			"name": "SoulSocietySBTPermissionDenied",
 			"type": "error"
 		},
 		{

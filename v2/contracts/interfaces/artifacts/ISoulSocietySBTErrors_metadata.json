@@ -73,6 +73,17 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "SoulSocietySBTNonExist",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "tokenId",
 						"type": "uint256"
@@ -106,6 +117,22 @@
 					}
 				],
 				"name": "SoulSocietySBTNotSupported",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "SoulSocietySBTPermissionDenied",
 				"type": "error"
 			},
 			{
@@ -166,6 +193,15 @@
 						}
 					}
 				],
+				"SoulSocietySBTPermissionDenied(address,uint256)": [
+					{
+						"details": "Indicates an error related to the ownership over a particular token.",
+						"params": {
+							"owner": "Address of the current owner of a token.",
+							"tokenId": "Address whose SBT token are being used"
+						}
+					}
+				],
 				"SoulSocietySBTProtectedOwner(address)": [
 					{
 						"details": "Indicates protected status. Used in token.",
@@ -202,11 +238,11 @@
 	},
 	"sources": {
 		"v2/contracts/interfaces/ISoulSocietySBTErrors.sol": {
-			"keccak256": "0x7afc72b7a710054ce9707a0e09584c90a3f4ff038cec12d37ded1850320067e2",
+			"keccak256": "0x3578a1c71b14fbdc1d2fe4008122e1641314c5b838737a543f1550e2069f5899",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://59237520dd6a7ebc6857e8d717993b9546c9a6dbf734ddd57e19b6e6fb23b2c4",
-				"dweb:/ipfs/QmNpbyg9fFUbWoVfgrCAWvWywRbLfJnsGNgVnFwHQspiKY"
+				"bzz-raw://045bea117df34c642ccbbf4f5285a38e7142ec6983c82e757be0d6b2de189134",
+				"dweb:/ipfs/QmWccxXzfx4fjtLm8BpkZTVNNwfeW5qE6sFpSfj1xmn7HE"
 			]
 		}
 	},

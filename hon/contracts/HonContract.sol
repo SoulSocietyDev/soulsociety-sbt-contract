@@ -8,7 +8,7 @@ contract HONToken is ERC20, Ownable {
 
     uint256 private constant MAX_SUPPLY = 1000000000 * (10 ** 18);
 
-    constructor() ERC20("HON", "HON") {
+    constructor() ERC20("HON Token", "HON") {
         _mint(msg.sender, MAX_SUPPLY);
     }
 

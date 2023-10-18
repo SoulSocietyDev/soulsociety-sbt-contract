@@ -22,6 +22,7 @@ interface ISoulSocietySBTErrors {
      */
     error SoulSocietySBTNonexistentToken(uint256 tokenId);
 
+    
     /**
      * @dev Indicates an error related to the ownership over a particular token. Used in transfers.
      * @param sender Address whose tokens are being transferred.
@@ -37,11 +38,27 @@ interface ISoulSocietySBTErrors {
      */
     error SoulSocietySBTNotOwner(address owner, address to);
 
+    /**
+     * @dev Indicates an error related to the ownership over a particular token.
+     * @param owner Address of the current owner of a token.
+     * @param tokenId Address whose SBT token are being used
+     */
+    
+    error SoulSocietySBTPermissionDenied(address owner, uint256 tokenId);
+
     /*
      * @dev Indicates a failure with the tokenId. Used in transfers.
      * @param tokedId to check
      */
     error SoulSocietySBTExistToken(uint256 tokenId);
+
+
+    /*
+     * @dev Indicates a failure with the adddress. 
+     * @param address to check
+     */   
+    error SoulSocietySBTNonExist(address sender);
+
 
     /**
      * @dev Indicates a failure with the token `sender`. Used in transfers.
