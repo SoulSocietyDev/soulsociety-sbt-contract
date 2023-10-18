@@ -1,12 +1,12 @@
 # soulsociety-sbt-contract
 
-### Environment
+## Environment
 - Ethereum Smart Contract
 - Build with Remix IDE https://remix.ethereum.org
 
-### Contract Versions
-- V1 : SBT Contract that supports all functions
-- V2 : Lightweight SBT Contract for reduced gas fees
+## Contract List
+- hon : [ERC20 Hon Token](hon/contracts/HonContract.sol)
+- sbt : [SBT Contract for SoulSociety Service](sbt/contracts/SoulSocietySBT.sol)
 
 ## Table of Contents
 - [What's SBT?](#whats-sbt)
@@ -15,6 +15,10 @@
 - [SoulSociety Service ](#soulsociety-service)
 - [Community](#Community)
 - [Resources](#Resources)
+
+## Technical Specifications & Environment Configurations
+- [Hon Token Contact](HonTechSpec.md)
+- [SBT Hon Contract](SbtHonTechSpec.md)
 
 ## What's SBT?
 A Soulbound Token refers to a specific type of NFT where the Transfer function has been
@@ -62,6 +66,8 @@ of Real Life by containing these additional pieces of information
 
 ## SoulSociety Service
 ![SoulSociety Service Architecture](./docs/serviceProduct.png)
+
+## Technical Specifications : HON SBT Contract
 
 # Community
 - [Homepage](https://www.soulsociety.gg) is the official HomePage

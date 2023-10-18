@@ -4,9 +4,9 @@
 - Ethereum Smart Contract
 - Build with Remix IDE https://remix.ethereum.org
 
-### Contract Versions
-- V1 SBT Contract that supports all functions
-- V2 Lightweight SBT Contract for reduced gas fees
+### Contract List
+- hon :  HON ERC-20 Token for SoulSociety Service
+- sbt : SBT(Soul Bound Token) Contract for SoulSociety Service
 
 ## Table of Contents
 - [What's SBT?](#whats-sbt)
