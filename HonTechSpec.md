@@ -31,13 +31,11 @@
 ### Dev Tools
 * Solidity : 0.8.20
 * Remix :  Remix Ethereum IDE using a web browser.
-* 
-Basic understanding of Ethereum and its smart contract functionalities.
-A computer with an internet connection and a web browser.
-Accessing Remix:
+* Basic understanding of Ethereum and its smart contract functionalities.
 
-Simply go to Remix Ethereum IDE using a web browser.
-Environment Setup in Remix:
+### Source 
+* [HonContract.sol](https://github.com/SoulSocietyDev/soulsociety-sbt-contract/blob/master/hon/contracts/HonContract.sol)
 
-a. Choose Environment:
+
+
 

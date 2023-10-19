@@ -6,7 +6,7 @@
 
 ## Contract List
 - hon : [ERC20 Hon Token](hon/contracts/HonContract.sol)
-- sbt : [SBT Contract for SoulSociety Service](sbt/contracts/SoulSocietySBT.sol)
+- sbt : [SBT Contract for SoulSociety Service](v2/contracts/SoulSocietySBT.sol)
 
 ## Table of Contents
 - [What's SBT?](#whats-sbt)
