@@ -25,14 +25,14 @@ interface ISoulSocietySBT {
 
     function mint(address to, uint256 tokenType) external returns (uint256);
 
-    function setTokenURI(string memory tokenURI) external returns(string memory);
-
     // @notice Function to grow users
     // @param Address of the user you want to grow
     // function growUp(address) external returns (uint256);
     function growUp(address to, uint256 tokenId) external returns (uint256);
 
     function reset(address to, uint256 tokenId) external ; 
+
+    function setTokenURI(string memory tokenURI) external returns(string memory);
 
     // @notice A function that makes the SBT you hold private
     // @param protected flag

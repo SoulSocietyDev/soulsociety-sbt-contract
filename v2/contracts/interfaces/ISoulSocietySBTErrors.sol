@@ -41,7 +41,7 @@ interface ISoulSocietySBTErrors {
     /**
      * @dev Indicates an error related to the ownership over a particular token.
      * @param owner Address of the current owner of a token.
-     * @param tokenId Address whose SBT token are being used
+     * @param tokenId tokenId Identifier number of a token
      */
     
     error SoulSocietySBTPermissionDenied(address owner, uint256 tokenId);
