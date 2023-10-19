@@ -139,6 +139,30 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "owner_",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tokenId_",
+						"type": "uint256"
+					}
+				],
+				"name": "getApprovalGrowth",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "tokenId",
 						"type": "uint256"
@@ -356,9 +380,6 @@
 			},
 			"kind": "dev",
 			"methods": {
-				"mint(address,uint256)": {
-					"details": "Transfers `tokenId` token from `from` to `to`. WARNING: Note that the caller is responsible to confirm that the recipient is capable of receiving ERC721 or else they may be permanently lost. Usage of {safeTransferFrom} prevents loss, though the caller must understand this adds an external call which potentially creates a reentrancy vulnerability. Requirements: - `from` cannot be the zero address. - `to` cannot be the zero address. - `tokenId` token must be owned by `from`. - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}. Emits a {Transfer} event."
-				},
 				"tokenOfOwnerByIndex(address,uint256)": {
 					"details": "Returns a token ID owned by `owner` at a given `index` of its token list. Use along with {balanceOf} to enumerate all of ``owner``'s tokens."
 				},
@@ -393,11 +414,11 @@
 	},
 	"sources": {
 		"v2/contracts/interfaces/ISoulSocietySBT.sol": {
-			"keccak256": "0xb81f9ef1e4b599044b89b891575fb0bdf051226a1189da3744d46e7ef3a6f878",
+			"keccak256": "0xfcac16c87704309299ff72d86f80cc3b0d87c09c413cb7d5aec1aeedd13b6702",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://85e612906da6fb3d1bc2bc5a138e081b7d4ec6dfea6e73ab34269a38340cc7d6",
-				"dweb:/ipfs/QmNUJ1NNYubWXXDEugFUP3YtGxNHLbBSYHN7X5DwhQmQh5"
+				"bzz-raw://391c0ef9dd7a01ca0680f79d2985705fa8643da48d9b77537f60d6a69258e212",
+				"dweb:/ipfs/QmY1qbTFt1bhVQz7fgLZiv8ytJ73kgxUpVphfnUNhk2MDL"
 			]
 		}
 	},

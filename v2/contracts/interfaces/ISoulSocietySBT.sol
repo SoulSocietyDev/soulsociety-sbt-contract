@@ -46,28 +46,9 @@ interface ISoulSocietySBT {
 
     function getTokenType(uint256 tokenId_) external view returns (uint256);
 
-    /**
-     * @dev Transfers `tokenId` token from `from` to `to`.
-     *
-     * WARNING: Note that the caller is responsible to confirm that the recipient is capable of receiving ERC721
-     * or else they may be permanently lost. Usage of {safeTransferFrom} prevents loss, though the caller must
-     * understand this adds an external call which potentially creates a reentrancy vulnerability.
-     *
-     * Requirements:
-     *
-     * - `from` cannot be the zero address.
-     * - `to` cannot be the zero address.
-     * - `tokenId` token must be owned by `from`.
-     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
-     *
-     * Emits a {Transfer} event.
-     */
+    function getApprovalGrowth(address owner_, uint256 tokenId_ ) external view returns(bool);
+
     function mint(address to, uint256 tokenType) external returns (uint256);
-
-
-    // @notice Function to down-growth
-    // @param Address of the user you want to down-grow
-    // function growDown(address) external returns (uint256);
 
     // @notice Function to check whether a specific SBT is public
     // @param user address

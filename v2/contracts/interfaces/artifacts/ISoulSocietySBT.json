@@ -49,6 +49,7 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
+			"getApprovalGrowth(address,uint256)": "f3ba5946",
 			"getGrowth(uint256)": "51c18e0c",
 			"getTokenType(uint256)": "76aed2e1",
 			"growUp(address,uint256)": "be37e907",
@@ -193,6 +194,30 @@
 			],
 			"name": "SetTokenURI",
 			"type": "event"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "owner_",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "tokenId_",
+					"type": "uint256"
+				}
+			],
+			"name": "getApprovalGrowth",
+			"outputs": [
+				{
+					"internalType": "bool",
+					"name": "",
+					"type": "bool"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
 		},
 		{
 			"inputs": [

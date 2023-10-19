@@ -484,25 +484,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
-						"name": "to_",
-						"type": "address"
-					}
-				],
-				"name": "getProtected",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "uint256",
 						"name": "tokenId_",
 						"type": "uint256"
@@ -620,7 +601,7 @@
 						"type": "string"
 					}
 				],
-				"stateMutability": "view",
+				"stateMutability": "pure",
 				"type": "function"
 			},
 			{
@@ -834,7 +815,7 @@
 						"type": "string"
 					}
 				],
-				"stateMutability": "view",
+				"stateMutability": "pure",
 				"type": "function"
 			},
 			{
@@ -1053,7 +1034,7 @@
 					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
 				}
 			},
-			"title": "Implementation contract of Lightweight growth type SBT developed by SoulSociety",
+			"title": "Implementation contract of  growth type SBT developed by SoulSociety",
 			"version": 1
 		},
 		"userdoc": {
@@ -1063,7 +1044,7 @@
 					"notice": "Does not provide a transfer feature."
 				}
 			},
-			"notice": "As an implementation of ISoulSocietyLightweightEnumableSTB, only the owner can modify growth.",
+			"notice": "As an implementation of ISoulSocietySBT, only the owner can modify growth.",
 			"version": 1
 		}
 	},
@@ -1156,11 +1137,11 @@
 			]
 		},
 		"v2/contracts/SoulSocietySBT.sol": {
-			"keccak256": "0x5bcd5c464f2506375b440181d290ea104ae50d188547f33d461d29c72baa84a0",
+			"keccak256": "0xebd75ee9d933f7d0cd272c73c5cabc4d1e986a7b8694659c1082e017c4c976f0",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0ff5c2ce46940ced411022a78484621249afdd59ddc3dac7e0db7fcd8f8c75d1",
-				"dweb:/ipfs/Qmf7J2JKRyYpkFMkntUcrHNGP9WgZB9KAGy2JDZmMjHZFr"
+				"bzz-raw://1ca1073ed9cef73b728050d0fd0618eba65b58ad7cb923d30310c25dc16585b9",
+				"dweb:/ipfs/QmYSbkTtYq6ucf2u2g2EEvj5YDuEeWuyz9c8gkVirq2ugR"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietyEnumerableSBT.sol": {
@@ -1172,11 +1153,11 @@
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBT.sol": {
-			"keccak256": "0xb81f9ef1e4b599044b89b891575fb0bdf051226a1189da3744d46e7ef3a6f878",
+			"keccak256": "0xfcac16c87704309299ff72d86f80cc3b0d87c09c413cb7d5aec1aeedd13b6702",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://85e612906da6fb3d1bc2bc5a138e081b7d4ec6dfea6e73ab34269a38340cc7d6",
-				"dweb:/ipfs/QmNUJ1NNYubWXXDEugFUP3YtGxNHLbBSYHN7X5DwhQmQh5"
+				"bzz-raw://391c0ef9dd7a01ca0680f79d2985705fa8643da48d9b77537f60d6a69258e212",
+				"dweb:/ipfs/QmY1qbTFt1bhVQz7fgLZiv8ytJ73kgxUpVphfnUNhk2MDL"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBTErrors.sol": {
