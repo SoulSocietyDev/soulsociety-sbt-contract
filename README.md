@@ -2,6 +2,7 @@
 
 ## Environment
 - Ethereum Smart Contract
+- Solidity : 0.8.20
 - Build with Remix IDE https://remix.ethereum.org
 
 ## Contract List
