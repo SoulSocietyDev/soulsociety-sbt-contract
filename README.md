@@ -68,7 +68,9 @@ of Real Life by containing these additional pieces of information
 ## SoulSociety Service
 ![SoulSociety Service Architecture](./docs/serviceProduct.png)
 
-## Technical Specifications : HON SBT Contract
+## App Download Link
+- [iOS Download](https://apps.apple.com/us/app/soulsociety/id6450750026)
+- [Android Download](https://play.google.com/store/apps/details?id=io.soulsociety.app)
 
 # Community
 - [Homepage](https://www.soulsociety.gg) is the official HomePage
