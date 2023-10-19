@@ -19,8 +19,27 @@ interface ISoulSocietySBT {
 
     // @notice Emitted when user grows
     // @param to Address that user Address
+    // @param tokenId SBT Token ID
     // @param growth User growth
     event GrowUp(address indexed to, uint256 tokenId, uint256 indexed growth);
+
+    function mint(address to, uint256 tokenType) external returns (uint256);
+
+    function setTokenURI(string memory tokenURI) external returns(string memory);
+
+    // @notice Function to grow users
+    // @param Address of the user you want to grow
+    // function growUp(address) external returns (uint256);
+    function growUp(address to, uint256 tokenId) external returns (uint256);
+
+    function reset(address to, uint256 tokenId) external ; 
+
+    // @notice A function that makes the SBT you hold private
+    // @param protected flag
+    // @return true when normally private, false when already locked or failed
+    function setProtected(bool isProtected) external returns (bool);
+
+    function setApprovalGrowth(uint256 tokenId_, bool approved_) external;
 
     /**
      * @dev Returns the total amount of tokens stored by the contract.
@@ -31,34 +50,18 @@ interface ISoulSocietySBT {
     // @return Number of currently registered users
     function totalUser() external view  returns (uint256);
 
-    function setTokenURI(string memory tokenURI) external returns(string memory);
-
-    // @notice This function contains user growth information.
-    // @param Know current growth User's address
-    function getGrowth(uint256 tokenId) external view returns (uint256);
-
-    // @notice Function to grow users
-    // @param Address of the user you want to grow
-    // function growUp(address) external returns (uint256);
-    function growUp(address to, uint256 tokenId) external returns (uint256);
-
-    function reset(address to, uint256 tokenId) external ; 
-
-    function getTokenType(uint256 tokenId_) external view returns (uint256);
-
-    function getApprovalGrowth(address owner_, uint256 tokenId_ ) external view returns(bool);
-
-    function mint(address to, uint256 tokenType) external returns (uint256);
-
     // @notice Function to check whether a specific SBT is public
     // @param user address
     // @return true when public, false when private
     function isProtected(address) external view returns (bool);
 
-    // @notice A function that makes the SBT you hold private
-    // @param protected flag
-    // @return true when normally private, false when already locked or failed
-    function setProtected(bool isProtected) external returns (bool);
+    // @notice This function contains user growth information.
+    // @param tokem Id
+    function getGrowth(uint256 tokenId) external view returns (uint256);
+
+    function getTokenType(uint256 tokenId_) external view returns (uint256);
+
+    function getApprovalGrowth(address owner_, uint256 tokenId_ ) external view returns(bool);
 
     /**
      * @dev Returns a token ID owned by `owner` at a given `index` of its token list.
