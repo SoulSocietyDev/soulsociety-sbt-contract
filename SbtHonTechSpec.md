@@ -41,7 +41,7 @@
 ### Additional Notes
 * The contract adheres to the ERC-721 standard
 
-## Environment Configuration
+## Environment Configuration 
 
 ### Network
 * Ethereum Maninet
