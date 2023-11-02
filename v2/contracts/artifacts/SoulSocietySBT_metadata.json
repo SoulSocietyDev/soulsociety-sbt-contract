@@ -974,7 +974,7 @@
 						"details": "Indicates an error related to the ownership over a particular token.",
 						"params": {
 							"owner": "Address of the current owner of a token.",
-							"tokenId": "Address whose SBT token are being used"
+							"tokenId": "tokenId Identifier number of a token"
 						}
 					}
 				],
@@ -1137,11 +1137,11 @@
 			]
 		},
 		"v2/contracts/SoulSocietySBT.sol": {
-			"keccak256": "0xe7d7b2ae8ad464bcb868a9ef1d6c57f3b26aa97a8e0996dcfdeb0fb285769858",
+			"keccak256": "0xdbba0999dcac11d66510a55ed26c23f9e1b3289b0315d6dc4a55de6c6c252401",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1f74bbe35800b03623e9eac957988184be307337ed1fe2aa471efb4e22200a2f",
-				"dweb:/ipfs/QmePYGj6rfbvQs4amqj4dGLhstKWex2EAHyue4CRiJKuUB"
+				"bzz-raw://4125b77add531e1f422ba977dc8d73fe9c398c97ede92313302c4a2db433482a",
+				"dweb:/ipfs/QmduSiZ9DCiXq4eRS47yxUktFc279HPBSQZaXCnyhR9Pht"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietyEnumerableSBT.sol": {
@@ -1153,19 +1153,19 @@
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBT.sol": {
-			"keccak256": "0xe4eb60ff20138f07243b4011ce21bbd16de22a31f0b9ee81717c4de3e36e9ca4",
+			"keccak256": "0xfbf60efb0b35504edf27cc7c3ec11a20fcbaa01c8afb9cbf0f2d1d471cca87f0",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://81c584479ce0514e4982cf47a21a58117848ab301d23865d19a36e076f8fa485",
-				"dweb:/ipfs/QmRzzXtWzYQuXjnYE3S4wJUgzqAwRDkAhmWcHTXvpx4jeS"
+				"bzz-raw://2f1c001ce1924b920599a0a711e0a470d0bc50db859653a701cc677fbb33d2fd",
+				"dweb:/ipfs/QmSNG16tn4cJhGrZLXEKYvLFoAtjXu54N1vEkucfmw6EVm"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBTErrors.sol": {
-			"keccak256": "0x3578a1c71b14fbdc1d2fe4008122e1641314c5b838737a543f1550e2069f5899",
+			"keccak256": "0xbe49ea9b54618ccbd733dfb6bd833041c95832ea195aa991b3a71f84893a20a8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://045bea117df34c642ccbbf4f5285a38e7142ec6983c82e757be0d6b2de189134",
-				"dweb:/ipfs/QmWccxXzfx4fjtLm8BpkZTVNNwfeW5qE6sFpSfj1xmn7HE"
+				"bzz-raw://731c7f5781ee2c4b56cfae5921607432e6e8f6477e5714c7efe052c9daabd133",
+				"dweb:/ipfs/QmSUypDrUH7BTsrvm9bUA8EmfZondfVG8SStLscwiLzFsN"
 			]
 		},
 		"v2/contracts/interfaces/ISoulSocietySBTMetadata.sol": {

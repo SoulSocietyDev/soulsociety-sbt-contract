@@ -95,14 +95,7 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     // Mint & Grow Up
     // -------------------------------------------------------------------------
     function mint(address to_, uint256 tokenType_) external virtual onlyOwner returns(uint256) {
-        uint256 tokenId = _safeMint(to_, tokenType_);
-
-        require( 
-            _checkOnERC721Received(address(0), to_, tokenId, "Mint"), 
-            "ERC721: transfer to non ERC721Receiver implementer"
-        );
-
-        return tokenId;
+        return _safeMint(to_, tokenType_);
     }
 
     function reset(address to_, uint256 tokenId_) external onlyOwner  {
@@ -213,7 +206,6 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
      *  Does not provide a transfer feature.
      */
     function safeTransferFrom(address , address , uint256 , bytes calldata) external pure {
-        
         revert SoulSocietySBTNotSupported("safeTransferFrom");
     }
 
@@ -251,8 +243,17 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     }
 
     // Internal Functions 
-
     function _safeMint(address to_, uint256 tokenType_) internal virtual returns(uint256) {
+        uint256 tokenId = _mint(to_, tokenType_);
+        require(
+           _checkOnERC721Received(address(0), to_, tokenId, "Mint SBT"),
+           "ERC721: transfer to non ERC721Receiver implementer"
+        ); 
+
+        return tokenId;
+    }
+
+    function _mint(address to_, uint256 tokenType_) internal virtual returns(uint256) {
         uint256 tokenId = _totalCount + 1;
     
         if (to_ == address(0)) {
@@ -292,8 +293,6 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
 
 
     function _setGrowthToZero(address to_, uint tokenId_) internal  {
-
-        // if ()
         // check to exist and owner address
         _requireMintedOf(to_, tokenId_);
 
@@ -316,7 +315,6 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
         return tokenGrowth;
     }
 
-
     function getProtected(address to_) internal view returns(bool) {
         return _getProtected(to_);
     }
@@ -326,13 +324,11 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
         return _userProtects[to_];
     }
 
-
     function _isProtected(address to_) internal view returns (bool) {        
         if (_userProtects[to_] == true)
             revert SoulSocietySBTProtectedOwner(to_);
         
         return false;
-
     }
 
     function _isProtectedTokenId(uint256 tokenId_) internal view {
@@ -352,7 +348,6 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
         return _approvalUpdateGrowth[owner_][tokenId_];
     }
 
-
     /**
      * @dev Returns the owner of the `tokenId`. Does NOT revert if token doesn't exist
      */
@@ -363,7 +358,6 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     function _balanceOf(address owner_) internal view returns (uint256) {
             return _balances[owner_];
     }
-
 
     /**
      * @dev Returns whether `tokenId` exists.
