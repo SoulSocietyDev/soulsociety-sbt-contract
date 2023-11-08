@@ -17,9 +17,12 @@
 - [Community](#Community)
 - [Resources](#Resources)
 
-## Technical Specifications & Environment Configurations
+## Technical Specifications 
 - [Hon Token Contact](HonTechSpec.md)
 - [SBT Hon Contract](SbtHonTechSpec.md)
+
+## Environment Configurations
+- [Contract Develop & Deploy](Environment.md) 
 
 ## What's SBT?
 A Soulbound Token refers to a specific type of NFT where the Transfer function has been
