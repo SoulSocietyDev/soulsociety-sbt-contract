@@ -13,7 +13,7 @@ import {IERC165, ERC165} from "@openzeppelin/contracts/utils/introspection/ERC16
 
 /// @title Implementation contract of  growth type SBT developed by SoulSociety
 /// @notice As an implementation of ISoulSocietySBT, only the owner can modify growth.
-contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSocietySBTErrors , IERC721, ERC165, Ownable {
+abstract contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSocietySBTErrors , IERC721, ERC165, Ownable {
 
     using Strings for uint256;
 
