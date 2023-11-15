@@ -62,7 +62,7 @@ forge test
 ````
 forge create --rpc-url NODE_HTTP_URL \
 --private-key YOUR_PRIVATE_KEY \
-src/MySoulSociety.sol:MySoulSociety 
+src/SoulSocietySBT.sol:SoulSocietySBT 
 ````
 
 ### Source

@@ -68,7 +68,7 @@ forge test
 ````
 forge create --rpc-url NODE_HTTP_URL \
 --private-key YOUR_PRIVATE_KEY \
-src/MySoulSociety.sol:MySoulSociety 
+src/SoulSocietySBT.sol:SoulSocietySBT 
 ````
 
 ## Hon Solidity
@@ -88,7 +88,7 @@ npm install @openzeppelin/contracts
 forge install OpenZeppelin/openzeppelin-contracts
 ````
 
-#### 5. Build & Test the Solidity File (SoulSocietySBT.sol) in the sbt-contract/src Directory:
+#### 5. Build & Test the Solidity File (HonContract.sol) in the sbt-contract/src Directory:
 ````
 forge build
 forge test

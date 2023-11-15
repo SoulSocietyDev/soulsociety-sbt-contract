@@ -53,7 +53,7 @@ npm install @openzeppelin/contracts
 forge install OpenZeppelin/openzeppelin-contracts
 ````
 
-#### 5. Build & Test the Solidity File (SoulSocietySBT.sol) in the sbt-contract/src Directory:
+#### 5. Build & Test the Solidity File (HonContract.sol) in the sbt-contract/src Directory:
 ````
 forge build
 forge test

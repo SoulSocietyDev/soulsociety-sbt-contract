@@ -13,7 +13,7 @@ import {IERC165, ERC165} from "@openzeppelin/contracts/utils/introspection/ERC16
 
 /// @title Implementation contract of  growth type SBT developed by SoulSociety
 /// @notice As an implementation of ISoulSocietySBT, only the owner can modify growth.
-abstract contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSocietySBTErrors , IERC721, ERC165, Ownable {
+contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSocietySBTErrors , IERC721, ERC165, Ownable {
 
     using Strings for uint256;
 
@@ -53,7 +53,7 @@ abstract contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, IS
     // Mapping from owner to list of owned token tokenId, approvalUpdateGrowth
     mapping(address => mapping(uint256 => bool)) private _approvalUpdateGrowth;
 
-    constructor(string memory uri_) {
+    constructor(string memory uri_) Ownable(msg.sender) {
         _uri = uri_;
 
         emit ContractCreated(msg.sender,  block.timestamp, _name, _symbol, uri_);
