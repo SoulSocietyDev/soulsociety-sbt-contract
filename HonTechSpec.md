@@ -30,7 +30,7 @@
 
 ### Dev Tools
 * Solidity : 0.8.20
-* Remix :  Remix Ethereum IDE using a web browser.
+* Foundry :  Using Foundry Framework
 * Basic understanding of Ethereum and its smart contract functionalities.
 
 ### Source 

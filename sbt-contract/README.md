@@ -12,6 +12,9 @@
 * Solidity Version : 0.8.20
 * Compiler Settings: Optimization enabled with 200 runs
 
+### Dev Tools
+* Build with Foundry Framework 
+
 ### Dependencies and Libraries
 * OpenZeppelin's ERC20 , ERC721, ERC165 library: For standard ERC-721 functions and security checks.
 
