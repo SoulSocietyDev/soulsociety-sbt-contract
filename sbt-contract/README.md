@@ -1,66 +1,75 @@
-## Foundry
+# Development Environment Configuration
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Token Specification
+### HON Token Overview
+* Name : HON
+* Symbol : HON
+* Total Supply : 1,000,000,000
+* Decimals : 18
 
-Foundry consists of:
+### SBTHON Token Overview
+* Name : HONSBT
+* Symbol : HONSBT
+* Total Supply : virtually unlimited (The token issuance is capped at the maximum value uint256 can represent )
+* Decimals : 0
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+### Contract Details
+* Network : Ethereum Mainnet
+* Solidity Version : 0.8.20
+* Compiler Settings: Optimization enabled with 200 runs
 
-## Documentation
+### Dependencies and Libraries
+* OpenZeppelin's ERC20 , ERC721, ERC165 library: For standard ERC-721 functions and security checks.
 
-https://book.getfoundry.sh/
+### Additional Notes
+* The contract adheres to the ERC-721 standard
 
-## Usage
+## Environment Configuration
+### Network
+* Ethereum Maninet
+* Ropsten Testnet
 
-### Build
 
-```shell
-$ forge build
-```
+### Setting up with Foundry:
+Foundry is a Rust-based Ethereum development toolkit that includes forge for testing and deployment,
+and cast for blockchain state manipulation.
 
-### Test
+#### 1. Install Foundry
+````
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
+````
 
-```shell
-$ forge test
-```
+#### 2. Create a New Project:
+````
+forge init SoulSocietySBT
+````
+#### 3. Navigate to the Project Directory: 
+````
+cd sbt-contract/src
+````
 
-### Format
+#### 4. Install Dependencies
+````
+npm install @openzeppelin/contracts
+````
 
-```shell
-$ forge fmt
-```
+#### 5. Build & Test the Solidity File (SoulSocietySBT.sol) in the sbt-contract/src Directory:
+````
+forge build
+forge test
+````
 
-### Gas Snapshots
+#### 6. Deploy
+````
+forge create --rpc-url NODE_HTTP_URL \
+--private-key YOUR_PRIVATE_KEY \
+src/MySoulSociety.sol:MySoulSociety 
+````
 
-```shell
-$ forge snapshot
-```
+### Source
+#### HON SBT
+* [SoulSocietySBT.sol](https://github.com/SoulSocietyDev/soulsociety-sbt-contract/blob/master/v2/contracts/SoulSocietySBT.sol)
 
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+### Interface
+* [ISoulSocietySBT.sol](https://github.com/SoulSocietyDev/soulsociety-sbt-contract/blob/master/v2/contracts/interfaces/ISoulSocietySBT.sol)

@@ -1,6 +1,7 @@
 # Compiler files
 cache/
 out/
+artifacts/
 
 # Ignores development broadcast logs
 !/broadcast
@@ -12,3 +13,4 @@ docs/
 
 # Dotenv file
 .env
+/src/.gas-snapshot
