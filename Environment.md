@@ -41,7 +41,7 @@ and cast for blockchain state manipulation.
 curl -L https://foundry.paradigm.xyz | bash
 foundryup
 ````
-### SoulSocietySBT Solidity 
+## SoulSocietySBT Solidity 
 
 #### 2. Create a New Project:
 ````
@@ -69,6 +69,36 @@ forge test
 forge create --rpc-url NODE_HTTP_URL \
 --private-key YOUR_PRIVATE_KEY \
 src/MySoulSociety.sol:MySoulSociety 
+````
+
+## Hon Solidity
+
+#### 2. Create a New Project:
+````
+forge init hon-contract
+````
+#### 3. Navigate to the Project Directory:
+````
+cd hon-contract/src
+````
+
+#### 4. Install Dependencies
+````
+npm install @openzeppelin/contracts
+forge install OpenZeppelin/openzeppelin-contracts
+````
+
+#### 5. Build & Test the Solidity File (SoulSocietySBT.sol) in the sbt-contract/src Directory:
+````
+forge build
+forge test
+````
+
+#### 6. Deploy
+````
+forge create --rpc-url NODE_HTTP_URL \
+--private-key YOUR_PRIVATE_KEY \
+src/HonContract.sol:HonContract 
 ````
 
 ### Source
