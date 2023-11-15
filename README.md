@@ -4,10 +4,11 @@
 - Ethereum Smart Contract
 - Solidity : 0.8.20
 - Build with Remix IDE https://remix.ethereum.org
+- Build with Foundry Framework 
 
 ## Contract List
-- hon : [ERC20 Hon Token](archived-hon/contracts/HonContract.sol)
-- sbt : [SBT Contract for SoulSociety Service](archived-sbt/contracts/SoulSocietySBT.sol)
+- hon : [ERC20 Hon Token](hon-contract/src/HonContract.sol)
+- sbt : [SBT Contract for SoulSociety Service](sbt-contract/src/SoulSocietySBT.sol)
 
 ## Table of Contents
 - [What's SBT?](#whats-sbt)
