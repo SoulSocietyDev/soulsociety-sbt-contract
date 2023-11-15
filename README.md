@@ -6,8 +6,8 @@
 - Build with Remix IDE https://remix.ethereum.org
 
 ## Contract List
-- hon : [ERC20 Hon Token](hon/contracts/HonContract.sol)
-- sbt : [SBT Contract for SoulSociety Service](v2/contracts/SoulSocietySBT.sol)
+- hon : [ERC20 Hon Token](archived-hon/contracts/HonContract.sol)
+- sbt : [SBT Contract for SoulSociety Service](archived-sbt/contracts/SoulSocietySBT.sol)
 
 ## Table of Contents
 - [What's SBT?](#whats-sbt)
@@ -22,7 +22,8 @@
 - [SBT Hon Contract](SbtHonTechSpec.md)
 
 ## Environment Configurations
-- [Contract Develop & Deploy](Environment.md) 
+- [HonContract Develop & Deploy](./hon-contract/README.md) 
+- [SBT HonContract Develop & Deploy](./sbt-contract/README.md)
 
 ## What's SBT?
 A Soulbound Token refers to a specific type of NFT where the Transfer function has been

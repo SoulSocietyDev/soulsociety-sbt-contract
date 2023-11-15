@@ -1,66 +1,67 @@
-## Foundry
+# Development Environment Configuration
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Token Specification
+### HON Token Overview
+* Name : HON
+* Symbol : HON
+* Total Supply : 1,000,000,000
+* Decimals : 18
 
-Foundry consists of:
+### Contract Details
+* Network : Ethereum Mainnet
+* Solidity Version : 0.8.20
+* Compiler Settings: Optimization enabled with 200 runs
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+### Dependencies and Libraries
+* OpenZeppelin's ERC20 , ERC721, ERC165 library: For standard ERC-721 functions and security checks.
 
-## Documentation
+### Additional Notes
+* The contract adheres to the ERC-721 standard
 
-https://book.getfoundry.sh/
+## Environment Configuration
+### Network
+* Ethereum Maninet
+* Ropsten Testnet
 
-## Usage
 
-### Build
+### Setting up with Foundry:
+Foundry is a Rust-based Ethereum development toolkit that includes forge for testing and deployment,
+and cast for blockchain state manipulation.
 
-```shell
-$ forge build
-```
+#### 1. Install Foundry
+````
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
+````
 
-### Test
+#### 2. Create a New Project:
+````
+forge init hon-contract
+````
+#### 3. Navigate to the Project Directory:
+````
+cd hon-contract/src
+````
 
-```shell
-$ forge test
-```
+#### 4. Install Dependencies
+````
+npm install @openzeppelin/contracts
+forge install OpenZeppelin/openzeppelin-contracts
+````
 
-### Format
+#### 5. Build & Test the Solidity File (SoulSocietySBT.sol) in the sbt-contract/src Directory:
+````
+forge build
+forge test
+````
 
-```shell
-$ forge fmt
-```
+#### 6. Deploy
+````
+forge create --rpc-url NODE_HTTP_URL \
+--private-key YOUR_PRIVATE_KEY \
+src/HonContract.sol:HonContract 
+````
 
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+### Source
+#### HON Token
+* [HonContract.sol](https://github.com/SoulSocietyDev/soulsociety-sbt-contract/blob/master/hon/contracts/HonContract.sol)

@@ -1,12 +1,6 @@
 # Development Environment Configuration
 
 ## Token Specification
-### HON Token Overview
-* Name : HON
-* Symbol : HON
-* Total Supply : 1,000,000,000
-* Decimals : 18
-
 ### SBTHON Token Overview
 * Name : HONSBT
 * Symbol : HONSBT
@@ -42,7 +36,7 @@ foundryup
 
 #### 2. Create a New Project:
 ````
-forge init SoulSocietySBT
+forge init sbt-contract
 ````
 #### 3. Navigate to the Project Directory: 
 ````
@@ -52,6 +46,7 @@ cd sbt-contract/src
 #### 4. Install Dependencies
 ````
 npm install @openzeppelin/contracts
+forge install OpenZeppelin/openzeppelin-contracts
 ````
 
 #### 5. Build & Test the Solidity File (SoulSocietySBT.sol) in the sbt-contract/src Directory:
