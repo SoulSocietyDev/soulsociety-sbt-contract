@@ -50,10 +50,13 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     // Mapping from owner to list of owned token IDs
     mapping(address => mapping(uint256 => uint256)) private _ownedTokens;
 
+    // Mapping from owner to list of owned tokey Types , address, tokenType, tokenId
+    mapping(address => mapping(uint256 => uint256)) private _ownedTokensByTypes;
+
     // Mapping from owner to list of owned token tokenId, approvalUpdateGrowth
     mapping(address => mapping(uint256 => bool)) private _approvalUpdateGrowth;
 
-    constructor(string memory uri_) Ownable(msg.sender) {
+    constructor(string memory uri_)  {
         _uri = uri_;
 
         emit ContractCreated(msg.sender,  block.timestamp, _name, _symbol, uri_);
@@ -149,6 +152,12 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
         _isProtectedTokenId(tokenId_);
 
         return _tokenTypes[tokenId_];
+    }
+
+    function getTokenId(address to_, uint256 tokenType_) external view returns(uint256) {
+         _isProtected(to_);
+
+        return _ownedTokensByTypes[to_][tokenType_];
     }
 
     function isProtected(address to_) external view returns (bool) {
@@ -285,6 +294,7 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
         // _userProtects[to_] = false; default value is false
         _approvalUpdateGrowth[to_][tokenId] = true;
         _ownedTokens[to_][_balances[to_]-1] = tokenId; // index from 0
+        _ownedTokensByTypes[to_][tokenType_] = tokenId;
 
         emit Mint(address(0), to_, tokenId, tokenType_);
 

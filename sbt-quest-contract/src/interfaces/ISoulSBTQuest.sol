@@ -4,9 +4,9 @@ pragma solidity 0.8.20;
 /// @title Growth type Lightweight SBT interface developed by SoulSociety
 /// @notice There is a part where the gas fee required by Ethereum is too expensive to contain various information. 
 /// Therefore, by considering each contract as a piece of information, we tried to implement growth-type SBT through minimum information and minimum gas cost by managing growth in the contract.
-interface ISoulSocietySBT {
+interface ISoulSBTQuest {
 
-    event ContractCreated(address indexed creator, uint256 creationTime, string name, string symbol, string uri);
+    event ContractCreated(address indexed creator, uint256 creationTime, string name, string symbol);
     
     event SetTokenURI(address indexed sender, string uri);
 
@@ -23,7 +23,7 @@ interface ISoulSocietySBT {
     // @param growth User growth
     event GrowUp(address indexed to, uint256 tokenId, uint256 indexed growth);
 
-    function mint(address to, uint256 tokenType) external returns (uint256);
+    function mint(address to, uint256 tokenId) external returns (uint256);
 
     // @notice Function to grow users
     // @param Address of the user you want to grow
@@ -60,8 +60,6 @@ interface ISoulSocietySBT {
     function getGrowth(uint256 tokenId) external view returns (uint256);
 
     function getTokenType(uint256 tokenId_) external view returns (uint256);
-
-    function getTokenId(address to_, uint256 tokenType_) external view returns(uint256);
 
     function getApprovalGrowth(address owner_, uint256 tokenId_ ) external view returns(bool);
 
