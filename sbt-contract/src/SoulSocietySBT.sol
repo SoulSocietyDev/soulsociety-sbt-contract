@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.20;
+pragma solidity 0.8.19;
 
 import "./interfaces/ISoulSocietyEnumerableSBT.sol";
 import "./interfaces/ISoulSocietySBTMetadata.sol";
@@ -56,7 +56,7 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
     // Mapping from owner to list of owned token tokenId, approvalUpdateGrowth
     mapping(address => mapping(uint256 => bool)) private _approvalUpdateGrowth;
 
-    constructor(string memory uri_)  {
+    constructor(string memory uri_) Ownable(msg.sender) {
         _uri = uri_;
 
         emit ContractCreated(msg.sender,  block.timestamp, _name, _symbol, uri_);
