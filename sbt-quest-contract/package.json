@@ -12,8 +12,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@openzeppelin/contracts": "^5.0.0"
-  }
+  "license": "ISC"
 }

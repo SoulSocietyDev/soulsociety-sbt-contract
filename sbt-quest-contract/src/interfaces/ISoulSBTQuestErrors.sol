@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.20;
+pragma solidity 0.8.19;
 
 /**
  * @dev Standard SoulSBTQuest.sol Errors
@@ -44,13 +44,13 @@ interface ISoulSBTQuestErrors {
      * @param tokenId tokenId Identifier number of a token
      */
     
-    error SoulSocietySBTPermissionDenied(address owner, uint256 tokenId);
+    error SoulSBTQuestPermissionDenied(address owner, uint256 tokenId);
 
     /*
      * @dev Indicates a failure with the tokenId. Used in transfers.
      * @param tokedId to check
      */
-    error SoulSocietySBTExistToken(uint256 tokenId);
+    error SoulSBTQuestExistToken(uint256 tokenId);
 
 
     /*

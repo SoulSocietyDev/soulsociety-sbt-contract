@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.20;
+pragma solidity 0.8.19;
 
 /// @title Growth type Lightweight SBT interface developed by SoulSociety
 /// @notice There is a part where the gas fee required by Ethereum is too expensive to contain various information. 
