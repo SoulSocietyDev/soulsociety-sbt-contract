@@ -21,9 +21,6 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
     // The number of users who own SBT.
     uint256 private _totalUser;
 
-    // Total number of SBT issued
-    uint256 private _totalSBTCount;
-
     // Total number of Quest Process
     uint256 private _totalCompletionCount;
 
@@ -44,8 +41,7 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
     // Mint & Increase
     // -------------------------------------------------------------------------
     function mint(address to_, uint256 tokenId_, uint256 tokenType_) external virtual onlyOwner returns(uint256) {
-        return _questSbtMint(to_, tokenId_, tokenType_);
-        // return _safeMint(to_, tokenId_);
+         return _questSbtMint(to_, tokenId_, tokenType_);
     }
 
     // A function that increase SBT processed count
@@ -55,10 +51,6 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
 
     function totalUser() external view  returns (uint256) {
         return _totalUser;
-    }
-
-    function totalSBTCount() external view  returns (uint256) {
-        return _totalSBTCount;
     }
 
     function totalCompletionCount() external view returns (uint256) {
@@ -77,32 +69,32 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
         return _questHistories[tokenType_][to_];
     }
 
-    /**
-     *  Does not provide a transfer feature.
-     */
-    function safeTransferFrom(address  , address  , uint256  , bytes memory ) override(ERC721, IERC721) public pure {
-        revert SoulSBTQuestNotSupported("safeTransferFrom");
-    }
+    // /**
+    //  *  Does not provide a transfer feature.
+    //  */
+    // function safeTransferFrom(address  , address  , uint256  , bytes memory ) override(ERC721, IERC721) public pure {
+    //     revert SoulSBTQuestNotSupported("safeTransferFrom");
+    // }
 
-    function transferFrom(address , address , uint256 ) override(ERC721, IERC721) public pure {
-        revert SoulSBTQuestNotSupported("transferFrom");
-    }
+    // function transferFrom(address , address , uint256 ) override(ERC721, IERC721) public pure {
+    //     revert SoulSBTQuestNotSupported("transferFrom");
+    // }
 
-    function approve(address , uint256 ) override(ERC721, IERC721) public pure{
-        revert SoulSBTQuestNotSupported("approve");
-    }
+    // function approve(address , uint256 ) override(ERC721, IERC721) public pure{
+    //     revert SoulSBTQuestNotSupported("approve");
+    // }
 
-    function setApprovalForAll(address , bool ) override(ERC721, IERC721) public pure {
-        revert SoulSBTQuestNotSupported("setApprovalForAll");
-    }
+    // function setApprovalForAll(address , bool ) override(ERC721, IERC721) public pure {
+    //     revert SoulSBTQuestNotSupported("setApprovalForAll");
+    // }
 
-    function getApproved(uint256 ) override(ERC721, IERC721) public pure returns (address )  {
-        revert SoulSBTQuestNotSupported("getApproved");
-    }
+    // function getApproved(uint256 ) override(ERC721, IERC721) public pure returns (address )  {
+    //     revert SoulSBTQuestNotSupported("getApproved");
+    // }
 
-    function isApprovedForAll(address , address ) override(ERC721, IERC721) public pure returns (bool) {
-        revert SoulSBTQuestNotSupported("isApprovedForAll");
-    }
+    // function isApprovedForAll(address , address ) override(ERC721, IERC721) public pure returns (bool) {
+    //     revert SoulSBTQuestNotSupported("isApprovedForAll");
+    // }
 
     function _questSbtMint(address to_, uint256 tokenId_, uint256 tokenType_) internal virtual returns(uint256) {
         if (to_ == address(0)) {
@@ -118,7 +110,6 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
             _totalUser += 1;
         }
 
-        _totalSBTCount += 1;
         _tokenTypes[tokenId_] = tokenType_;
         _ownedTokensByTypes[to_][tokenType_] = tokenId_;
 
@@ -148,12 +139,12 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
   * @dev Returns whether `tokenId` exists.
      */
     function _exists(uint256 tokenId) internal view virtual returns (bool) {
-        return ownerOf(tokenId) != address(0);
+        return _ownerOf(tokenId) != address(0);
     }
 
     function _existsOwner(address to) internal view virtual returns (bool) {
 
-         return balanceOf(to) != 0;
+        return balanceOf(to) != 0;
     }
 
     /**

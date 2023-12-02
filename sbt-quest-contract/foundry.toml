@@ -8,6 +8,10 @@ optimizer_runs = 20_000
 [profile.ci]
 verbosity = 4
 
+[dependencies]
+@openzeppelin=github:OpenZeppelin/openzeppelin-contracts@v0.8.19
+
+
 
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

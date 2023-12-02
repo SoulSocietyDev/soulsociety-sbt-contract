@@ -33,7 +33,6 @@ interface ISoulSBTQuest {
     /**
      * @dev Returns the total amount of tokens stored by the contract.
      */
-    function totalSBTCount() external view returns (uint256);
 
     function totalCompletionCount() external view returns (uint256);
 
