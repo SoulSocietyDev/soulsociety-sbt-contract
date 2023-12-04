@@ -57,6 +57,7 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
         return _totalCompletionCount;
     }
 
+
     function getTokenType(uint256 tokenId_) external view returns (uint256) {
         return _tokenTypes[tokenId_];
     }
@@ -173,6 +174,14 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
         return (size > 0);
     }
 
+    /**
+     * @dev Base URI for computing {tokenURI}. If set, the resulting URI for each
+     * token will be the concatenation of the `baseURI` and the `tokenId`. Empty
+     * by default, can be overridden in child contracts.
+     */
+    function _baseURI() internal  pure  override  returns (string memory)  {
+        return "https://api.soulsociety.gg/quest/";
+    }
 //    function _checkOnERC721Received(address from, address to, uint256 tokenId, bytes memory _data) private returns (bool)
 //    {
 //        if (!isContract(to)) {
