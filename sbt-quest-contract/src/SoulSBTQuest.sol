@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.20;
+pragma solidity 0.8.19;
 
 import "./interfaces/ISoulSBTQuest.sol";
 import "./interfaces/ISoulSBTQuestErrors.sol";
@@ -23,8 +23,14 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
     // Total number of Quest Process
     uint256 private _totalCompletionCount;
 
+    // Total number of GrowUp
+    uint256 private _totalGrowUpCount;
+
     // Mapping from SBT ID to token Type
     mapping(uint256 => uint256) private _tokenTypes;
+
+    // Mapping from SBT ID to current Growth
+    mapping(uint256 => uint256) private _tokenGrowths;
 
     // Mapping from owner to list of owned tokey Types , address, tokenType, tokenId
     mapping(address => mapping(uint256 => uint256)) private _ownedTokensByTypes;
@@ -50,8 +56,17 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
     }
 
     // A function that increase SBT processed count
-    function increase(address to_, uint256 tokenType_) external  onlyOwner returns(uint256) {
-        return _increase(to_, tokenType_);
+    function increaseCompletion(address to_, uint256 tokenType_) external  onlyOwner returns(uint256) {
+        return _increaseCompletion(to_, tokenType_);
+    }
+
+    // A function that grows the SBT you have
+    function growUp(address to_, uint256 tokenType_) external  onlyOwner returns(uint256) {
+        return _growUp(to_, tokenType_);
+    }
+
+    function growUpById(address to_, uint256 tokenId_) external onlyOwner returns(uint256) {
+        return _growUpById(to_, tokenId_);
     }
 
     function totalUser() external view  returns (uint256) {
@@ -62,6 +77,9 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
         return _totalCompletionCount;
     }
 
+    function totalGrouwUpCount() external view returns (uint256) {
+        return _totalGrowUpCount;
+    }
 
     function getTokenType(uint256 tokenId_) external view returns (uint256) {
         return _tokenTypes[tokenId_];
@@ -75,32 +93,36 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
         return _questHistories[tokenType_][to_];
     }
 
-    // /**
-    //  *  Does not provide a transfer feature.
-    //  */
-    // function safeTransferFrom(address  , address  , uint256  , bytes memory ) override(ERC721, IERC721) public pure {
-    //     revert SoulSBTQuestNotSupported("safeTransferFrom");
-    // }
+    function getGrowth(uint256 tokenId_) external view  returns (uint256) {
+        return _tokenGrowths[tokenId_];
+    }
 
-    // function transferFrom(address , address , uint256 ) override(ERC721, IERC721) public pure {
-    //     revert SoulSBTQuestNotSupported("transferFrom");
-    // }
+    /**
+     *  Does not provide a transfer feature.
+     */
+    function safeTransferFrom(address  , address  , uint256  , bytes memory ) override(ERC721, IERC721) public pure {
+        revert SoulSBTQuestNotSupported("safeTransferFrom");
+    }
 
-    // function approve(address , uint256 ) override(ERC721, IERC721) public pure{
-    //     revert SoulSBTQuestNotSupported("approve");
-    // }
+    function transferFrom(address , address , uint256 ) override(ERC721, IERC721) public pure {
+        revert SoulSBTQuestNotSupported("transferFrom");
+    }
 
-    // function setApprovalForAll(address , bool ) override(ERC721, IERC721) public pure {
-    //     revert SoulSBTQuestNotSupported("setApprovalForAll");
-    // }
+    function approve(address , uint256 ) override(ERC721, IERC721) public pure{
+        revert SoulSBTQuestNotSupported("approve");
+    }
 
-    // function getApproved(uint256 ) override(ERC721, IERC721) public pure returns (address )  {
-    //     revert SoulSBTQuestNotSupported("getApproved");
-    // }
+    function setApprovalForAll(address , bool ) override(ERC721, IERC721) public pure {
+        revert SoulSBTQuestNotSupported("setApprovalForAll");
+    }
 
-    // function isApprovedForAll(address , address ) override(ERC721, IERC721) public pure returns (bool) {
-    //     revert SoulSBTQuestNotSupported("isApprovedForAll");
-    // }
+    function getApproved(uint256 ) override(ERC721, IERC721) public pure returns (address )  {
+        revert SoulSBTQuestNotSupported("getApproved");
+    }
+
+    function isApprovedForAll(address , address ) override(ERC721, IERC721) public pure returns (bool) {
+        revert SoulSBTQuestNotSupported("isApprovedForAll");
+    }
 
     function _questSbtMint(address to_, uint256 tokenId_, uint256 tokenType_) internal virtual returns(uint256) {
         if (to_ == address(0)) {
@@ -118,6 +140,7 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
 
         _tokenTypes[tokenId_] = tokenType_;
         _ownedTokensByTypes[to_][tokenType_] = tokenId_;
+        _tokenGrowths[tokenId_] = 1;
 
         _safeMint(to_, tokenId_);
 
@@ -126,7 +149,31 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
         return tokenId_;
     }
 
-    function _increase(address to_, uint256 tokenType_) internal returns(uint256) {
+    function _growUp(address to_, uint256 tokenType_) internal returns(uint256) {
+        uint256 tokenId = _ownedTokensByTypes[to_][tokenType_];
+
+        return _growUpById(to_, tokenId);
+    }
+
+    function _growUpById(address to_, uint256 tokenId_) internal returns(uint256) {
+        
+
+        // check to exist and owner address
+        _requireMintedOf(to_, tokenId_);
+        
+        _tokenGrowths[tokenId_] += 1;
+
+        uint256 tokenGrowth = _tokenGrowths[tokenId_];
+
+        _totalGrowUpCount++;
+
+
+        emit GrowUp(to_, tokenId_, tokenGrowth);
+
+        return tokenGrowth;
+    }
+
+    function _increaseCompletion(address to_, uint256 tokenType_) internal returns(uint256) {
         // check to exist and owner address
         _requireMintedOf(to_, _ownedTokensByTypes[to_][tokenType_]);
 
@@ -136,7 +183,7 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
 
         uint256 increasedCount = _questHistories[tokenType_][to_];
 
-        emit Increase(to_, tokenType_,  increasedCount);
+        emit IncreaseCompletion(to_, tokenType_,  increasedCount);
 
         return increasedCount;
     }
@@ -156,25 +203,25 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
     /**
      * @dev Reverts if the `tokenId` has not been minted yet.
      */
-    function _requireMinted(uint256 tokenId) internal view virtual {
-        if (!_exists(tokenId)) {
-            revert SoulSBTQuestNonexistentToken(tokenId);
+    function _requireMinted(uint256 tokenId_) internal view virtual {
+        if (!_exists(tokenId_)) {
+            revert SoulSBTQuestNonexistentToken(tokenId_);
         }
     }
 
     /**
      * @dev Reverts if the `tokenId` has not been minted yet and owner address is not equal "to" address
      */
-    function _requireMintedOf(address to, uint256 tokenId) internal view virtual {
-        if(_ownerOf(tokenId) != to) {
-            revert SoulSBTQuestInvalidOwner(to);
+    function _requireMintedOf(address to_, uint256 tokenId_) internal view virtual {
+        if(_ownerOf(tokenId_) != to_) {
+            revert SoulSBTQuestInvalidOwner(to_);
         }
     }
 
-    function isContract(address _addr) internal view returns (bool) {
+    function isContract(address addr_) internal view returns (bool) {
         uint32 size;
         assembly {
-            size := extcodesize(_addr)
+            size := extcodesize(addr_)
         }
         return (size > 0);
     }

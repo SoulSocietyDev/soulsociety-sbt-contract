@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.20;
+pragma solidity 0.8.19;
 
 /// @title Growth type Lightweight SBT interface developed by SoulSociety
 /// @notice There is a part where the gas fee required by Ethereum is too expensive to contain various information. 
@@ -15,26 +15,36 @@ interface ISoulSBTQuest {
      */
     event Mint(address from, address indexed to, uint256 indexed tokenId, uint256 indexed tokenType);
 
-    event Reset(address indexed to, uint indexed tokenId);
+    // @notice Emitted when user grows
+    // @param to Address that user Address
+    // @param tokenId SBT Token ID
+    // @param growth User growth
+    event GrowUp(address indexed to, uint256 tokenId, uint256 indexed growth);
 
     // @notice Emitted when user grows
     // @param to Address that user Address
     // @param tokenType SBT Quest Id
     // @param count processed Count
-    event Increase(address indexed to, uint256 tokenType, uint256 indexed count);
+    event IncreaseCompletion(address indexed to, uint256 tokenType, uint256 indexed count);
 
     function mint(address to_, uint256 tokenType_) external returns (uint256);
 
     // @notice Function to increase user's history
     // @param Address of the user you want to increase
     // function increase(address, tokenTpe) external returns (uint256);
-    function increase(address to, uint256 tokenType_) external returns (uint256);
+    function increaseCompletion(address to, uint256 tokenType_) external returns (uint256);
+
+    function growUp(address to_, uint256 tokenType_) external  returns(uint256);
+
+    function growUpById(address to_, uint256 tokenId_) external  returns(uint256);
 
     /**
      * @dev Returns the total amount of tokens stored by the contract.
      */
 
     function totalCompletionCount() external view returns (uint256);
+
+    function totalGrouwUpCount() external view returns (uint256);
 
     // @notice A function that provides the number of currently registered users
     // @return Number of currently registered users
@@ -47,4 +57,6 @@ interface ISoulSBTQuest {
     function getCompletionCount(address to_, uint256 tokenType_) external view returns (uint256);
 
     function getTokenType(uint256 tokenId_) external view returns (uint256);
+
+    function getGrowth(uint256 tokenId_) external view  returns (uint256);
 }
