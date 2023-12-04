@@ -15,8 +15,7 @@ import {IERC165, ERC165} from "@openzeppelin/contracts/utils/introspection/ERC16
 contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable, Ownable {
     using Strings for uint256;
 
-    // token Meta URI
-    string private _uri;
+    uint256 private _nextTokenId = 1;
 
     // The number of users who own SBT.
     uint256 private _totalUser;
@@ -40,8 +39,14 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
     // -------------------------------------------------------------------------
     // Mint & Increase
     // -------------------------------------------------------------------------
-    function mint(address to_, uint256 tokenId_, uint256 tokenType_) external virtual onlyOwner returns(uint256) {
-         return _questSbtMint(to_, tokenId_, tokenType_);
+    function mint(address to_ , uint256 tokenType_) external virtual onlyOwner returns(uint256) {
+        uint256 currentTokenId = _nextTokenId;
+
+        _questSbtMint(to_, currentTokenId, tokenType_);
+
+        _nextTokenId++;
+
+        return currentTokenId;
     }
 
     // A function that increase SBT processed count

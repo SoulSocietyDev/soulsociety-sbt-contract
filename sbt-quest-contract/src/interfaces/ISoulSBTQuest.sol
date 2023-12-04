@@ -23,12 +23,12 @@ interface ISoulSBTQuest {
     // @param count processed Count
     event Increase(address indexed to, uint256 tokenType, uint256 indexed count);
 
-    function mint(address to, uint256 tokenId, uint256 tokenType) external returns (uint256);
+    function mint(address to_, uint256 tokenType_) external returns (uint256);
 
-    // @notice Function to grow users
-    // @param Address of the user you want to grow
-    // function growUp(address) external returns (uint256);
-    function increase(address to, uint256 tokenId) external returns (uint256);
+    // @notice Function to increase user's history
+    // @param Address of the user you want to increase
+    // function increase(address, tokenTpe) external returns (uint256);
+    function increase(address to, uint256 tokenType_) external returns (uint256);
 
     /**
      * @dev Returns the total amount of tokens stored by the contract.
@@ -41,10 +41,10 @@ interface ISoulSBTQuest {
     function totalUser() external view  returns (uint256);
 
     function getTokenId(address to_, uint256 tokenType_) external view returns(uint256); 
-    
+
     // @notice This function contains user growth information.
     // @param tokem Id
-    function getCompletionCount(address to, uint256 tokenType) external view returns (uint256);
+    function getCompletionCount(address to_, uint256 tokenType_) external view returns (uint256);
 
     function getTokenType(uint256 tokenId_) external view returns (uint256);
 }
