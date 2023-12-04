@@ -40,6 +40,8 @@ interface ISoulSBTQuest {
     // @return Number of currently registered users
     function totalUser() external view  returns (uint256);
 
+    function getTokenId(address to_, uint256 tokenType_) external view returns(uint256); 
+    
     // @notice This function contains user growth information.
     // @param tokem Id
     function getCompletionCount(address to, uint256 tokenType) external view returns (uint256);
