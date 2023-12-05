@@ -414,6 +414,4 @@ contract SoulSocietySBT is ISoulSocietySBT, ISoulSocietySBTMetadata, ISoulSociet
         bytes4 retval = IERC721Receiver(to).onERC721Received(msg.sender, from, tokenId, _data);
         return (retval == IERC721Receiver(to).onERC721Received.selector);
     }
-
-
 }

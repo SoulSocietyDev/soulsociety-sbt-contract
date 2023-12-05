@@ -21,11 +21,15 @@ interface ISoulSBTQuest {
     // @param growth User growth
     event GrowUp(address indexed to, uint256 tokenId, uint256 indexed growth);
 
+    event GrowDown(address indexed to, uint256 tokenId, uint256 indexed growth);
+
     // @notice Emitted when user grows
     // @param to Address that user Address
     // @param tokenType SBT Quest Id
     // @param count processed Count
     event IncreaseCompletion(address indexed to, uint256 tokenType, uint256 indexed count);
+
+    event Reset(address indexed to, uint indexed tokenId);
 
     function mint(address to_, uint256 tokenType_) external returns (uint256);
 
@@ -37,6 +41,10 @@ interface ISoulSBTQuest {
     function growUp(address to_, uint256 tokenType_) external  returns(uint256);
 
     function growUpById(address to_, uint256 tokenId_) external  returns(uint256);
+
+    function reset(address to_, uint256 tokenType_) external ;
+
+    function resetById(address to_, uint256 tokenId_) external;
 
     /**
      * @dev Returns the total amount of tokens stored by the contract.

@@ -26,19 +26,28 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
     // Total number of GrowUp
     uint256 private _totalGrowUpCount;
 
+    struct GrowthCounter {
+        uint256 growth;
+        uint256[] count;
+        uint256 totalCount;
+    }
+
     // Mapping from SBT ID to token Type
     mapping(uint256 => uint256) private _tokenTypes;
 
     // Mapping from SBT ID to current Growth
-    mapping(uint256 => uint256) private _tokenGrowths;
+    // mapping(uint256 => uint256) private _tokenGrowths;
 
     // Mapping from owner to list of owned tokey Types , address, tokenType, tokenId
     mapping(address => mapping(uint256 => uint256)) private _ownedTokensByTypes;
 
     // questId(SBT ID), address, processCount
-    mapping(uint256 => mapping(address => uint256)) _questHistories;
+    // mapping(uint256 => mapping(address => uint256)) private _questCounter;
 
-    constructor() ERC721("Token SBT Quest", "SBTQ") Ownable(msg.sender) {
+    // questId(SBT ID), GrowthCounter
+    mapping(uint256 => GrowthCounter) _growthCounter;
+
+    constructor() ERC721("Token HON SBT", "HONSBT") Ownable(msg.sender) {
         emit ContractCreated(msg.sender,  block.timestamp, name(), symbol());
     }
 
@@ -48,7 +57,7 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
     function mint(address to_ , uint256 tokenType_) external virtual onlyOwner returns(uint256) {
         uint256 currentTokenId = _nextTokenId;
 
-        _questSbtMint(to_, currentTokenId, tokenType_);
+        _sbtMint(to_, currentTokenId, tokenType_);
 
         _nextTokenId++;
 
@@ -63,6 +72,14 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
     // A function that grows the SBT you have
     function growUp(address to_, uint256 tokenType_) external  onlyOwner returns(uint256) {
         return _growUp(to_, tokenType_);
+    }
+
+    function reset(address to_, uint256 tokenType_) external onlyOwner  {
+        _reset(to_, tokenType_);
+    }
+
+    function resetById(address to_, uint256 tokenId_) external onlyOwner {
+        _setGrowthToZero(to_, tokenId_);
     }
 
     function growUpById(address to_, uint256 tokenId_) external onlyOwner returns(uint256) {
@@ -86,15 +103,24 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
     }
 
     function getTokenId(address to_, uint256 tokenType_) external view returns(uint256) {
-        return _ownedTokensByTypes[to_][tokenType_];
+        return _getTokenId(to_, tokenType_);
+        // return _ownedTokensByTypes[to_][tokenType_];
     }
 
     function getCompletionCount(address to_, uint256 tokenType_) external view returns (uint256) {
-        return _questHistories[tokenType_][to_];
+        uint256 tokenId = _getTokenId(to_, tokenType_);
+
+        GrowthCounter memory curCounter = _growthCounter[tokenId];
+
+        return curCounter.totalCount;
     }
 
     function getGrowth(uint256 tokenId_) external view  returns (uint256) {
-        return _tokenGrowths[tokenId_];
+        _requireMinted(tokenId_);
+
+        GrowthCounter storage curCounter = _growthCounter[tokenId_];
+
+        return curCounter.growth;
     }
 
     /**
@@ -124,7 +150,7 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
         revert SoulSBTQuestNotSupported("isApprovedForAll");
     }
 
-    function _questSbtMint(address to_, uint256 tokenId_, uint256 tokenType_) internal virtual returns(uint256) {
+    function _sbtMint(address to_, uint256 tokenId_, uint256 tokenType_) internal virtual returns(uint256) {
         if (to_ == address(0)) {
             revert SoulSBTQuestInvalidReceiver(address(0));
         }
@@ -140,7 +166,17 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
 
         _tokenTypes[tokenId_] = tokenType_;
         _ownedTokensByTypes[to_][tokenType_] = tokenId_;
-        _tokenGrowths[tokenId_] = 1;
+        //_tokenGrowths[tokenId_] = 0;
+
+        // GrowthCounter 구조체를 매핑에 직접 초기화하고 할당
+        _growthCounter[tokenId_] = GrowthCounter({
+            growth: 0,
+            count: new uint256[](1), // 길이가 1인 배열로 초기화
+            totalCount: 0
+        });
+
+        // 바로 매핑에서 참조하여 count 배열에 값을 추가
+        _growthCounter[tokenId_].count[0] = 0;
 
         _safeMint(to_, tokenId_);
 
@@ -150,38 +186,65 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
     }
 
     function _growUp(address to_, uint256 tokenType_) internal returns(uint256) {
-        uint256 tokenId = _ownedTokensByTypes[to_][tokenType_];
+        uint256 tokenId =  _getTokenId(to_, tokenType_);
 
         return _growUpById(to_, tokenId);
     }
 
     function _growUpById(address to_, uint256 tokenId_) internal returns(uint256) {
-        
 
         // check to exist and owner address
         _requireMintedOf(to_, tokenId_);
         
-        _tokenGrowths[tokenId_] += 1;
+        GrowthCounter storage curCounter = _growthCounter[tokenId_];
 
-        uint256 tokenGrowth = _tokenGrowths[tokenId_];
+        curCounter.growth += 1;
 
         _totalGrowUpCount++;
 
+        uint256 tokenGrowth = curCounter.growth;
+
+        if (_growthCounter[tokenId_].count.length <= tokenGrowth)
+            _growthCounter[tokenId_].count.push(0);
 
         emit GrowUp(to_, tokenId_, tokenGrowth);
 
         return tokenGrowth;
     }
 
-    function _increaseCompletion(address to_, uint256 tokenType_) internal returns(uint256) {
-        // check to exist and owner address
-        _requireMintedOf(to_, _ownedTokensByTypes[to_][tokenType_]);
+    function _reset(address to_, uint256 tokenType_) internal {
+        uint256 tokenId =  _getTokenId(to_, tokenType_);
 
-        _questHistories[tokenType_][to_] += 1;
+        _setGrowthToZero(to_, tokenId);
+    }
+
+    function _setGrowthToZero(address to_, uint tokenId_) internal  {
+        // check to exist and owner address
+        _requireMintedOf(to_, tokenId_);
+
+        //_tokenGrowths[tokenId_] = 0;
+
+        emit Reset(to_, tokenId_);
+    }
+
+    function _increaseCompletion(address to_, uint256 tokenType_) internal returns(uint256) {
+         uint256 tokenId = _getTokenId(to_, tokenType_);
+        // check to exist and owner address
+        _requireMintedOf(to_, tokenId);
+
+        GrowthCounter storage curCounter = _growthCounter[tokenId];
+
+        uint256 curGrowth = curCounter.growth;
+
+        curCounter.count[curGrowth] += 1;
+        curCounter.totalCount += 1;
+        
+        // _questCounter[tokenType_][to_] += 1;
 
         _totalCompletionCount += 1;
 
-        uint256 increasedCount = _questHistories[tokenType_][to_];
+        uint256 increasedCount = curCounter.count[curGrowth];
+
 
         emit IncreaseCompletion(to_, tokenType_,  increasedCount);
 
@@ -189,14 +252,13 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
     }
 
     /**
-  * @dev Returns whether `tokenId` exists.
+     * @dev Returns whether `tokenId` exists.
      */
     function _exists(uint256 tokenId) internal view virtual returns (bool) {
         return _ownerOf(tokenId) != address(0);
     }
 
     function _existsOwner(address to) internal view virtual returns (bool) {
-
         return balanceOf(to) != 0;
     }
 
@@ -218,6 +280,14 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
         }
     }
 
+    function _getTokenId(address to_, uint256 tokenType_) internal view returns(uint256) {
+        uint256 tokenId = _ownedTokensByTypes[to_][tokenType_];
+
+        _requireMinted(tokenId);
+        
+        return tokenId;
+    }
+
     function isContract(address addr_) internal view returns (bool) {
         uint32 size;
         assembly {
@@ -232,7 +302,7 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
      * by default, can be overridden in child contracts.
      */
     function _baseURI() internal  pure  override  returns (string memory)  {
-        return "https://api.soulsociety.gg/quest/";
+        return "https://api.soulsociety.gg/sbt/";
     }
 //    function _checkOnERC721Received(address from, address to, uint256 tokenId, bytes memory _data) private returns (bool)
 //    {
