@@ -26,29 +26,47 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
     // Total number of GrowUp
     uint256 private _totalGrowUpCount;
 
-    struct GrowthCounter {
+    struct SBTTracker {
         uint256 growth;
         uint256[] count;
         uint256 totalCount;
+        uint256 tokenType;
     }
 
-    // Mapping from SBT ID to token Type
-    mapping(uint256 => uint256) private _tokenTypes;
+    // Mapping from owner to information open flag
+    mapping(address => bool) private _userProtects;
 
-    // Mapping from SBT ID to current Growth
-    // mapping(uint256 => uint256) private _tokenGrowths;
+    // Mapping from owner to list of owned token tokenId, approvalUpdateGrowth
+    mapping(address => mapping(uint256 => bool)) private _approvalUpdateGrowth;
 
     // Mapping from owner to list of owned tokey Types , address, tokenType, tokenId
     mapping(address => mapping(uint256 => uint256)) private _ownedTokensByTypes;
 
-    // questId(SBT ID), address, processCount
-    // mapping(uint256 => mapping(address => uint256)) private _questCounter;
-
-    // questId(SBT ID), GrowthCounter
-    mapping(uint256 => GrowthCounter) _growthCounter;
+    // questId(SBT ID), SBTTracker
+    mapping(uint256 => SBTTracker) private _sbtTracker;
 
     constructor() ERC721("Token HON SBT", "HONSBT") Ownable(msg.sender) {
         emit ContractCreated(msg.sender,  block.timestamp, name(), symbol());
+    }
+
+   // ------------------------------------------------------------------------
+    // Permission settings to check the view information of a token
+    // ------------------------------------------------------------------------
+    function setProtected( bool isProtected_) external  returns (bool) {
+        if (!(balanceOf(msg.sender) > 0)) {
+        revert SoulSBTQuestNonExist(msg.sender);
+        }
+
+        _userProtects[msg.sender] = isProtected_;
+
+        return getProtected(msg.sender);
+    }
+
+    function setApprovalGrowth(uint256 tokenId_, bool approved_) external {
+        if (!(balanceOf(msg.sender) > 0)) {
+            revert SoulSBTQuestNonExist(msg.sender);
+        }
+        _setApprovalGrowth( tokenId_, approved_);
     }
 
     // -------------------------------------------------------------------------
@@ -65,25 +83,35 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
     }
 
     // A function that increase SBT processed count
-    function increaseCompletion(address to_, uint256 tokenType_) external  onlyOwner returns(uint256) {
-        return _increaseCompletion(to_, tokenType_);
+    function increaseCompletion(uint256 tokenId_) external  onlyOwner returns(uint256) {
+        return _increaseCompletion(tokenId_);
     }
 
     // A function that grows the SBT you have
-    function growUp(address to_, uint256 tokenType_) external  onlyOwner returns(uint256) {
-        return _growUp(to_, tokenType_);
+    function growUp(uint tokenId_) external  onlyOwner returns(uint256) {
+        address to = ownerOf(tokenId_);
+
+        if (!_getApprovalGrowth(to, tokenId_)) {
+            revert SoulSBTQuestPermissionDenied(to, tokenId_);
+        }
+
+        return _growUpById(to, tokenId_);        
     }
 
-    function reset(address to_, uint256 tokenType_) external onlyOwner  {
-        _reset(to_, tokenType_);
+    function reset(uint256 tokenId_) external onlyOwner {
+        address to = ownerOf(tokenId_);
+
+        if (!_getApprovalGrowth(to, tokenId_)) {
+            revert SoulSBTQuestPermissionDenied(to, tokenId_);
+        }
+
+        _setGrowthToZero(to, tokenId_);
     }
 
-    function resetById(address to_, uint256 tokenId_) external onlyOwner {
-        _setGrowthToZero(to_, tokenId_);
-    }
+   function tokenURI(uint256 tokenId) public view override returns (string memory) {
+        _isProtectedTokenId(tokenId);
 
-    function growUpById(address to_, uint256 tokenId_) external onlyOwner returns(uint256) {
-        return _growUpById(to_, tokenId_);
+        return super.tokenURI(tokenId);
     }
 
     function totalUser() external view  returns (uint256) {
@@ -99,29 +127,47 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
     }
 
     function getTokenType(uint256 tokenId_) external view returns (uint256) {
-        return _tokenTypes[tokenId_];
+         _isProtectedTokenId(tokenId_);
+
+        return _sbtTracker[tokenId_].tokenType;
     }
 
     function getTokenId(address to_, uint256 tokenType_) external view returns(uint256) {
+        _isProtected(to_);
+
         return _getTokenId(to_, tokenType_);
-        // return _ownedTokensByTypes[to_][tokenType_];
     }
 
-    function getCompletionCount(address to_, uint256 tokenType_) external view returns (uint256) {
-        uint256 tokenId = _getTokenId(to_, tokenType_);
+    function getCompletionCount(uint256 tokenId_) external view returns (uint256) {
+        _isProtectedTokenId(tokenId_);
 
-        GrowthCounter memory curCounter = _growthCounter[tokenId];
-
-        return curCounter.totalCount;
+        return  _sbtTracker[tokenId_].totalCount;
     }
 
+    function getCompletionCountByGrowth(uint256 tokenId_, uint256 growth_) external view returns (uint256) {
+        _isProtectedTokenId(tokenId_);
+
+        if (_sbtTracker[tokenId_].growth < growth_)
+            return 0;
+
+        return _sbtTracker[tokenId_].count[growth_];
+    }
+
+    
     function getGrowth(uint256 tokenId_) external view  returns (uint256) {
-        _requireMinted(tokenId_);
+        _isProtectedTokenId(tokenId_);
 
-        GrowthCounter storage curCounter = _growthCounter[tokenId_];
-
-        return curCounter.growth;
+        return _sbtTracker[tokenId_].growth;
     }
+
+    function isProtected(address to_) external view returns (bool) {
+        return _isProtected(to_);
+    }
+
+    function getApprovalGrowth(address owner_, uint256 tokenId_ ) external view returns(bool) {
+        return _getApprovalGrowth(owner_, tokenId_);
+    } 
+
 
     /**
      *  Does not provide a transfer feature.
@@ -164,19 +210,25 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
             _totalUser += 1;
         }
 
-        _tokenTypes[tokenId_] = tokenType_;
+        if (_ownedTokensByTypes[to_][tokenType_] != 0) {
+            revert SoulSBTQuestExistToken(tokenId_);
+        }
+        
         _ownedTokensByTypes[to_][tokenType_] = tokenId_;
-        //_tokenGrowths[tokenId_] = 0;
+
+        // _userProtects[to_] = false; default value is false
+        _approvalUpdateGrowth[to_][tokenId_] = true;
 
         // GrowthCounter 구조체를 매핑에 직접 초기화하고 할당
-        _growthCounter[tokenId_] = GrowthCounter({
+        _sbtTracker[tokenId_] = SBTTracker({
             growth: 0,
             count: new uint256[](1), // 길이가 1인 배열로 초기화
-            totalCount: 0
+            totalCount: 0,
+            tokenType : tokenType_
         });
 
         // 바로 매핑에서 참조하여 count 배열에 값을 추가
-        _growthCounter[tokenId_].count[0] = 0;
+        _sbtTracker[tokenId_].count[0] = 0;
 
         _safeMint(to_, tokenId_);
 
@@ -185,71 +237,99 @@ contract SoulSBTQuest is ISoulSBTQuest,  ISoulSBTQuestErrors , ERC721Enumerable,
         return tokenId_;
     }
 
-    function _growUp(address to_, uint256 tokenType_) internal returns(uint256) {
-        uint256 tokenId =  _getTokenId(to_, tokenType_);
-
-        return _growUpById(to_, tokenId);
-    }
-
     function _growUpById(address to_, uint256 tokenId_) internal returns(uint256) {
 
         // check to exist and owner address
         _requireMintedOf(to_, tokenId_);
         
-        GrowthCounter storage curCounter = _growthCounter[tokenId_];
+        SBTTracker storage curTracker = _sbtTracker[tokenId_];
 
-        curCounter.growth += 1;
+        curTracker.growth += 1;
 
         _totalGrowUpCount++;
 
-        uint256 tokenGrowth = curCounter.growth;
+        uint256 tokenGrowth = curTracker.growth;
 
-        if (_growthCounter[tokenId_].count.length <= tokenGrowth)
-            _growthCounter[tokenId_].count.push(0);
+        if (curTracker.count.length <= tokenGrowth)
+            curTracker.count.push(0);
 
         emit GrowUp(to_, tokenId_, tokenGrowth);
 
         return tokenGrowth;
     }
 
-    function _reset(address to_, uint256 tokenType_) internal {
-        uint256 tokenId =  _getTokenId(to_, tokenType_);
-
-        _setGrowthToZero(to_, tokenId);
-    }
-
     function _setGrowthToZero(address to_, uint tokenId_) internal  {
         // check to exist and owner address
         _requireMintedOf(to_, tokenId_);
 
-        //_tokenGrowths[tokenId_] = 0;
+        SBTTracker storage curTracker = _sbtTracker[tokenId_];
+
+        for (uint i = 0; i < curTracker.count.length; i++) {
+            curTracker.count[i] = 0;
+        }
+
+        curTracker.growth = 0;
+        curTracker.totalCount = 0;
 
         emit Reset(to_, tokenId_);
     }
 
-    function _increaseCompletion(address to_, uint256 tokenType_) internal returns(uint256) {
-         uint256 tokenId = _getTokenId(to_, tokenType_);
+    function _increaseCompletion(uint256 tokenId_) internal returns(uint256) {
         // check to exist and owner address
-        _requireMintedOf(to_, tokenId);
+        _requireMinted(tokenId_);
 
-        GrowthCounter storage curCounter = _growthCounter[tokenId];
+        SBTTracker storage curTracker = _sbtTracker[tokenId_];
 
-        uint256 curGrowth = curCounter.growth;
+        uint256 curGrowth = curTracker.growth;
 
-        curCounter.count[curGrowth] += 1;
-        curCounter.totalCount += 1;
+        curTracker.count[curGrowth] += 1;
+        curTracker.totalCount += 1;
         
         // _questCounter[tokenType_][to_] += 1;
 
         _totalCompletionCount += 1;
 
-        uint256 increasedCount = curCounter.count[curGrowth];
+        uint256 increasedCount = curTracker.count[curGrowth];
 
 
-        emit IncreaseCompletion(to_, tokenType_,  increasedCount);
+        emit IncreaseCompletion(tokenId_,  increasedCount);
 
         return increasedCount;
     }
+
+   function getProtected(address to_) internal view returns(bool) {
+        return _getProtected(to_);
+    }
+
+    function _getProtected(address to_) internal  view returns(bool) {
+        // If owner doesn't exist, return value is false
+        return _userProtects[to_];
+    }
+
+    function _isProtected(address to_) internal view returns (bool) {        
+        if (_userProtects[to_] == true)
+            revert SoulSBTQuestProtectedOwner(to_);
+        
+        return false;
+    }
+
+    function _isProtectedTokenId(uint256 tokenId_) internal view {
+        // If tokenId doesn't exist,  don't need to check "protected status"
+        if (!_exists(tokenId_)) {
+            revert SoulSBTQuestNonexistentToken(tokenId_);
+        }
+
+        _isProtected(ownerOf(tokenId_));
+    }
+
+    function _setApprovalGrowth(uint256 tokenId_, bool approved_) internal {
+        _approvalUpdateGrowth[msg.sender][tokenId_] = approved_;
+    }
+
+    function _getApprovalGrowth(address owner_, uint256 tokenId_) internal view returns(bool) {
+        return _approvalUpdateGrowth[owner_][tokenId_];
+    }
+
 
     /**
      * @dev Returns whether `tokenId` exists.

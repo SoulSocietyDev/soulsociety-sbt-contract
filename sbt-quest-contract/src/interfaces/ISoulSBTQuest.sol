@@ -27,7 +27,7 @@ interface ISoulSBTQuest {
     // @param to Address that user Address
     // @param tokenType SBT Quest Id
     // @param count processed Count
-    event IncreaseCompletion(address indexed to, uint256 tokenType, uint256 indexed count);
+    event IncreaseCompletion(uint256 tokenId, uint256 indexed count);
 
     event Reset(address indexed to, uint indexed tokenId);
 
@@ -36,15 +36,18 @@ interface ISoulSBTQuest {
     // @notice Function to increase user's history
     // @param Address of the user you want to increase
     // function increase(address, tokenTpe) external returns (uint256);
-    function increaseCompletion(address to, uint256 tokenType_) external returns (uint256);
+    function increaseCompletion(uint256 tokenId_) external returns (uint256);
 
-    function growUp(address to_, uint256 tokenType_) external  returns(uint256);
+    function growUp(uint256 tokenId_) external  returns(uint256);
 
-    function growUpById(address to_, uint256 tokenId_) external  returns(uint256);
+    function reset(uint256 tokenId_) external;
 
-    function reset(address to_, uint256 tokenType_) external ;
+    // @notice A function that makes the SBT you hold private
+    // @param protected flag
+    // @return true when normally private, false when already locked or failed
+    function setProtected(bool isProtected_) external returns (bool);
 
-    function resetById(address to_, uint256 tokenId_) external;
+    function setApprovalGrowth(uint256 tokenId_, bool approved_) external;
 
     /**
      * @dev Returns the total amount of tokens stored by the contract.
@@ -62,9 +65,11 @@ interface ISoulSBTQuest {
 
     // @notice This function contains user growth information.
     // @param tokem Id
-    function getCompletionCount(address to_, uint256 tokenType_) external view returns (uint256);
+    function getCompletionCount(uint256 tokenId_) external view returns (uint256);
 
     function getTokenType(uint256 tokenId_) external view returns (uint256);
 
     function getGrowth(uint256 tokenId_) external view  returns (uint256);
+
+    function getCompletionCountByGrowth(uint256 tokenId_, uint256 growth_) external view returns (uint256);
 }
